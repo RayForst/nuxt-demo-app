@@ -4,7 +4,7 @@
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ yarn install
 
@@ -22,6 +22,11 @@ $ yarn generate
 For detailed explanation on how things work, check out [Nuxt.js docs](https://nuxtjs.org).
 
 ## TODO
-# scss 
-# pug
-# i18n routing /lang/${page}
+
+# перенести стили ui.styl
+
+# перенести стили main.styl
+
+https://prnt.sc/t2hedr - количество бы вывести
+мобилка
+https://prnt.sc/t2i820 - цвета лейблов

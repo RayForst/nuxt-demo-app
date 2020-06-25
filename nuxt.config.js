@@ -14,7 +14,19 @@ module.exports = {
         content: process.env.npm_package_description || ""
       }
     ],
-    link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }]
+    link: [
+      { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+      {
+        rel: "stylesheet",
+        href:
+          "https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css"
+      },
+      {
+        rel: "stylesheet",
+        href:
+          "https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css"
+      }
+    ]
   },
   /*
    ** Customize the progress-bar color
@@ -27,7 +39,16 @@ module.exports = {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: [
+    { src: "~plugins/font-loader", mode: "client" },
+    { src: "~plugins/slide", mode: "client" },
+    { src: "~plugins/vue-tabs", mode: "client" },
+    { src: "~plugins/notifications", mode: "client" },
+    { src: "~plugins/google-maps", mode: "client" },
+    { src: "~plugins/json-editor", mode: "client" },
+    { src: "~plugins/owl-carousel", mode: "client" },
+    { src: "~plugins/localeService" }
+  ],
   /*
    ** Nuxt.js dev-modules
    */
@@ -36,6 +57,7 @@ module.exports = {
    ** Nuxt.js modules
    */
   modules: [
+    "@nuxtjs/axios",
     [
       "nuxt-i18n",
       {
@@ -43,39 +65,56 @@ module.exports = {
       }
     ]
   ],
+  axios: {
+    prefix: "/api/"
+  },
   i18n: {
-    locales: ["en", "lv", "ru"],
+    locales: [
+      {
+        code: "en",
+        file: "en-US.js"
+      },
+      {
+        code: "lv",
+        file: "lv-LV.js"
+      },
+      {
+        code: "ru",
+        file: "ru-RU.js"
+      }
+    ],
+    lazy: true,
+    langDir: "lang/",
     defaultLocale: "lv",
     vueI18n: {
-      fallbackLocale: "lv",
-      messages: {
-        en: {
-          welcome: "Welcome!",
-          pages: {
-            contacts: {
-              title: "Want to contact us?"
-            }
-          }
-        },
-        lv: {
-          welcome: "Labdien!",
-          pages: {
-            contacts: {
-              title: "Vēlaties sazināties?"
-            }
-          }
-        },
-        ru: {
-          welcome: "Приветик!",
-          pages: {
-            contacts: {
-              title: "Хотите связаться с нами?"
-            }
-          }
-        }
+      fallbackLocale: "lv"
+    }
+  },
+  server: {
+    sequelize: {
+      database: process.env.DB_NAME || "inbalance",
+      user: process.env.DB_USER || "root",
+      password: process.env.DB_PASS || "1234",
+      options: {
+        dialect: "mysql",
+        logging: false
       }
     }
   },
+  serverMiddleware: [
+    { path: "/api", handler: require("body-parser").json() },
+    {
+      path: "/api",
+      handler: (req, res, next) => {
+        const url = require("url");
+        req.query = url.parse(req.url, true).query;
+        req.params = { ...req.query, ...req.body };
+        next();
+      }
+    },
+    { path: "/api", handler: "~/server/api-server.js" }
+  ],
+  router: {},
   /*
    ** Build configuration
    */

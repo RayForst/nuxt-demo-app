@@ -88,3 +88,10 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Use example file
+nuxt.config.js
+
+
+uploads/*
+!uploads/default.png
