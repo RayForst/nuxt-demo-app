@@ -2,8 +2,8 @@
   #app.sticky-footer-container.layout
     app-header
     app-burger
-    transition(name="fade" mode="out-in")
-      .router-view-container
+    .router-view-container
+      transition(name="fade" mode="out-in")
         nuxt
     app-footer
 </template>
@@ -14,14 +14,19 @@ import appBurger from "@/components/client/Burger/Index";
 import appFooter from "@/components/client/Footer";
 
 export default {
+  transition: {
+    name: "fade",
+    mode: "out-in"
+  },
   components: {
     appHeader,
     appBurger,
     appFooter
+  },
+  mounted() {
+    this.$store.commit("cart/init", true);
   }
 };
 </script>
 
-<style lang="scss">
-@import "@/assets/scss/layout-default.scss";
-</style>
+<style lang="scss"></style>

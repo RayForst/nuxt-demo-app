@@ -93,5 +93,5 @@ sw.*
 nuxt.config.js
 
 
-uploads/*
-!uploads/default.png
+static/uploads/*
+!static/uploads/default.png

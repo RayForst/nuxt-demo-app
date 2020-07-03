@@ -23,10 +23,16 @@ For detailed explanation on how things work, check out [Nuxt.js docs](https://nu
 
 ## TODO
 
-# перенести стили ui.styl
-
-# перенести стили main.styl
-
 https://prnt.sc/t2hedr - количество бы вывести
 мобилка
 https://prnt.sc/t2i820 - цвета лейблов
+
+сохранение и вывод ошибок формы котактов
+
+я предлагаю убрать календарь и сделать общий список с погашенными евентами
+Call me back slide up
+transition - transitin group
+recheck events
+в меню визуально отметить наличие дропдауна
+отображение продуктов
+лэйзи лоад на картинки

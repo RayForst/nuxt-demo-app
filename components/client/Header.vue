@@ -15,6 +15,13 @@
                 img(src="/icons/phone-footer.svg" alt="")
                 | {{ phone }}
             .menu-line
+            .horizontal-container
+              nuxt-link.cart(
+                :to="localePath(`/checkout/cart`)"
+              )
+                img(src="/icons/cart.svg" alt="")
+                b {{ totalQuantity }}
+            .menu-line
             .lang-container.dropdown-container
               app-language
 </template>
@@ -23,12 +30,16 @@
 import appLogo from "@/components/client/Logo";
 import appLanguage from "@/components/client/Language";
 import appSocialButtons from "@/components/client/SocialButtons";
+import { mapGetters } from "vuex";
 
 export default {
   data() {
     return {
       phone: this.$store.state.settings.settings.phone
     };
+  },
+  computed: {
+    ...mapGetters("cart", ["totalQuantity"])
   },
   components: {
     appLogo,
@@ -118,6 +129,19 @@ header.main {
 
   img {
     margin-right: 10px;
+  }
+}
+
+.cart {
+  font-size: 12px;
+  color: #103324;
+  text-decoration: none;
+  display: inline-flex;
+
+  b {
+    line-height: 19px;
+    display: inline-flex;
+    margin-left: 9px;
   }
 }
 </style>

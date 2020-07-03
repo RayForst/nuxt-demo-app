@@ -1,5 +1,3 @@
-@import "./layout";
-
 .layout {
   .ui-button {
     font-size: 12px;
@@ -15,10 +13,13 @@
     letter-spacing: 0.1em;
     text-align: center;
     background: transparent;
-
+    user-select: none;
+    &:active {
+      transform: translate(0, 1px);
+    }
     &:hover {
       background: var(--c_primary);
-      color: #103324;
+      color: #fff;
     }
 
     &--big {
@@ -33,6 +34,42 @@
       &:hover {
         background: #fff;
         color: var(--c_primary);
+      }
+    }
+
+    &--cart {
+      .add-title {
+        position: relative;
+        padding-right: 33px;
+
+        &:after {
+          content: "";
+          height: 23px;
+          width: 1px;
+          background: var(--c_primary);
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+      .add-price {
+        font-size: 12px;
+        line-height: 12px;
+        margin-left: 33px;
+        color: #103324;
+        letter-spacing: 0;
+      }
+
+      &:hover {
+        .add-title {
+          &:after {
+            background: #fff;
+          }
+        }
+        .add-price {
+          color: inherit;
+        }
       }
     }
 
@@ -299,11 +336,6 @@
   }
 
   /* text alignment */
-  @media #{$media_md} {
-    .text-start-md {
-      text-align: start;
-    }
-  }
 
   .pre-line {
     white-space: pre-line;
@@ -506,5 +538,21 @@
   figure img {
     max-width: 100%;
     height: auto;
+  }
+
+  .ui-add-product {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+
+    &-message {
+      a {
+        color: inherit;
+        font-weight: bold;
+      }
+    }
+  }
+
+  .ui-add-product {
   }
 }

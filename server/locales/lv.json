@@ -45,8 +45,12 @@
       "caption": "Mūsu klienti ir īpaši iemīlējuši šos produktus"
     }
   },
-  "articles": { "recent": "Pēdējās publikācijas" },
-  "links": { "discover": "Uzzināt vairāk" },
+  "articles": {
+    "recent": "Pēdējās publikācijas"
+  },
+  "links": {
+    "discover": "Uzzināt vairāk"
+  },
   "newsletter": {
     "subscribe": "ESIET PRIORITĀTĒ!",
     "caption": "Pierakstieties ziņu saņemšanai, lai prioritārajā kārtā saņemtu vērtīgu informāciju par jaunumiem!",
@@ -58,7 +62,7 @@
   },
   "contacts": {
     "title": "Vēlaties sazināties?",
-    "workTime": "Strādājam pēc pieraksta no pirmdienas līdz sestdienai",
+    "workTime": "Strādājam tikai pēc iepriekšējā pieraksta",
     "form": {
       "fullname": "Jūsu vārds",
       "email": "E-pasta adrese",
@@ -83,7 +87,10 @@
     "button": "Pārzvaniet man",
     "successMessage": "Jūsu pieteikums ir nosūtīts. Noteikti piezvanīsim darba laikā"
   },
-  "readmore": { "open": "Lasīt vairāk", "close": "Paslēpt tekstu" },
+  "readmore": {
+    "open": "Lasīt vairāk",
+    "close": "Paslēpt tekstu"
+  },
   "monthDays": {
     "mon": "P",
     "tue": "O",
@@ -94,5 +101,5 @@
     "sun": "Sv"
   },
   "recentPosts": "Jaunākās publikācijas",
-  "reccomendProducts": "Мы рекомендуем также эти товары LV"
+  "reccomendProducts": "Mēs iesakām arī šos produktus"
 }

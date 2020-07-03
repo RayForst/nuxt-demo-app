@@ -15,7 +15,7 @@
       )
         ul.popup-links
           li(v-for="link in menuItem.links")
-            router-link.submenu-link.text-upper(
+            nuxt-link.submenu-link.text-upper(
               :to="url(link)"
               v-text="text(link)"
             )
@@ -23,8 +23,6 @@
 </template>
 
 <script>
-import LocaleService from "@/services/LocaleService";
-
 export default {
   name: "menu-item-mobile",
   props: ["menuItem", "isLast"],
@@ -35,12 +33,9 @@ export default {
   },
   methods: {
     url(link) {
-      if (link.route.hasOwnProperty("slug")) {
+      if (link.route.hasOwnProperty("slug") && link.route.slug) {
         return this.localePath(`/${link.route.name}/${link.route.slug}`);
-      } else return this.localePath(`/${link.route.name}`);
-    },
-    toLocale(item, field) {
-      return LocaleService.toLocale(item, field, this.$i18n.locale);
+      } else return this.localePath(`${link.route.name}`);
     },
     categoryText(menuItem) {
       return menuItem.hasOwnProperty("i18n")
@@ -50,7 +45,7 @@ export default {
     text(link) {
       return link.hasOwnProperty("i18n")
         ? this.$t(link.title)
-        : this.toLocale(link, "title");
+        : this.$toLocale(link, "title", this.$i18n.locale);
     },
     open() {
       this.hover = true;

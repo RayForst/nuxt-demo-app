@@ -31,7 +31,6 @@
 import appLogo from "@/components/client/Logo";
 import appSocialButtons from "@/components/client/SocialButtons";
 import appShortContacts from "@/components/client/ShortContacts";
-import LocaleService from "@/services/LocaleService";
 
 export default {
   data() {
@@ -42,19 +41,19 @@ export default {
   },
   methods: {
     url(link) {
-      if (link.route.hasOwnProperty("slug")) {
+      if (link.route.hasOwnProperty("slug") && link.route.slug) {
         return this.localePath(`/${link.route.name}/${link.route.slug}`);
-      } else return this.localePath(`/${link.route.name}`);
+      } else return this.localePath(`${link.route.name}`);
     },
     categoryText(menuItem) {
       return menuItem.hasOwnProperty("i18n")
         ? this.$t(menuItem.category)
-        : LocaleService.toLocale(menuItem, "category", this.$i18n.locale);
+        : this.$toLocale(menuItem, "category", this.$i18n.locale);
     },
     text(link) {
       return link.hasOwnProperty("i18n")
         ? this.$t(link.title)
-        : LocaleService.toLocale(link, "title", this.$i18n.locale);
+        : this.$toLocale(link, "title", this.$i18n.locale);
     }
   },
   computed: {

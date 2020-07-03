@@ -25,7 +25,7 @@ export default async (req, res, next) => {
      * http://<server_name>/api/controller_name/method_name
      */
     let api = require("./controllers/" + controller);
-    let result = await api[method](req.params);
+    let result = await api[method](req);
 
     res.end(JSON.stringify(result));
   } catch (err) {

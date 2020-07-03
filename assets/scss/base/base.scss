@@ -1,0 +1,314 @@
+@import "./base/variables";
+
+body {
+  min-width: 320px;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
+  font-size: 14px;
+}
+
+:root {
+  --black: #000;
+  --c_primary: #103324;
+  --c_secondary: #324148;
+  --c_gray: #7e8f97;
+  --c_gray2: #9b9b9b;
+  --c_gray3: #e5e5e5;
+  --c_gray4: #858585;
+  --c_gray_light: #e9ebec;
+  --c_error: red;
+}
+
+.split-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+
+  &_center {
+    align-items: center;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Lora", sans-serif;
+}
+
+.wrapper {
+  max-width: 1340px;
+  margin: 0 auto;
+}
+
+.content-container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 1280px) {
+  .content-container {
+    max-width: 1200px;
+  }
+}
+
+.container {
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  width: auto;
+}
+
+@media #{$media_sm} {
+  .px-2-sm {
+    padding: 20px;
+  }
+}
+
+@media #{$media_lg} {
+  .px-0-lg {
+    padding: 0;
+  }
+}
+
+@media #{$media_xs_max} {
+  .max-xs-item-2 > *:nth-child(1n + 3) {
+    display: none;
+  }
+}
+
+@media #{$media_xs_max} {
+  .max-xs-item-3 > *:nth-child(1n + 4) {
+    display: none;
+  }
+}
+
+@media #{$media_sm_max} {
+  .max-sm-item-2 > * {
+    display: initial;
+  }
+
+  .max-sm-item-2 > *:nth-child(1n + 3) {
+    display: none;
+  }
+}
+
+@media #{$media_sm_max} {
+  .max-sm-item-4 > * {
+    display: initial;
+  }
+
+  .max-sm-item-4 > *:nth-child(1n + 5) {
+    display: none;
+  }
+}
+
+@media #{$media_md_max} {
+  .max-md-item-3 > *:nth-child(1n + 4) {
+    display: none;
+  }
+}
+
+@media #{$media_lg} {
+  .max-lg-item-3 > *:nth-child(1n + 4) {
+    display: none;
+  }
+}
+
+@media #{$media_lg} {
+  .max-lg-item-4 > *:nth-child(1n + 5) {
+    display: none;
+  }
+}
+
+@media #{$media_lg} {
+  .max-lg-item-9 > *:nth-child(1n + 10) {
+    display: none;
+  }
+}
+
+.text-start {
+  text-align: start;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-end {
+  text-align: end;
+}
+
+.text-start-md {
+  @media #{$media_md} {
+    text-align: left;
+  }
+}
+
+.pre-line {
+  white-space: pre-line;
+}
+
+.vertical-container {
+  padding: 20px 0;
+}
+
+.horizontal-container {
+  padding: 0 20px;
+}
+
+.spacer {
+  height: 20px;
+}
+
+.bg-hero {
+  min-height: 416px;
+  display: flex;
+  position: relative;
+  align-items: flex-end;
+}
+
+.bg-hero > .content-container {
+  z-index: 2;
+}
+
+.bg-hero:before {
+  content: "";
+  display: block;
+  position: absolute;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(97, 118, 127, 0),
+    rgba(0, 0, 0, 0.61)
+  );
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.sticky-footer-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.content {
+  flex: 1;
+  width: 100%;
+}
+
+.text-upper {
+  text-transform: uppercase;
+}
+
+.tc-white {
+  color: #fff;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.fill {
+  width: 100%;
+  height: 100%;
+}
+
+.align-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ui-checkbox {
+  position: relative;
+  display: inline-flex;
+  width: 15px;
+  height: 15px;
+  overflow: hidden;
+
+  .ui-checkbox-preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 1px solid black;
+    width: 15px;
+    height: 15px;
+    box-sizing: border-box;
+    transition: background-color 0.2s ease;
+  }
+
+  input[type="checkbox"],
+  input[type="radio"] {
+    & + .ui-checkbox-preview {
+      background: #fff;
+    }
+
+    &:checked + .ui-checkbox-preview {
+      background: #000 url("/icons/checkbox-tick.svg") no-repeat center center;
+    }
+  }
+}
+
+.ui-box-form {
+  border: 1px solid #e5e5e5;
+  .line {
+    padding: 10px 15px;
+    border-bottom: 1px solid #e5e5e5;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    @media #{$media_lg} {
+      padding: 20px 30px;
+      grid-template-columns: 100px 1fr;
+    }
+
+    align-items: center;
+    &:last-child {
+      border-bottom: none;
+    }
+
+    input,
+    select {
+      padding: 10px 10px;
+      border: none;
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 16px;
+      color: #000000;
+      background: transparent;
+
+      @media #{$media_lg} {
+        padding: 10px 30px;
+      }
+    }
+    label {
+      font-family: Montserrat;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 16px;
+      /* identical to box height, or 133% */
+
+      /* Black */
+
+      color: #000000;
+
+      padding: 0 10px;
+      margin-bottom: 5px;
+
+      @media #{$media_lg} {
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+}

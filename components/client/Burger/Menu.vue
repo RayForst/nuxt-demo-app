@@ -1,6 +1,6 @@
 <template lang="pug">
   ul.container.burger__menu
-    template(v-if="mount" v-for="column, index in this.$store.state.menu.menu")
+    template(v-for="column, index in this.$store.state.menu.menu")
       app-menu-item-mobile(class="mobile-menu" :menuItem="column" :isLast="isLast(index)")
       app-menu-item(class="desktop-menu" :menuItem="column" :isLast="isLast(index)" :isFirst="isFirst(index)")
       li.menu-line(v-if="index !== menuLength") |
@@ -80,6 +80,7 @@ export default {
     justify-content: space-between;
     position: initial;
     max-width: none;
+    height: 56px;
   }
 
   li {

@@ -15,6 +15,7 @@
 
 <script>
 import vueDropdown from "@/components/client/dropdown/vue-dropdown";
+import moment from "moment";
 
 export default {
   name: "App",

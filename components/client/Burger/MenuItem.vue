@@ -17,19 +17,21 @@
         )
           ul.popup-links
             li(v-for="link in menuItem.links")
-              router-link.submenu-link.text-upper(
+              nuxt-link.submenu-link.text-upper(
+                v-if="link.hasOwnProperty('i18n')"
                 :to="url(link)"
-                v-text="text(link)"
-              )
+              ) {{ $t(link.title) }} 
+              nuxt-link.submenu-link.text-upper(
+                v-else
+                :to="url(link)"
+              ) {{ $toLocale(link, "title", $i18n.locale) }}
     template(v-else)
       nuxt-link.main-link.text-upper(
-        to="/"
+        :to="localePath(menuItem.link)"
       ) {{ categoryText(menuItem) }}
 </template>
 
 <script>
-import LocaleService from "@/services/LocaleService";
-
 export default {
   name: "menu-item",
   props: ["menuItem", "isLast", "isFirst"],
@@ -40,29 +42,27 @@ export default {
   },
   methods: {
     url(link) {
-      if (link.route.hasOwnProperty("slug")) {
+      if (link.route.hasOwnProperty("slug") && link.route.slug) {
         return this.localePath(`/${link.route.name}/${link.route.slug}`);
-      } else return this.localePath(`/${link.route.name}`);
-    },
-    toLocale(item, field) {
-      return LocaleService.toLocale(item, field, this.$i18n.locale);
+      } else return this.localePath(`${link.route.name}`);
     },
     categoryText(menuItem) {
       return menuItem.hasOwnProperty("i18n")
         ? this.$t(menuItem.category)
-        : this.toLocale(menuItem, "category");
+        : this.$toLocale(menuItem, "category", this.$i18n.locale);
     },
     text(link) {
       return link.hasOwnProperty("i18n")
         ? this.$t(link.title)
-        : this.toLocale(link, "title");
+        : this.$toLocale(link, "title", this.$i18n.locale);
     },
     open() {
       this.hover = true;
     },
     close($event) {
       this.hover = false;
-    }
+    },
+    test() {}
   }
 };
 </script>

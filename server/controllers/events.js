@@ -1,12 +1,10 @@
 const Models = require("../models");
 const Model = Models.Event;
 
-async function hero() {
+async function index() {
   try {
     return await Model.findAll({
       raw: true,
-      // uncomment 
-      //   where: Sequelize.and({ priority: 1, show: 1 }),
       order: [["dateStart", "DESC"]]
     });
   } catch (err) {
@@ -14,4 +12,16 @@ async function hero() {
   }
 }
 
-export { hero };
+async function hero() {
+  try {
+    return await Model.findAll({
+      raw: true,
+      // where: Sequelize.and({ priority: 1, show: 1 }),
+      order: [["dateStart", "DESC"]]
+    });
+  } catch (err) {
+    return {};
+  }
+}
+
+export { index, hero };

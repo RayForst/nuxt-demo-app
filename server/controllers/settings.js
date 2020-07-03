@@ -14,4 +14,15 @@ async function index() {
   }
 }
 
-export { index };
+async function priority() {
+  try {
+    return await Models.Priority.findAll({
+      raw: true,
+      where: { id: 1 }
+    });
+  } catch (err) {
+    return {};
+  }
+}
+
+export { index, priority };

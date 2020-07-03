@@ -35,7 +35,7 @@ module.exports = {
   /*
    ** Global CSS
    */
-  css: [],
+  css: ["@/assets/scss/layout.scss"],
   /*
    ** Plugins to load before mounting the App
    */
@@ -47,7 +47,8 @@ module.exports = {
     { src: "~plugins/google-maps", mode: "client" },
     { src: "~plugins/json-editor", mode: "client" },
     { src: "~plugins/owl-carousel", mode: "client" },
-    { src: "~plugins/localeService" }
+    { src: "~plugins/i18n.js" },
+    { src: "~plugins/toLocale" }
   ],
   /*
    ** Nuxt.js dev-modules
@@ -92,7 +93,7 @@ module.exports = {
   },
   server: {
     sequelize: {
-      database: process.env.DB_NAME || "inbalance",
+      database: process.env.DB_NAME || "inbalance_dump",
       user: process.env.DB_USER || "root",
       password: process.env.DB_PASS || "1234",
       options: {

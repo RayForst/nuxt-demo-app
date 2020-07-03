@@ -7,13 +7,13 @@ div.static
       .col-xs-12.col-lg-6
         .container
           h1 {{ $t('contacts.title') }}
-          //- app-contact-form
+          app-contact-form
       .col-xs-12.col-lg-6
         .row.container
           .col-xs-12
             .caption {{ $t('contacts.workTime') }}
           .col-xs-12
-            //- app-short-contacts(:column="true")
+            app-short-contacts(:column="true")
           .col-xs-12
             .map-wrapper
               app-map
@@ -21,9 +21,9 @@ div.static
 </template>
 
 <script>
-// import appContactForm from "@/components/forms/Contact";
+import appContactForm from "@/components/client/Forms/Contact";
 import appMap from "@/components/client/Map";
-// import appSubscribe from "@/components/Subscribe";
+import appSubscribe from "@/components/client/Subscribe";
 import appShortContacts from "@/components/client/ShortContacts";
 
 export default {
@@ -32,9 +32,9 @@ export default {
     title: "Contacts"
   },
   components: {
-    // appContactForm,
+    appContactForm,
     appMap,
-    // appSubscribe,
+    appSubscribe,
     appShortContacts
   },
   data() {
