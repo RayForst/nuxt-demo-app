@@ -67,7 +67,7 @@ module.exports = {
     ]
   ],
   axios: {
-    prefix: "/api/"
+    prefix: "/apii/"
   },
   i18n: {
     locales: [
@@ -103,9 +103,9 @@ module.exports = {
     }
   },
   serverMiddleware: [
-    { path: "/api", handler: require("body-parser").json() },
+    { path: "/apii", handler: require("body-parser").json() },
     {
-      path: "/api",
+      path: "/apii",
       handler: (req, res, next) => {
         const url = require("url");
         req.query = url.parse(req.url, true).query;
@@ -113,7 +113,7 @@ module.exports = {
         next();
       }
     },
-    { path: "/api", handler: "~/server/api-server.js" }
+    { path: "/apii", handler: "~/server/api-server.js" }
   ],
   router: {},
   /*
