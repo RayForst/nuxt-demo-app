@@ -145,10 +145,6 @@ async function description(req) {
   try {
     let result;
 
-    console.log("test from method");
-
-    console.log(req.query.category);
-
     if (req.query.category) {
       result = await Models.ProductCategory.findAll({
         raw: true,

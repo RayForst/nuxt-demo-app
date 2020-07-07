@@ -17,6 +17,17 @@
     &:active {
       transform: translate(0, 1px);
     }
+
+    &:disabled {
+      background: #c1c1c1;
+      cursor: not-allowed;
+      border-color: #c1c1c1;
+
+      &:hover {
+        background: #c1c1c1;
+        border-color: #c1c1c1;
+      }
+    }
     &:hover {
       background: var(--c_primary);
       color: #fff;
@@ -544,12 +555,24 @@
     margin-bottom: 30px;
     display: flex;
     align-items: center;
+    flex-direction: column;
 
     &-message {
+      margin-top: 20px;
+      text-align: center;
+
+      @media #{$media_md} {
+        margin-top: 0;
+        text-align: left;
+      }
       a {
         color: inherit;
         font-weight: bold;
       }
+    }
+
+    @media #{$media_md} {
+      flex-direction: row;
     }
   }
 
@@ -564,36 +587,53 @@
     &-input {
       position: relative;
 
-      &.is-valid {
+      &.is-valid,
+      &.is-invalid {
         &:after {
           content: "";
+          position: absolute;
+          top: 50%;
+          right: 10px;
           width: 20px;
           height: 20px;
-          background: green;
-          position: absolute;
-          top: 0;
-          right: 0;
+          transform: translateY(-50%);
+          text-align: center;
+          background-position: center center;
+          background-repeat: no-repeat;
+          line-height: 20px;
+        }
+      }
+
+      &.is-valid {
+        &:after {
+          background-image: url("/icons/form-tick.svg");
         }
       }
       &.is-invalid {
         &:after {
-          content: "";
-          width: 20px;
-          height: 20px;
-          background: red;
-          position: absolute;
-          top: 0;
-          right: 0;
+          // content: "!";
+          // color: red;
+          // font-weight: bold;
+          // font-size: 20px;
+          display: none;
         }
       }
 
-      input {
+      input,
+      select {
         width: 100%;
+        box-sizing: border-box;
       }
     }
     &-error-message {
       color: red;
       display: flex;
+      padding: 0 10px;
+      line-height: 1.3em;
+
+      @media #{$media_lg} {
+        padding: 0 30px;
+      }
     }
   }
 }

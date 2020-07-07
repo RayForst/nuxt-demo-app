@@ -7,10 +7,10 @@ export const getters = {
     let total = 0;
 
     state.items.forEach(x => {
-      total += parseFloat((10.45 * x.quantity).toFixed(2));
+      total += 10 * x.quantity;
     });
 
-    return parseFloat(total).toFixed(2);
+    return total;
   },
   totalQuantity: state => {
     let total = 0;

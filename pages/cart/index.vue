@@ -36,7 +36,7 @@
             span.subtotal subtotal
             span.value € {{ totalCount  }}
         .caption Shipping and taxes calculated at checkout
-        nuxt-link(:to="localePath(`/checkout/cart/information`)").ui-button.ui-button--big.ui-button--full-green Buy Now
+        nuxt-link(:to="localePath(`/checkout`)").ui-button.ui-button--big.ui-button--full-green Buy Now
 </template>
 
 <script>

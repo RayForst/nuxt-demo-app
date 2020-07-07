@@ -15,7 +15,7 @@
                 img(src="/icons/phone-footer.svg" alt="")
                 | {{ phone }}
             .menu-line
-            .horizontal-container
+            .horizontal-container.cart-container
               nuxt-link.cart(
                 :to="localePath(`/cart`)"
               )
@@ -76,6 +76,26 @@ header.main {
 
   @media #{$media_lg} {
     box-shadow: none;
+  }
+
+  .cart-container {
+    padding: 0 4px;
+
+    b {
+      display: none;
+    }
+
+    @media only screen and (min-width: 400px) {
+      padding: 0 10px;
+
+      b {
+        display: inline;
+      }
+    }
+
+    @media only screen and (min-width: 700px) {
+      padding: 0 20px;
+    }
   }
 }
 

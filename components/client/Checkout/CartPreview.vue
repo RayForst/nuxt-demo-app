@@ -16,19 +16,27 @@
     .checkout-math
         .line.split-2
             span subtotal
-            span.total € {{ totalCount  }} EUR
+            span.total € {{ totalCount  }}.00 EUR
         .line.split-2
             span Shipping
-            span Calculated at next step
+            template(v-if="step === 3")
+              span(v-if="!shipping") Free
+              span(v-else) € {{ shipping }}.00 EUR
+            template(v-else)
+              span Calculated at next step
         .line.split-2.total
             span total
-            span.total.big € {{ totalCount  }}
+            template(v-if="step === 3")
+              span.total.big € {{ totalCount + shipping }}.00 EUR
+            template(v-else)
+              span.total.big € {{ totalCount  }}
 </template>
 
 <script>
 import { mapGetters } from "vuex";
 
 export default {
+  props: ["shipping", "step"],
   methods: {
     image(item) {
       return item.hasOwnProperty("images")
@@ -46,10 +54,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/scss/base/_variables";
+
 form.coupon {
   margin-top: 30px;
   display: grid;
-  grid-template-columns: 1fr 108px;
+  grid-template-columns: 1fr;
   gap: 11px;
   margin-bottom: 104px;
 
@@ -64,6 +74,11 @@ form.coupon {
     line-height: 12px;
     color: #000000;
     padding: 0 20px;
+    height: 41px;
+  }
+
+  @media #{$media_md} {
+    grid-template-columns: 1fr 108px;
   }
 }
 

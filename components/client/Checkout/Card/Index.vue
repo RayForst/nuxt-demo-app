@@ -47,24 +47,23 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-.box {
-  border: 1px solid #e5e5e5;
-
-  &-record {
-    padding: 30px;
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    border-bottom: 1px solid #e5e5e5;
-    align-items: center;
-
-    &:last-child {
-      border-bottom: 0;
-    }
-  }
-}
-
 .card {
   display: block;
+  .box {
+    border: 1px solid #e5e5e5;
+
+    &-record {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 4fr 1fr;
+      border-bottom: 1px solid #e5e5e5;
+      align-items: center;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+  }
 
   h2 {
     font-family: Lora;
@@ -97,49 +96,53 @@ export default {
     margin-top: 35px;
     border: 1px solid #e5e5e5;
   }
-}
 
-.label-text {
-  font-family: Montserrat;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 1.3em;
-  color: #000000;
-}
-
-label {
-  cursor: pointer;
-}
-
-.rules {
-  display: flex;
-  padding: 30px 0;
-
-  .text {
-    font-family: Lora;
-    font-style: italic;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 14px;
-    /* identical to box height, or 117% */
-
+  .label-text {
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 14px;
+    line-height: 1.3em;
     color: #000000;
-    margin-left: 8px;
+  }
 
-    a {
-      font-weight: bold;
-      text-decoration: none;
+  label {
+    cursor: pointer;
+  }
+
+  .rules {
+    display: flex;
+    padding: 30px 0;
+
+    .text {
+      font-family: Lora;
+      font-style: italic;
+      font-weight: normal;
+      font-size: 12px;
+      line-height: 14px;
+      /* identical to box height, or 117% */
+
       color: #000000;
+      margin-left: 8px;
+
+      a {
+        font-weight: bold;
+        text-decoration: none;
+        color: #000000;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
     }
   }
-}
-.slide-content {
-  padding: 30px;
-  border-bottom: 1px solid #e5e5e5;
+  .slide-content {
+    padding: 30px;
+    border-bottom: 1px solid #e5e5e5;
 
-  &.no-border {
-    border-bottom: none;
+    &.no-border {
+      border-bottom: none;
+    }
   }
 }
 </style>

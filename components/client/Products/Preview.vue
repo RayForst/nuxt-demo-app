@@ -108,21 +108,24 @@
             .tabs-content(
               v-html="$toLocale(product, 'ingridients', $i18n.locale)"
             )
-        .ui-add-product
-          app-product-quantity(
-            @quantityChange="changeQuantity"
-            :defaultValue="1"
-          )
-          
-          transition(name="fade" mode="out-in")
-            .ui-add-product-message(v-show="added")
-              | Продукт успешно добавлен в 
-              nuxt-link(:to="localePath('/cart')") корзину
-              | !
+        .quantity-select(
+          style="text-align:left;"
+        )
+          .ui-add-product
+            app-product-quantity(
+              @quantityChange="changeQuantity"
+              :defaultValue="1"
+            )
+            
+            transition(name="fade" mode="out-in")
+              .ui-add-product-message(v-show="added")
+                | Продукт успешно добавлен в 
+                nuxt-link(:to="localePath('/cart')") корзину
+                | !
 
-        a(class="ui-button ui-button--cart" @click="addToCart") 
-            span.add-title Add to cart
-            span.add-price € 10.00 EUR
+          a(class="ui-button ui-button--cart" @click="addToCart") 
+              span.add-title Add to cart
+              span.add-price € 10.00 EUR
 </template>
 
 <script>
@@ -149,7 +152,6 @@ export default {
       this.qnt = count;
     },
     addToCart() {
-      console.log(this.product);
       this.added = true;
       this.$store.commit("cart/add", {
         product: this.product,
@@ -203,6 +205,9 @@ export default {
 <style lang="scss" scoped>
 @import "~@/assets/scss/base/_variables";
 
+.quantity-select {
+  padding-bottom: 40px;
+}
 .product {
   text-align: left;
   margin-bottom: 50px;

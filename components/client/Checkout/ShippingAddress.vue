@@ -1,5 +1,5 @@
 <template lang="pug">
-    .shipping  
+    .shipping-addr 
         h2 Shipping Address
         .ui-box-form.shipping-address_form.form-box
           .line
@@ -37,32 +37,34 @@ export default {};
 </script>
 
 <style lang="scss" scoped>
-h2 {
-  font-family: Lora;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 20px;
-  line-height: 26px;
-  margin: 0;
-  margin-bottom: 8px;
-  margin-bottom: 30px;
-  /* identical to box height */
+.shipping-addr {
+  h2 {
+    font-family: Lora;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 26px;
+    margin: 0;
+    margin-bottom: 8px;
+    margin-bottom: 30px;
+    /* identical to box height */
 
-  color: #000000;
-}
+    color: #000000;
+  }
 
-.box {
-  border: 1px solid #e5e5e5;
+  .box {
+    border: 1px solid #e5e5e5;
 
-  &-record {
-    padding: 30px;
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    border-bottom: 1px solid #e5e5e5;
-    align-items: center;
+    &-record {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1fr 4fr 1fr;
+      border-bottom: 1px solid #e5e5e5;
+      align-items: center;
 
-    &:last-child {
-      border-bottom: 0;
+      &:last-child {
+        border-bottom: 0;
+      }
     }
   }
 }

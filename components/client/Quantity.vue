@@ -15,9 +15,9 @@ export default {
   },
   methods: {
     inc() {
-      console.log("increase");
+      console.log("increase 2");
       let qnt = this.quantity + 1;
-      this.qnt = `${qnt + 1} gab.`;
+      this.qnt = `${qnt} gab.`;
 
       this.$emit("quantityChange", qnt);
     },
