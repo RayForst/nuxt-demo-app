@@ -29,7 +29,7 @@
             template(v-if="step === 3")
               span.total.big € {{ totalCount + shipping }}.00 EUR
             template(v-else)
-              span.total.big € {{ totalCount  }}
+              span.total.big € {{ totalCount  }}.00 EUR
 </template>
 
 <script>

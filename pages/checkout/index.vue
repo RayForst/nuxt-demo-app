@@ -40,7 +40,7 @@
                           name="test" 
                           v-model="email" 
                           required 
-                          placeholder="First name"
+                          placeholder="Your Email"
                         )
                         span.i-form-error-message {{ errors[0] }}
 
@@ -99,25 +99,16 @@
                           placeholder="Last name"
                         )
                         span.i-form-error-message {{ errors[0] }}
-                  ValidationProvider(
-                    rules="min:5"
-                    name="company"
-                    v-slot="{ errors, passed, invalid }"
-                  )
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
-                    )
-                      label Company
-                      .i-form-input(
-                        :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                  
+                  .line
+                    label Company
+                    .i-form-input
+                      input(
+                        type="text"
+                        name="company" 
+                        v-model="company"
+                        placeholder="Company (optional)"
                       )
-                        input(
-                          type="text"
-                          name="company" 
-                          v-model="company"
-                          placeholder="Company (optional)"
-                        )
-                        span.i-form-error-message {{ errors[0] }}
                   ValidationProvider(
                     rules="min:5"
                     name="address line 1"
@@ -137,25 +128,15 @@
                           placeholder="Address line 1"
                         )
                         span.i-form-error-message {{ errors[0] }}
-                  ValidationProvider(
-                    rules="min:5"
-                    name="address line 2"
-                    v-slot="{ errors, passed, invalid }"
-                  )
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
-                    )
-                      label Address line 2
-                      .i-form-input(
-                        :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                  .line
+                    label Address line 2
+                    .i-form-input
+                      input(
+                        type="text"
+                        name="address_line_2"
+                        v-model="address_line_2" 
+                        placeholder="Address line 2 (optional)"
                       )
-                        input(
-                          type="text"
-                          name="address_line_2"
-                          v-model="address_line_2" 
-                          placeholder="Address line 2"
-                        )
-                        span.i-form-error-message {{ errors[0] }}
                   ValidationProvider(
                     rules="min:4"
                     name="city"
@@ -471,6 +452,14 @@ export default {
 
   .ui-button {
     margin-bottom: 20px;
+    
+    @media #{$media_md} {
+      margin-bottom: 0;
+    }
+  }
+
+  @media #{$media_md} {
+    flex-direction: row;
   }
 }
 
