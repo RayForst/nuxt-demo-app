@@ -56,6 +56,8 @@ export const mutations = {
     }
 
     const itemsInLocalStorage = JSON.parse(localStorage.getItem("cart"));
-    state.items = JSON.parse(localStorage.getItem("cart"));
+    if (!itemsInLocalStorage) return;
+
+    state.items = itemsInLocalStorage;
   }
 };
