@@ -17,7 +17,7 @@
             .menu-line
             .horizontal-container
               nuxt-link.cart(
-                :to="localePath(`/checkout/cart`)"
+                :to="localePath(`/cart`)"
               )
                 img(src="/icons/cart.svg" alt="")
                 b {{ totalQuantity }}

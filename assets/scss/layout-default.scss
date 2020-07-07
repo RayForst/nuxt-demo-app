@@ -555,4 +555,45 @@
 
   .ui-add-product {
   }
+
+  .ui-add-product-message {
+    margin-left: 20px;
+  }
+
+  .i-form {
+    &-input {
+      position: relative;
+
+      &.is-valid {
+        &:after {
+          content: "";
+          width: 20px;
+          height: 20px;
+          background: green;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+      &.is-invalid {
+        &:after {
+          content: "";
+          width: 20px;
+          height: 20px;
+          background: red;
+          position: absolute;
+          top: 0;
+          right: 0;
+        }
+      }
+
+      input {
+        width: 100%;
+      }
+    }
+    &-error-message {
+      color: red;
+      display: flex;
+    }
+  }
 }

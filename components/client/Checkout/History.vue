@@ -16,7 +16,7 @@ export default {
     return {
       path: [
         {
-          link: "/checkout/cart",
+          link: "/cart",
           key: 1,
           name: "Cart"
         },

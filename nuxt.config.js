@@ -47,6 +47,7 @@ module.exports = {
     { src: "~plugins/google-maps", mode: "client" },
     { src: "~plugins/json-editor", mode: "client" },
     { src: "~plugins/owl-carousel", mode: "client" },
+    { src: "~plugins/validation", mode: "client" },
     { src: "~plugins/i18n.js" },
     { src: "~plugins/toLocale" }
   ],

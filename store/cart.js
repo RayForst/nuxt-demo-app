@@ -55,7 +55,7 @@ export const mutations = {
       return;
     }
 
-    console.log("init");
+    const itemsInLocalStorage = JSON.parse(localStorage.getItem("cart"));
     state.items = JSON.parse(localStorage.getItem("cart"));
   }
 };

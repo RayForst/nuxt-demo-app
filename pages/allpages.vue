@@ -1,5 +1,9 @@
 <template lang="pug">
     .container
+        app-demo-form
+        br
+        br
+        br
         .page-container.your-cart
             h2 Your Cart
             .your-cart_items
@@ -158,6 +162,8 @@
 </template>
 
 <script>
+import appDemoForm from "@/components/client/ExampleForm";
+
 export default {
   data() {
     return {
@@ -217,6 +223,9 @@ export default {
     total(price, qnt) {
       return 10;
     }
+  },
+  components: {
+    appDemoForm
   }
 };
 </script>

@@ -117,7 +117,7 @@
           transition(name="fade" mode="out-in")
             .ui-add-product-message(v-show="added")
               | Продукт успешно добавлен в 
-              nuxt-link(:to="localePath('/checkout/cart')") корзину
+              nuxt-link(:to="localePath('/cart')") корзину
               | !
 
         a(class="ui-button ui-button--cart" @click="addToCart") 
