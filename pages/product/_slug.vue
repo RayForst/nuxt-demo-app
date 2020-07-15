@@ -26,8 +26,6 @@ export default {
         }
       });
 
-      console.log(product);
-
       const relatedProducts = await $axios.$get("/products/priority", {
         params: {
           category: product.ProductSubcategory.ProductCategory.id

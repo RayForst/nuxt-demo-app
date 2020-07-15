@@ -75,12 +75,11 @@ export default {
   @media #{$media_lg} {
     display: flex;
     width: 100%;
-    padding: 0;
+    padding: 20px;
     margin: 0;
     justify-content: space-between;
     position: initial;
     max-width: none;
-    height: 56px;
   }
 
   li {

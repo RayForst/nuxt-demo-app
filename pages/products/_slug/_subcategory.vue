@@ -1,6 +1,14 @@
 <template lang="pug">
     div 
         template(v-if="products.length")
+            .product-desc.container.px-0-lg(v-if="description")
+              read-more(
+                  :more-str="$t('readmore.open')" 
+                  :text="description" 
+                  link="#" 
+                  :less-str="$t('readmore.close')" 
+                  :max-chars="280"
+              )
             app-products(
                 :products="products"
                 :perPage="onPage"
@@ -27,21 +35,25 @@ export default {
   async asyncData({ app, $toLocale, params }) {
     try {
       let products = [];
+      let description = null;
 
-      if (params.line === "all") {
-        products = await app.$api("get", "products", {
-          params: { category: params.slug }
-        });
-      } else {
-        products = await app.$api("get", "products/lines", {
-          params: {
-            category: params.slug,
-            line: params.line
-          }
-        });
-      }
+      products = await app.$api("get", "products", {
+        params: {
+          subcategory: params.subcategory
+        }
+      });
+      const desc = await app.$api("get", "products/description", {
+        params: {
+          subcategory: params.subcategory
+        }
+      });
+      description = app.$toLocale(desc[0], "description");
+      //   const desc = await app.$api("get", "products/description", {
+      //     params: request
+      //   });
+      //   description = app.$toLocale(desc[0], "description");
 
-      return { products };
+      return { products, description };
     } catch (err) {
       console.log(err.path, err.statusMessage);
     }
@@ -50,7 +62,8 @@ export default {
     return {
       onPage: 9,
       page: 0,
-      products: []
+      products: [],
+      description: null
     };
   },
   components: {

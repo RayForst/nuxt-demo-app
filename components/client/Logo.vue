@@ -1,11 +1,11 @@
 <template lang="pug">
   nuxt-link(:to="localePath('/')")
     .logo-xs
-      img(src="/logo/logo-green-small.svg" alt="logo")
+      img(v-lazy-load data-src="/logo/logo-green-small.svg" alt="logo")
     .logo-md
-      img(src="/logo/logo-tablet.svg" alt="logo")
+      img(v-lazy-load data-src="/logo/logo-tablet.svg" alt="logo")
     .logo-lg
-      img(src="/logo/logo-footer.svg" alt="logo")
+      img(v-lazy-load data-src="/logo/logo-footer.svg" alt="logo")
 </template>
 
 <script>
@@ -71,5 +71,9 @@ export default {
     height: 80px;
     margin-top: 15px;
   }
+}
+
+img {
+  opacity: 0;
 }
 </style>

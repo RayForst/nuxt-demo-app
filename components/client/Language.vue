@@ -41,7 +41,7 @@ export default {
           }
         ],
         prefix: "",
-        placeholder: "ENGLISH",
+        placeholder: "Latviski",
         backgroundColor: "#fff",
         hoverBackgroundColor: "#e9ebec",
         textColor: "black",

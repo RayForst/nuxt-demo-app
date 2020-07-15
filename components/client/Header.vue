@@ -21,6 +21,21 @@
               )
                 img(src="/icons/cart.svg" alt="")
                 b {{ totalQuantity }}
+              .cart-popup
+                .cart-popup-inner
+                  .cart-popup-items
+                    .item(v-for="item, i in $store.state.cart.items" :key="i")
+                      span.image
+                        img(:src="`/uploads/${image(item.product)}`")
+                      span.details
+                        nuxt-link.title(
+                          :to="localePath(`/product/${item.product.slug}`)"
+                        ) {{ $toLocale(item.product, 'name', $i18n.locale) }} x {{ item.quantity }}
+                        span.price  € 10.00
+                  .subtotal
+                    span subtotal
+                    span € {{ totalCount }}.00 EUR
+                  nuxt-link.ui-button.ui-button--full-green(:to="localePath(`/cart`)") CHECKOUT
             .menu-line
             .lang-container.dropdown-container
               app-language
@@ -39,12 +54,19 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("cart", ["totalQuantity"])
+    ...mapGetters("cart", ["totalQuantity", "totalCount"])
   },
   components: {
     appLogo,
     appLanguage,
     appSocialButtons
+  },
+  methods: {
+    image(item) {
+      return item.hasOwnProperty("images")
+        ? item.images.split(",")[0]
+        : "default.png";
+    }
   }
 };
 </script>
@@ -80,6 +102,126 @@ header.main {
 
   .cart-container {
     padding: 0 4px;
+    position: relative;
+
+    .cart-popup {
+      display: none;
+
+      @media #{$media_lg} {
+        padding-top: 40px;
+        transform: translateY(-40px);
+
+        &-inner {
+          padding: 20px 23px;
+          background: #fff;
+          box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+        }
+        .ui-button {
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .subtotal {
+          display: flex;
+          justify-content: space-between;
+          margin: 21px 0 30px 0;
+
+          span {
+            &:first-child {
+              font-family: Lora;
+              font-style: normal;
+              font-weight: normal;
+              font-size: 10px;
+              line-height: 20px;
+              letter-spacing: 1px;
+              text-transform: uppercase;
+              color: #000000;
+            }
+
+            &:last-child {
+              font-size: 15px;
+              line-height: 20px;
+              text-align: right;
+
+              color: #000000;
+            }
+          }
+        }
+        .item {
+          display: grid;
+          grid-template-columns: 40px 1fr;
+          padding: 20px 0;
+          gap: 17px;
+          border-bottom: 1px solid #d6d9da;
+          align-items: center;
+
+          &:first-child {
+            padding-top: 0;
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+          }
+
+          .image {
+            float: left;
+            overflow: hidden;
+            clear: both;
+            margin-right: 20px;
+
+            @media #{$media_lg} {
+              float: none;
+              margin-right: 0;
+              // transform: translateY(-15px);
+            }
+
+            height: 40px;
+            width: 40px;
+            display: inline-flex;
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+          }
+          .title {
+            font-family: Lora;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            line-height: 1.3em;
+            text-decoration: none;
+            /* identical to box height, or 100% */
+
+            color: #000000;
+          }
+          .price {
+            font-family: Montserrat;
+            font-style: normal;
+            font-weight: normal;
+            font-size: 10px;
+            line-height: 1.4em;
+            color: #103324;
+            margin-top: 7px;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      .cart-popup {
+        @media #{$media_lg} {
+          position: absolute;
+          top: 50px;
+          right: 0;
+          display: inline-flex;
+          flex-direction: column;
+          width: 300px;
+        }
+      }
+    }
 
     b {
       display: none;

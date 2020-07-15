@@ -7,7 +7,7 @@
       :title="link.title"
       :class="{ gray: colorClass === 'gray' }"
     )
-      img(:src="'/icons/'+link.icon" alt="")
+      img(v-lazy-load :data-src="'/icons/'+link.icon" alt="")
 </template>
 
 <script>
@@ -33,6 +33,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/assets/scss/base/_variables";
+
+@media #{$media_lg} {
+  .social-buttons {
+    display: flex;
+    align-items: flex-start;
+  }
+}
 a {
   width: 40px;
   height: 40px;
@@ -54,6 +62,10 @@ a {
 
   &:hover {
     opacity: 0.8;
+  }
+
+  img {
+    opacity: 0;
   }
 }
 </style>

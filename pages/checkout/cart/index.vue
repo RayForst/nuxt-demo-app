@@ -55,18 +55,13 @@ export default {
       return parseFloat((price * qnt).toFixed(2));
     },
     changeQuantity(quantity, item) {
-      console.log("setting qnt", quantity);
-
       this.$store.commit("cart/add", {
         product: item.product,
         qnt: quantity
       });
     },
     deleteItem(item) {
-      console.log("delete tru");
       if (confirm("Vai tiešām vēlaties dzēst?")) {
-        console.log("delete");
-
         this.$store.commit("cart/delete", item);
       }
     }

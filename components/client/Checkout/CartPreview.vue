@@ -10,9 +10,9 @@
             span.total € {{ total(10, item.quantity) }}.00
 
     form.coupon
-        input.ui-input(type="text" placeholder="Discount code")
-        button.ui-button Apply
-
+      input.ui-input(type="text" placeholder="Discount code")
+      button.ui-button Apply
+      p.coupon-desc Промокод спрашивайте у своего косметолога или следите за акциями на сайте.
     .checkout-math
         .line.split-2
             span subtotal
@@ -75,6 +75,15 @@ form.coupon {
     color: #000000;
     padding: 0 20px;
     height: 41px;
+  }
+  p {
+    font-family: Lora;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 15px;
+
+    color: #969696;
   }
 
   @media #{$media_md} {

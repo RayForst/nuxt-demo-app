@@ -3,16 +3,18 @@
     @mouseover="open" 
     @mouseleave="close"
   )
-    template(v-if="!menuItem.link")
-      span.main-link.text-upper(
+    template(v-if="hasSubcategory")
+      span.main-link.text-upper.has-dropdown(
         @click="close" 
         :to="{ name: menuItem.link }"
         :class="{ active: hover }"
-      ) {{ categoryText(menuItem) }}
+      ) 
+        | {{ translateName(menuItem) }} 
+        i.icon-down
       transition(name="fade" mode="out-in")
         span.popup(
-          v-show="hover"
           @mouseleave="close"
+          v-show="hover"
           :class="{ first: this.isFirst, last: this.isLast }"
         )
           ul.popup-links
@@ -28,7 +30,7 @@
     template(v-else)
       nuxt-link.main-link.text-upper(
         :to="localePath(menuItem.link)"
-      ) {{ categoryText(menuItem) }}
+      ) {{ translateName(menuItem) }}
 </template>
 
 <script>
@@ -40,13 +42,18 @@ export default {
       hover: false
     };
   },
+  computed: {
+    hasSubcategory() {
+      return !this.menuItem.link;
+    }
+  },
   methods: {
     url(link) {
       if (link.route.hasOwnProperty("slug") && link.route.slug) {
         return this.localePath(`/${link.route.name}/${link.route.slug}`);
       } else return this.localePath(`${link.route.name}`);
     },
-    categoryText(menuItem) {
+    translateName(menuItem) {
       return menuItem.hasOwnProperty("i18n")
         ? this.$t(menuItem.category)
         : this.$toLocale(menuItem, "category", this.$i18n.locale);
@@ -154,5 +161,21 @@ ul.popup-links {
   color: #9b9b9b;
   font-family: "Montserrat", sans-serif;
   line-height: 18px;
+}
+
+i.icon-down {
+  width: 0;
+  height: 0;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #0f3324;
+  position: absolute;
+  right: -17px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.has-dropdown {
+  cursor: ns-resize;
 }
 </style>

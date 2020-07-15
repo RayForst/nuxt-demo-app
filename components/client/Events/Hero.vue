@@ -12,7 +12,7 @@ section.hero
     div.container.bg-image.hero-main(
       v-for="event, i in events" 
       :key="i"
-      :style="{ backgroundImage: 'url(' + image(event) + ')' }"
+      :lazy-background="image(event)"
     )
       .row.center-xs.height-100
         .col-xs-11.col-md-7.align-center.text-center.text-container
@@ -56,7 +56,7 @@ export default {
 
 .hero {
   height: 520px;
-  background: #f7f7f7;
+  // background: #f7f7f7;
   margin-bottom: 20px;
   overflow: hidden;
 
@@ -113,8 +113,8 @@ a {
 
 .hero-main {
   height: 520px;
-  background-image: url("/images/big-banner-front.jpg");
   position: relative;
+  opacity: 0;
 
   @media #{$media_sm} {
     height: 442px;

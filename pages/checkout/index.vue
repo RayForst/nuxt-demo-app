@@ -19,7 +19,7 @@
               v-on:submit.prevent="sendForm"
             )
               .shipping  
-                h2 Customer information
+                h2 Customer information {{ form.status }}
 
                 .ui-box-form.shipping-address_form.form-box
                   ValidationProvider(
@@ -43,7 +43,19 @@
                           placeholder="Your Email"
                         )
                         span.i-form-error-message {{ errors[0] }}
-
+                    .line.identity
+                      label Your identity
+                      div
+                        label.status-select
+                          .ui-checkbox
+                            input( type="radio" name="payment-type" value="phiz" v-model="form.status")
+                            .ui-checkbox-preview
+                          .label-text Physical person
+                        label.status-select
+                          .ui-checkbox
+                            input( type="radio" name="payment-type" value="jur" v-model="form.status")
+                            .ui-checkbox-preview
+                          .label-text Juridical person
                 label.rules
                     .ui-checkbox
                         input(type="checkbox" v-model="accept" required name="rules")
@@ -100,15 +112,52 @@
                         )
                         span.i-form-error-message {{ errors[0] }}
                   
-                  .line
-                    label Company
-                    .i-form-input
-                      input(
-                        type="text"
-                        name="company" 
-                        v-model="company"
-                        placeholder="Company (optional)"
-                      )
+                  template(v-if="form.status == 'jur'")
+                    .line
+                      label Company
+                      .i-form-input
+                        input(
+                          type="text"
+                          name="company" 
+                          v-model="company"
+                          placeholder="Company (optional)"
+                        )
+                    .line
+                      label Company registration number
+                      .i-form-input
+                        input(
+                          type="text"
+                          name="company_rn" 
+                          v-model="company_rn"
+                          placeholder="Company registration numer (optional)"
+                        )
+                    .line
+                      label Taxpay number
+                      .i-form-input
+                        input(
+                          type="text"
+                          name="taxnum" 
+                          v-model="taxnum"
+                          placeholder="Taxpay number (optional)"
+                        )
+                    .line
+                      label Juridical address
+                      .i-form-input
+                        input(
+                          type="text"
+                          name="jur_addr" 
+                          v-model="jur_addr"
+                          placeholder="Juridical address (optional)"
+                        )
+                    .line
+                      label Factical address
+                      .i-form-input
+                        input(
+                          type="text"
+                          name="fac_addr" 
+                          v-model="fac_addr"
+                          placeholder="Factical address (optional)"
+                        )
                   ValidationProvider(
                     rules="min:5"
                     name="address line 1"
@@ -305,6 +354,10 @@ export default {
       first_name: "",
       last_name: "",
       company: "",
+      company_rn: "",
+      taxnum: "",
+      jur_addr: "",
+      fac_addr: "",
       email: "",
       address_line_1: "",
       address_line_2: "",
@@ -318,6 +371,7 @@ export default {
         step: 1,
         payment: "free",
         paymentType: "card",
+        status: "phiz",
         methods: [
           {
             id: "free",
@@ -363,8 +417,11 @@ export default {
     sendForm() {
       this.pass = true;
       this.form.step++;
-      console.log("form sending");
       this.$refs.cont.scrollIntoView();
+
+      if (this.form.step === 4) {
+        this.$router.push(this.localePath(`/checkout/success`));
+      }
     }
   },
   components: {
@@ -394,12 +451,9 @@ export default {
       }
 
       if (this.form.step === 3) {
-        console.log("STEEEEP 3");
         const shipMet = this.form.methods.find(obj => {
           return obj.id === this.form.payment;
         });
-
-        console.log("found", shipMet);
 
         this.shippingPrice = shipMet.price;
         rec.push({
@@ -452,7 +506,7 @@ export default {
 
   .ui-button {
     margin-bottom: 20px;
-    
+
     @media #{$media_md} {
       margin-bottom: 0;
     }
@@ -826,6 +880,22 @@ export default {
     &.no-border {
       border-bottom: none;
     }
+  }
+}
+
+.status-select {
+  display: flex;
+
+  .label-text {
+    margin-left: 10px;
+  }
+}
+
+.identity {
+  & > div {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10px;
   }
 }
 </style>

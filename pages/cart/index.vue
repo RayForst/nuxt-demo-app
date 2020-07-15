@@ -34,7 +34,7 @@
     .your-cart_total
         .count
             span.subtotal subtotal
-            span.value € {{ totalCount  }}
+            span.value € {{ totalCount  }}.00 EUR
         .caption Shipping and taxes calculated at checkout
         nuxt-link(:to="localePath(`/checkout`)").ui-button.ui-button--big.ui-button--full-green Buy Now
 </template>
@@ -55,18 +55,13 @@ export default {
       return parseFloat((price * qnt).toFixed(2));
     },
     changeQuantity(quantity, item) {
-      console.log("setting qnt", quantity);
-
       this.$store.commit("cart/add", {
         product: item.product,
         qnt: quantity
       });
     },
     deleteItem(item) {
-      console.log("delete tru");
       if (confirm("Vai tiešām vēlaties dzēst?")) {
-        console.log("delete");
-
         this.$store.commit("cart/delete", item);
       }
     }

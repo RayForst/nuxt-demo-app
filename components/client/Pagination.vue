@@ -28,6 +28,13 @@ export default {
       this.active = index;
       this.$emit("newpage", index);
 
+      // created by lazy load issue fix
+      document
+        .querySelectorAll(".products .bg-image")
+        .forEach(function(sandwich, index) {
+          sandwich.style.backgroundImage = "none";
+        });
+
       // Scroll into view
       document.getElementsByClassName("list")[0].scrollIntoView();
 

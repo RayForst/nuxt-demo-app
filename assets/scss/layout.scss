@@ -5,3 +5,21 @@
 
 @import "./layout-default";
 @import "./layout-admin";
+
+.lazyLoad {
+  opacity: 0;
+  transition: opacity 0.4s ease-out;
+
+  &.isLoaded {
+    opacity: 1 !important;
+
+    &:before {
+      opacity: 1 !important;
+    }
+  }
+
+  &:before {
+    opacity: 0;
+    transition: opacity 0.4s ease-out;
+  }
+}

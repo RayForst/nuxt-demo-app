@@ -15,7 +15,6 @@ export default {
   },
   methods: {
     inc() {
-      console.log("increase 2");
       let qnt = this.quantity + 1;
       this.qnt = `${qnt} gab.`;
 
@@ -37,7 +36,6 @@ export default {
       let matches = this.qnt.match(regex);
       let quantity = Math.abs(matches.join(""));
 
-      console.log("quantity", quantity > 1 ? quantity : 1);
       return quantity > 1 ? quantity : 1;
     }
   },

@@ -148,7 +148,6 @@ export default {
   },
   methods: {
     changeQuantity(count) {
-      console.log("changeQuantity", count);
       this.qnt = count;
     },
     addToCart() {

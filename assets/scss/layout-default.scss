@@ -92,6 +92,12 @@
         background: #fff;
         color: var(--c_primary);
       }
+
+      &:disabled {
+        &:hover {
+          color: #fff !important;
+        }
+      }
     }
   }
 

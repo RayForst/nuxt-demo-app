@@ -49,15 +49,13 @@ export default {
   metaInfo: {
     title: "Example Event"
   },
-  async asyncData({ $axios, params }) {
+  async asyncData({ app, params }) {
     try {
-      const event = await $axios.$get("/event", {
+      const event = await app.$api("get", "event", {
         params: {
           slug: params.slug
         }
       });
-
-      console.log("found event", event);
 
       return { event };
     } catch (err) {

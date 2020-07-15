@@ -2,7 +2,7 @@
   div.static
     section.hero
       div.bg-image.hero-main.bg-hero(
-        :style="{ backgroundImage: `url(${image})` }"
+        :lazy-background="image"
       )
         .content-container.content
           .row.center-xs.start-lg
@@ -32,7 +32,6 @@ import appSubscribe from "@/components/client/Subscribe";
 export default {
   async asyncData({ $axios, params }) {
     try {
-      console.log("test");
       let showPartnerForm = false;
 
       const item = await $axios.$get("/static", {
@@ -43,9 +42,6 @@ export default {
 
       item.text = item.text.split("&lt;").join("<");
       item.text = item.text.split("&gt;").join(">");
-      console.log(item);
-
-      console.log("END");
 
       const productCategory = await $axios.$get("/settings/priority");
       const products = await $axios.$get("/products/priority", {
@@ -105,6 +101,7 @@ h1 {
 
 .bg-hero {
   background-image: url("/images/banner2.jpg");
+  opacity: 0;
 }
 
 .image-wrap {

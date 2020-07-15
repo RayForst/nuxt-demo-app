@@ -12,10 +12,15 @@ const sequelize = new Sequelize(
   DATABASE_CONFIG.options
 );
 
-fs.readdirSync(__dirname)
+fs.readdirSync("/home/sergei/Projects/nuxt-express-boilerplate/server/models")
   .filter(file => file !== "index.js")
   .forEach(file => {
-    const model = sequelize.import(path.join(__dirname, file));
+    const model = sequelize.import(
+      path.join(
+        "/home/sergei/Projects/nuxt-express-boilerplate/server/models",
+        file
+      )
+    );
     db[model.name] = model;
   });
 

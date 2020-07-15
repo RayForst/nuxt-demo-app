@@ -1,8 +1,5 @@
 module.exports = {
   mode: "universal",
-  /*
-   ** Headers of the page
-   */
   head: {
     title: process.env.npm_package_name || "",
     meta: [
@@ -25,22 +22,17 @@ module.exports = {
         rel: "stylesheet",
         href:
           "https://cdnjs.cloudflare.com/ajax/libs/flexboxgrid/6.3.1/flexboxgrid.css"
+      },
+      {
+        rel: "stylesheet",
+        href:
+          "https://fonts.googleapis.com/css2?family=Lora&family=Montserrat:wght@300;400;500;600;700&display=swap"
       }
     ]
   },
-  /*
-   ** Customize the progress-bar color
-   */
   loading: { color: "#fff" },
-  /*
-   ** Global CSS
-   */
   css: ["@/assets/scss/layout.scss"],
-  /*
-   ** Plugins to load before mounting the App
-   */
   plugins: [
-    { src: "~plugins/font-loader", mode: "client" },
     { src: "~plugins/slide", mode: "client" },
     { src: "~plugins/vue-tabs", mode: "client" },
     { src: "~plugins/notifications", mode: "client" },
@@ -48,25 +40,14 @@ module.exports = {
     { src: "~plugins/json-editor", mode: "client" },
     { src: "~plugins/owl-carousel", mode: "client" },
     { src: "~plugins/validation", mode: "client" },
+    { src: "~/plugins/api-context.client.js", mode: "client" },
+    { src: "~/plugins/api-context.server.js", mode: "server" },
+    { src: "~/plugins/readmore.js", mode: "client" },
     { src: "~plugins/i18n.js" },
     { src: "~plugins/toLocale" }
   ],
-  /*
-   ** Nuxt.js dev-modules
-   */
   buildModules: [],
-  /*
-   ** Nuxt.js modules
-   */
-  modules: [
-    "@nuxtjs/axios",
-    [
-      "nuxt-i18n",
-      {
-        /* module options */
-      }
-    ]
-  ],
+  modules: ["@nuxtjs/axios", "nuxt-lazy-load", ["nuxt-i18n", {}]],
   axios: {
     prefix: "/apii/"
   },
@@ -116,14 +97,21 @@ module.exports = {
     },
     { path: "/apii", handler: "~/server/api-server.js" }
   ],
-  router: {},
-  /*
-   ** Build configuration
-   */
+  router: {
+    extendRoutes(routes, resolve) {
+      // routes.push({
+      //   name: "custom",
+      //   path: "/products/:slug/:subcategory",
+      //   component: resolve(__dirname, "pages/products/_slug/index.vue")
+      // });
+      // routes.push({
+      //   name: "custom2",
+      //   path: "/products/:slug/lines/:line",
+      //   component: resolve(__dirname, "pages/products/_slug/index.vue")
+      // });
+    }
+  },
   build: {
-    /*
-     ** You can extend webpack config here
-     */
     extend(config, ctx) {}
   }
 };
