@@ -21,7 +21,7 @@ import appProducts from "@/components/client/Products/List";
 import appSubscribe from "@/components/client/Subscribe";
 
 export default {
-  async asyncData({ app, $axios, $toLocale, params }) {
+  async asyncData({ app, $toLocale, params }) {
     try {
       let lines = await app.$api("get", "product-lines", {});
       let links = await app.$api("get", "categories/subcategories", {

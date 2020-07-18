@@ -4,7 +4,7 @@
   )
     .image-wrap.scale-container
       .bg-image.scale-image(
-        :style="{ backgroundImage: 'url(/uploads/' + image + ')' }"
+        :lazy-background="`/uploads/${image}`"
       )
     .vertical-container.item-details
       .name {{ $toLocale(content, 'name', $i18n.locale) }}

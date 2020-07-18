@@ -1,7 +1,8 @@
 <template lang="pug">
   .page-list-item(@click="goEvent")
     .image-wrap.bg-image(
-      :style="image ? { backgroundImage: 'url(/uploads/' + image + ')'} : { backgroundColor: '#103324'}"
+      :lazy-background="image ? `/uploads/${image}` : false"
+      :style="!image ? { backgroundColor: '#103324'} : false"
     )
     .container(
       :class="{ small: small }"

@@ -18,9 +18,9 @@ export default {
   metaInfo: {
     title: "Events"
   },
-  async asyncData({ $axios }) {
+  async asyncData({ app }) {
     try {
-      const events = await $axios.$get("/events");
+      const events = await app.$api("get", "events");
 
       return { events };
     } catch (err) {

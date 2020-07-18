@@ -41,7 +41,6 @@ export const mutations = {
     localStorage.setItem("cart", JSON.stringify(state.items));
   },
   delete(state, data) {
-    console.log("delete data", data);
     const existIndex = state.items.findIndex(x => x.product.id === data.id);
 
     if (existIndex >= 0) {

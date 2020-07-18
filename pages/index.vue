@@ -20,18 +20,18 @@ import appRecentPosts from "@/components/client/Articles/Preview";
 import appSubscribe from "@/components/client/Subscribe";
 
 export default {
-  async asyncData({ $axios }) {
+  async asyncData({ app }) {
     try {
-      const heroEvents = await $axios.$get("/events/hero");
-      const productCategory = await $axios.$get("/settings/priority");
-      const products = await $axios.$get("/products/priority", {
+      const heroEvents = await app.$api("get", "events/hero");
+      const productCategory = await app.$api("get", "settings/priority");
+      const products = await app.$api("get", "products/priority", {
         params: {
           category: productCategory[0].priorityOnMain
         }
       });
 
       const displayCategory = products[0];
-      const recentArticles = await $axios.$get("/articles/recent");
+      const recentArticles = await app.$api("get", "articles/recent");
 
       return { heroEvents, products, displayCategory, recentArticles };
     } catch (err) {

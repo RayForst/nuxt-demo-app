@@ -1,24 +1,14 @@
-export const state = () => ({
-  counter: 0
-});
+export const state = () => ({});
 
-export const mutations = {
-  increment(state) {
-    state.counter++;
-  }
-};
+export const mutations = {};
 
 export const actions = {
   async nuxtServerInit({ commit, dispatch }, { req }) {
     await dispatch("storeDispatchFunc");
   },
   async storeDispatchFunc({ commit }) {
-    const res = await this.$axios.get("settings");
-    const menu = await this.$axios.get("menu");
-    const cat = await this.$axios.get("categories");
-
-    commit("settings/init", res.data[0]);
-    commit("menu/init", menu.data);
-    commit("menu/initCatrgories", cat.data);
+    commit("settings/init", await this.app.$api("get", "settings"));
+    commit("menu/init", await this.app.$api("get", "menu"));
+    commit("menu/initCatrgories", await this.app.$api("get", "categories"));
   }
 };

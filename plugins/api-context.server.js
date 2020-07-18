@@ -3,7 +3,8 @@ export default (context, inject) => {
     try {
       if (method === "get") {
         params = {
-          query: params.params
+          query:
+            params && params.hasOwnProperty("params") ? params.params : null
         };
       }
       const action =

@@ -30,11 +30,11 @@ import appProducts from "@/components/client/Products/ListPreview";
 import appSubscribe from "@/components/client/Subscribe";
 
 export default {
-  async asyncData({ $axios, params }) {
+  async asyncData({ app, params }) {
     try {
       let showPartnerForm = false;
 
-      const item = await $axios.$get("/static", {
+      const item = await app.$api("get", "static", {
         params: {
           slug: params.slug
         }
@@ -43,8 +43,8 @@ export default {
       item.text = item.text.split("&lt;").join("<");
       item.text = item.text.split("&gt;").join(">");
 
-      const productCategory = await $axios.$get("/settings/priority");
-      const products = await $axios.$get("/products/priority", {
+      const productCategory = await app.$api("get", "settings/priority");
+      const products = await app.$api("get", "products/priority", {
         params: {
           category: productCategory[0].priorityOnMain
         }

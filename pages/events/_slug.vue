@@ -9,7 +9,7 @@
   )
   section.hero
     .bg-image.hero-main.bg-hero(
-        :style="{ backgroundImage: `url(${image})` }"
+                      :lazy-background="image"
       )
       .content-container.content
         .row.center-xs
@@ -31,7 +31,7 @@
           )
             .square-block(
               v-for="(src, index) in gallery"
-              :style="{ backgroundImage: 'url(' + src + ')' }"
+              :lazy-background="src"
               @click="() => showImg(index)"
             )
   .spacer

@@ -14,3 +14,22 @@
   transition: opacity 0.7s cubic-bezier(0.47, 0.37, 0, 1.02);
   opacity: 0;
 }
+
+// FADE
+.fade-small-enter {
+  opacity: 0;
+}
+
+.fade-small-enter-active {
+  transition: opacity 0.5s cubic-bezier(0.47, 0.37, 0, 1.02);
+}
+
+.fade-small-leave {
+  opacity: 0;
+  transition: none !important;
+}
+
+.fade-small-leave-active {
+  opacity: 0;
+  transition: none !important;
+}

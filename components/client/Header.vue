@@ -12,21 +12,21 @@
               a.phone(
                 :href="'tel:+371'+phone.replace(/ /g, '')"
               )
-                img(src="/icons/phone-footer.svg" alt="")
+                img(v-lazy-load data-src="/icons/phone-footer.svg" alt="")
                 | {{ phone }}
             .menu-line
             .horizontal-container.cart-container
               nuxt-link.cart(
                 :to="localePath(`/cart`)"
               )
-                img(src="/icons/cart.svg" alt="")
+                img(v-lazy-load data-src="/icons/cart.svg" alt="")
                 b {{ totalQuantity }}
               .cart-popup
                 .cart-popup-inner
                   .cart-popup-items
                     .item(v-for="item, i in $store.state.cart.items" :key="i")
                       span.image
-                        img(:src="`/uploads/${image(item.product)}`")
+                        img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
                       span.details
                         nuxt-link.title(
                           :to="localePath(`/product/${item.product.slug}`)"

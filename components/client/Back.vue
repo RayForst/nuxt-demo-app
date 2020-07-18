@@ -3,7 +3,7 @@
     .col-xs-10.col-lg-12
       a.back(@click.prevent="goBack" href="/")
         img(
-          src="/icons/arrow.svg"
+          v-lazy-load data-src="/icons/arrow.svg"
         )
         | {{ $t('back') }}
 </template>

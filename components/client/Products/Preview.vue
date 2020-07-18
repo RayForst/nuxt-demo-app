@@ -19,13 +19,13 @@
                     :nav="false"
                   )
                     .square-block(
+                      :lazy-background="src"
                       v-for="(src, index) in gallery"
-                      :style="{ backgroundImage: 'url(' + src + ')' }"
                       @click="() => showImg(index)"
                     )
                 .carousel-wrap(v-else)
                   .square-block(
-                    :style="{ backgroundImage: 'url(' + image + ')' }"
+                      :lazy-background="image"
                   )
               .col-xs-6.sm-desc
                 .name {{ $toLocale(product, 'name', $i18n.locale) }}
@@ -37,11 +37,11 @@
                   .share-list
                     a(href="#").item
                       img(
-                        src="/icons/fb-share.svg"
+                        v-lazy-load data-src="/icons/fb-share.svg"
                       )
                     a(href="#").item
                       img(
-                        src="/icons/twitter-share.svg"
+                        v-lazy-load data-src="/icons/twitter-share.svg"
                       )
           .media_desktop-and-mob
             .row.relative
@@ -60,12 +60,12 @@
                   )
                     .square-block(
                       v-for="(src, index) in gallery"
-                      :style="{ backgroundImage: 'url(' + src + ')' }"
+                      :lazy-background="src"
                       @click="() => showImg(index)"
                     )
                 .carousel-wrap(v-else)
                   .square-block(
-                    :style="{ backgroundImage: 'url(' + image + ')' }"
+                      :lazy-background="image"
                   )
               .col-xs-12
                 .share
@@ -73,41 +73,29 @@
                   .share-list
                     a(href="#").item
                       img(
-                        src="/icons/fb-share.svg"
+                        v-lazy-load data-src="/icons/fb-share.svg"
                       )
                     a(href="#").item
                       img(
-                        src="/icons/twitter-share.svg"
+                        v-lazy-load data-src="/icons/twitter-share.svg"
                       )
                 
       .col-xs-10.col-lg-6.pre-line.col-padding
         .tabs-wrap
           .tabs
-            .tabs-label(
-              v-text="$t('products.tab1')"
-              v-on:click="changeTab"
-              class="active"
-              data-index="1"
-            )
-            .tabs-content(
-              v-html="$toLocale(product, 'description', $i18n.locale)"
-            )
-            .tabs-label(
-              v-text="$t('products.tab2')"
-              v-on:click="changeTab"
-              data-index="2"
-            )
-            .tabs-content(
-              v-html="$toLocale(product, 'howtouse', $i18n.locale)"
-            )
-            .tabs-label(
-              v-text="$t('products.tab3')"
-              v-on:click="changeTab"
-              data-index="3"
-            )
-            .tabs-content(
-              v-html="$toLocale(product, 'ingridients', $i18n.locale)"
-            )
+            template(v-for="tab, key in tabs")
+              .tabs-label(
+                v-text="$t(tab.title_i18n_key)"
+                v-on:click="changeTab(key)"
+                :key="key"
+                :data-index="key+1"
+              )
+              transition(name="fade-small" mode="out-in")
+                .tabs-content(
+                  v-show="tab.active"
+                  :key="`${key}_content`"
+                  v-html="$toLocale(product, tab.content_i18n_key, $i18n.locale)"
+                )
         .quantity-select(
           style="text-align:left;"
         )
@@ -140,7 +128,24 @@ export default {
       galleryVisible: false,
       index: 0,
       added: false,
-      qnt: 1
+      qnt: 1,
+      tabs: [
+        {
+          title_i18n_key: "products.tab1",
+          content_i18n_key: "description",
+          active: true
+        },
+        {
+          title_i18n_key: "products.tab2",
+          content_i18n_key: "howtouse",
+          active: false
+        },
+        {
+          title_i18n_key: "products.tab3",
+          content_i18n_key: "ingridients",
+          active: false
+        }
+      ]
     };
   },
   components: {
@@ -169,11 +174,15 @@ export default {
       document.body.classList.remove("hidden-scroll");
     },
     changeTab(e) {
-      for (let item of document.querySelectorAll(".tabs-label")) {
-        item.classList.remove("active");
-      }
+      // for (let item of document.querySelectorAll(".tabs-label")) {
+      //   item.classList.remove("active");
+      // }
 
-      e.target.classList.add("active");
+      // e.target.classList.add("active");
+      this.tabs.forEach((element, index) => {
+        this.tabs[index].active = false;
+        if (index === e) this.tabs[index].active = true;
+      });
     }
   },
   computed: {
@@ -396,13 +405,13 @@ export default {
   @media #{$media_md} {
     padding-top: 70px;
 
-    &-content {
-      display: none;
-    }
+    // &-content {
+    //   display: none;
+    // }
 
-    &-label.active + &-content {
-      display: block;
-    }
+    // &-label.active + &-content {
+    //   display: block;
+    // }
   }
 }
 </style>

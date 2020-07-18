@@ -20,7 +20,7 @@
                     input(type="radio" name="payment-type" value="paypal" v-model="payment")
                     .ui-checkbox-preview
                 .label-text
-                    img(src="/icons/paypal.svg")
+                    img(v-lazy-load data-src="/icons/paypal.svg")
             slide-up-down(
                 :active="payment === 'paypal'"
                 :duration="200"

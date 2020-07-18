@@ -18,15 +18,15 @@ import appProducts from "@/components/client/Products/ListPreview";
 import appCallback from "@/components/client/CallMeBack/Index";
 
 export default {
-  async asyncData({ $axios, params }) {
+  async asyncData({ app, params }) {
     try {
-      const product = await $axios.$get("/product", {
+      const product = await app.$api("get", "product", {
         params: {
           slug: params.slug
         }
       });
 
-      const relatedProducts = await $axios.$get("/products/priority", {
+      const relatedProducts = await app.$api("get", "products/priority", {
         params: {
           category: product.ProductSubcategory.ProductCategory.id
         }

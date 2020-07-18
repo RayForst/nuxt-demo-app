@@ -5,7 +5,7 @@
     .your-cart_items.your-cart_items-small
         .item(v-for="item, i in $store.state.cart.items" :key="i")
             span.image
-                img(:src="`/uploads/${image(item.product)}`")
+                img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
             span.title {{ $toLocale(item.product, 'name', $i18n.locale) }} x {{ item.quantity }}
             span.total € {{ total(10, item.quantity) }}.00
 

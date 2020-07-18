@@ -4,7 +4,7 @@
     :to="localePath(`/articles/${item.slug}`)"
   )
     .image-wrap.article-small.bg-image(
-      :style="{ backgroundImage: 'url(/uploads/' + image + ')' }"
+      :lazy-background="`/uploads/${image}`"
     ) 
     .name(
       v-text="$toLocale(item, 'name', $i18n.locale)"

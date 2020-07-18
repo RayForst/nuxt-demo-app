@@ -10,7 +10,7 @@
             span total
         .item(v-for="item, i in $store.state.cart.items" :key="i")
             span.image
-                img(:src="`/uploads/${image(item.product)}`")
+                img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
             span.details 
                 nuxt-link.title(
                   :to="localePath(`/product/${item.product.slug}`)"
@@ -25,7 +25,7 @@
               .cart-item-delete(
                 @click="deleteItem(item.product)"
               )
-                img(src="/icons/delete.svg")
+                img(v-lazy-load data-src="/icons/delete.svg")
                 span Delete
             span.total € {{ total(10.00, item.quantity ) }}
         template(v-if="$store.state.cart.items.length === 0")

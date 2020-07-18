@@ -6,7 +6,7 @@
       @click="open = !open"
     )
       img.callback-icon(
-        src="/icons/widget-callback__icon.png"
+        v-lazy-load data-src="/icons/widget-callback__icon.png"
       )
       .callback-text
         div {{ $t('callback.title') }}

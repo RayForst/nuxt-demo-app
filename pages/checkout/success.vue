@@ -5,7 +5,7 @@
     )
     .checkout
         .successful
-            img(src="/icons/cart-success.svg")
+            img(v-lazy-load data-src="/icons/cart-success.svg")
             h1 Payment Successfull
             h2 We have received your payment, thank you
             nuxt-link(:to="localePath('/')").ui-button.ui-button--big.ui-button--full-green Back to Shop

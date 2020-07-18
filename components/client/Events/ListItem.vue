@@ -3,7 +3,7 @@
     @click="$router.push(localePath(`/events/${content.slug}`))"
   )
     .image-wrap.bg-image(
-      :style="{ backgroundImage: 'url(/uploads/' + image + ')' }"
+      :lazy-background="`/uploads/${image}`"
     )
     .container
       .slide-container

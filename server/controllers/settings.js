@@ -6,8 +6,9 @@ const Op = Sequelize.Op;
 
 async function index() {
   try {
-    return await Model.findAll({
-      raw: true
+    return await Model.findOne({
+      raw: true,
+      order: [["createdAt", "DESC"]]
     });
   } catch (err) {
     return {};

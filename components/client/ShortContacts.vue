@@ -8,21 +8,21 @@
             :href="`https://www.google.com/maps/place/${encodeURIComponent(address)}`"
           )
             .icon-wrap
-              img.icon(src="/icons/location-footer.svg" alt="")
+              img.icon(v-lazy-load data-src="/icons/location-footer.svg" alt="")
             | {{ address }}
         .col-xs-12
           a.contact-item(
             :href="'tel:+371'+phone.replace(/ /g, '')"
           )
             .icon-wrap
-              img.icon(src="/icons/phone-footer.svg" alt="")
+              img.icon(v-lazy-load data-src="/icons/phone-footer.svg" alt="")
             | {{ phone }}
         .col-xs-12
           a.contact-item(
             :href="`mailto:${mail}`"
           )
             .icon-wrap
-              img.icon(src="/icons/mail-footer.svg" alt="")
+              img.icon(v-lazy-load data-src="/icons/mail-footer.svg" alt="")
             | {{ mail }}
     template(v-else)
       a.contact-item(
@@ -30,19 +30,19 @@
         :href="`https://www.google.com/maps/place/${encodeURIComponent(address)}`"
       )
         .icon-wrap 
-          img.icon(src="/icons/location-footer.svg" alt="")
+          img.icon(v-lazy-load data-src="/icons/location-footer.svg" alt="")
         | {{ address }}
       a.contact-item(
         :href="'tel:+371'+phone.replace(/ /g, '')"
       )
         .icon-wrap
-          img.icon(src="/icons/phone-footer.svg" alt="")
+          img.icon(v-lazy-load data-src="/icons/phone-footer.svg" alt="")
         | {{ phone }}
       a.contact-item(
         :href="`mailto:${mail}`"
       )
         .icon-wrap
-          img.icon(src="/icons/mail-footer.svg" alt="")
+          img.icon(v-lazy-load data-src="/icons/mail-footer.svg" alt="")
         | {{ mail }}
 </template>
 

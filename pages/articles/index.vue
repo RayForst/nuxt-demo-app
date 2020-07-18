@@ -17,9 +17,9 @@ import appRecentPosts from "@/components/client/Articles/List";
 import appPagination from "@/components/client/Pagination";
 
 export default {
-  async asyncData({ $axios }) {
+  async asyncData({ app }) {
     try {
-      const articles = await $axios.$get("/articles");
+      const articles = await app.$api("get", "articles");
 
       return { articles };
     } catch (err) {

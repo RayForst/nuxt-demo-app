@@ -9,7 +9,7 @@
                 .container.text-start(v-if="article")
                     h1 {{ $toLocale(article, 'name', $i18n.locale) }}
                     img.width-100(
-                        :src="'/uploads/'+image"
+                        v-lazy-load :data-src="'/uploads/'+image"
                     )
                 .container.text-start
                     p(
@@ -36,15 +36,15 @@ import appBack from "@/components/client/Back";
 import appRecentPosts from "@/components/client/Articles/Recent";
 
 export default {
-  async asyncData({ $axios, params }) {
+  async asyncData({ app, params }) {
     try {
-      const article = await $axios.$get("/article", {
+      const article = await app.$api("get", "article", {
         params: {
           slug: params.slug
         }
       });
 
-      const recentArticles = await $axios.$get("/articles");
+      const recentArticles = await app.$api("get", "articles");
 
       return { article, recentArticles };
     } catch (err) {
