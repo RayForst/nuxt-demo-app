@@ -1,30 +1,19 @@
 <template lang="pug">
-.article
-    .content-container.content
-        .row
-            .col-xs-12.start-xs
-                app-back
-        .row.center-xs
-            transition(name="fade-mid" mode="out-in")
-              nuxt-child
-            .col-xs-10.col-lg-3.aside
-                .offset-heading
-                    .offset-heading__text(
-                        v-html="$t('recentPosts')"
-                        )
-                .article-list
-                    app-recent-posts(
-                        v-for="item, index in recentArticles.slice(0, 6)" 
-                        :key="index" 
-                        :item="item"
-                    )
-        .spacer
+.col-xs-10.col-lg-9.article-conntainer
+  .container.text-start
+      h1 {{ $toLocale(article, 'name', $i18n.locale) }}
+      img.width-100(
+          v-lazy-load :data-src="'/uploads/'+image"
+      )
+  .container.text-start
+      p(
+          v-if="article"
+          v-html="$toLocale(article, 'text', $i18n.locale)"
+      )
+      .spacer
 </template>
 
 <script>
-import appBack from "@/components/client/Back";
-import appRecentPosts from "@/components/client/Articles/Recent";
-
 export default {
   async asyncData({ app, params }) {
     try {
@@ -34,16 +23,10 @@ export default {
         }
       });
 
-      const recentArticles = await app.$api("get", "articles");
-
-      return { article, recentArticles };
+      return { article };
     } catch (err) {
       console.log(err.path, err.statusMessage);
     }
-  },
-  components: {
-    appBack,
-    appRecentPosts
   },
   computed: {
     image() {
@@ -51,18 +34,6 @@ export default {
         ? this.article.image.split(",")[0]
         : "default.png";
     }
-  },
-  beforeRouteUpdate(to, from, next) {
-    console.log("WATCH");
-
-    // created by lazy load issue fix
-    document
-      .querySelectorAll(".article-conntainer img.width-100")
-      .forEach(function(sandwich, index) {
-        sandwich.style.backgroundImage = "none";
-      });
-
-    next();
   }
 };
 </script>
@@ -124,6 +95,10 @@ h1 {
 .article-conntainer {
   @media #{$media_lg} {
     padding-right: 30px;
+  }
+
+  img {
+    opacity: 0;
   }
 }
 
