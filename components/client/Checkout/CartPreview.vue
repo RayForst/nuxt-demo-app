@@ -7,7 +7,7 @@
             span.image
                 img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
             span.title {{ $toLocale(item.product, 'name', $i18n.locale) }} x {{ item.quantity }}
-            span.total € {{ total(10, item.quantity) }}.00
+            span.total € {{ total(item.product.price, item.quantity) }} EUR
 
     form.coupon
       input.ui-input(type="text" placeholder="Discount code")
@@ -16,20 +16,20 @@
     .checkout-math
         .line.split-2
             span subtotal
-            span.total € {{ totalCount  }}.00 EUR
+            span.total € {{ totalCount  }} EUR
         .line.split-2
             span Shipping
             template(v-if="step === 3")
               span(v-if="!shipping") Free
-              span(v-else) € {{ shipping }}.00 EUR
+              span(v-else) € {{ shipping }} EUR
             template(v-else)
               span Calculated at next step
         .line.split-2.total
             span total
             template(v-if="step === 3")
-              span.total.big € {{ totalCount + shipping }}.00 EUR
+              span.total.big € {{ totalCount + shipping }} EUR
             template(v-else)
-              span.total.big € {{ totalCount  }}.00 EUR
+              span.total.big € {{ totalCount  }} EUR
 </template>
 
 <script>
@@ -44,7 +44,7 @@ export default {
         : "default.png";
     },
     total(price, qnt) {
-      return parseFloat((price * qnt).toFixed(2));
+      return (price * qnt).toFixed(2);
     }
   },
   computed: {

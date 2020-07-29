@@ -16,7 +16,7 @@
                   :to="localePath(`/product/${item.product.slug}`)"
                 ) {{ $toLocale(item.product, 'name', $i18n.locale) }}
                 span.caption {{ $toLocale(item.product.ProductSubcategory, 'name', $i18n.locale) }}
-            span.price  € 10.00
+            span.price  € {{ item.product.price }}
             span.qnt
               app-product-quantity(
                 @quantityChange="changeQuantity(...arguments, item)"
@@ -27,14 +27,14 @@
               )
                 img(v-lazy-load data-src="/icons/delete.svg")
                 span Delete
-            span.total € {{ total(10.00, item.quantity ) }}
+            span.total € {{ total(item.product.price, item.quantity ) }}
         template(v-if="$store.state.cart.items.length === 0")
           .no-items
             | No items in yout cart yet
     .your-cart_total
         .count
             span.subtotal subtotal
-            span.value € {{ totalCount  }}.00 EUR
+            span.value € {{ totalCount  }} EUR
         .caption Shipping and taxes calculated at checkout
         nuxt-link(:to="localePath(`/checkout`)").ui-button.ui-button--big.ui-button--full-green Buy Now
 </template>
@@ -52,7 +52,7 @@ export default {
         : "default.png";
     },
     total(price, qnt) {
-      return parseFloat((price * qnt).toFixed(2));
+      return (price * qnt).toFixed(2);
     },
     changeQuantity(quantity, item) {
       this.$store.commit("cart/add", {
@@ -192,6 +192,7 @@ export default {
         font-size: 20px;
         padding: 20px 0;
         display: block;
+        line-height: 30px;
 
         @media #{$media_lg} {
           padding: 0;
@@ -202,6 +203,7 @@ export default {
       .total {
         text-align: right;
         display: none;
+        line-height: 30px;
 
         @media #{$media_lg} {
           display: block;

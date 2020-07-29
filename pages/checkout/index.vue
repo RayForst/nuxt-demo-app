@@ -19,7 +19,7 @@
               v-on:submit.prevent="sendForm"
             )
               .shipping  
-                h2 Customer information {{ form.status }}
+                h2 Customer information
 
                 .ui-box-form.shipping-address_form.form-box
                   ValidationProvider(
@@ -528,6 +528,10 @@ export default {
     line-height: 26px;
     margin: 0;
     margin-bottom: 8px;
+
+    @media #{$media_md} {
+      margin-bottom: 30px;
+    }
     /* identical to box height */
 
     color: #000000;

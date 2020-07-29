@@ -24,17 +24,21 @@
               .cart-popup
                 .cart-popup-inner
                   .cart-popup-items
-                    .item(v-for="item, i in $store.state.cart.items" :key="i")
+                    .item(v-for="item, i in $store.state.cart.items.slice(0, 3)" :key="i")
                       span.image
                         img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
                       span.details
                         nuxt-link.title(
                           :to="localePath(`/product/${item.product.slug}`)"
                         ) {{ $toLocale(item.product, 'name', $i18n.locale) }} x {{ item.quantity }}
-                        span.price  € 10.00
+                        span.price  € {{  item.product.price}}
+                  .view-all(v-if="$store.state.cart.items.length > 3")
+                    nuxt-link.cart(
+                      :to="localePath(`/cart`)"
+                    ) View all products in cart ({{ totalQuantity }})
                   .subtotal
                     span subtotal
-                    span € {{ totalCount }}.00 EUR
+                    span € {{ totalCount }} EUR
                   nuxt-link.ui-button.ui-button--full-green(:to="localePath(`/cart`)") CHECKOUT
             .menu-line
             .lang-container.dropdown-container
@@ -119,6 +123,13 @@ header.main {
         .ui-button {
           width: 100%;
           box-sizing: border-box;
+        }
+        .view-all {
+          text-align: center;
+          a {
+            padding: 10px;
+            padding-top: 20px;
+          }
         }
         .subtotal {
           display: flex;

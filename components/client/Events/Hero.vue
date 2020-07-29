@@ -1,5 +1,7 @@
 <template lang="pug">
-section.hero
+section.hero(
+  ref="hero"
+)
   carousel(
     loop=true 
     :items=1
@@ -12,7 +14,7 @@ section.hero
     div.container.bg-image.hero-main(
       v-for="event, i in events" 
       :key="i"
-      :lazy-background="image(event)"
+      :style="{ 'background-image': `url(${image(event)})` }"
     )
       .row.center-xs.height-100
         .col-xs-11.col-md-7.align-center.text-center.text-container
@@ -47,6 +49,9 @@ export default {
     date(start, end) {
       return DateService.eventDate(start, end);
     }
+  },
+  mounted() {
+    this.$refs.hero.style.opacity = 1;
   }
 };
 </script>
@@ -57,8 +62,10 @@ export default {
 .hero {
   height: 520px;
   // background: #f7f7f7;
+  transition: opacity 0.4s ease-out;
   margin-bottom: 20px;
   overflow: hidden;
+  opacity: 0;
 
   @media #{$media_sm} {
     height: 590px;
@@ -114,7 +121,6 @@ a {
 .hero-main {
   height: 520px;
   position: relative;
-  opacity: 0;
 
   @media #{$media_sm} {
     height: 442px;

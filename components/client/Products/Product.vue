@@ -1,7 +1,7 @@
 <template lang="pug">
   .product(
     @click="$router.push(localePath(`/product/${content.slug}`))"
-    :class="{ newProduct: isNewProduct }"
+    :class="{ newProduct: content.isNew }"
   )
     .image-wrap.scale-container
       .scale-image.bg-image(
@@ -28,10 +28,6 @@ export default {
     };
   },
   methods: {
-    randomIntFromInterval(min, max) {
-      // min and max included
-      return Math.floor(Math.random() * (max - min + 1) + min);
-    },
     addToCart() {
       this.added = true;
       this.$store.commit("cart/add", {
@@ -47,10 +43,7 @@ export default {
         : "default.png";
     },
     price() {
-      return `€ ${this.randomIntFromInterval(
-        10,
-        30
-      )}.${this.randomIntFromInterval(10, 99)} EUR`;
+      return `€ ${this.content.price} EUR`;
     },
     isNewProduct() {
       return Math.random() >= 0.5;

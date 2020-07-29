@@ -37,6 +37,7 @@ export default {
     line-height: 26px;
     margin: 0;
     margin-bottom: 8px;
+    margin-bottom: 30px;
     /* identical to box height */
 
     color: #000000;

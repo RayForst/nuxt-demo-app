@@ -12,7 +12,7 @@
               v-if="canGoBack"
             ) Go back
 
-            nuxt-link.ui-btn.ui-secondary(
+            nuxt-link.ui-btn.ui-secondary.ui-button.ui-button--full-green(
               :to="localePath('/')"
               v-else
             ) Go home
@@ -40,7 +40,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-
 .code {
   font-size: 84px;
   color: #4a4a4a;

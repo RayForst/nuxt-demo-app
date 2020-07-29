@@ -14,6 +14,10 @@
     text-align: center;
     background: transparent;
     user-select: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
     &:active {
       transform: translate(0, 1px);
     }

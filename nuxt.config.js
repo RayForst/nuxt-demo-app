@@ -49,7 +49,9 @@ module.exports = {
   buildModules: [],
   modules: ["@nuxtjs/axios", "nuxt-lazy-load", ["nuxt-i18n", {}]],
   axios: {
-    prefix: "/apii/"
+    prefix: "/apii/",
+    browserBaseUrl: "http://127.0.0.1:280/apii/",
+    port: 280
   },
   i18n: {
     locales: [
