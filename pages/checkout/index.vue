@@ -254,7 +254,7 @@
                         )
                         span.i-form-error-message {{ errors[0] }}
               .controls
-                app-back
+                app-back(@back="goBack")
                 template(v-if="!pass")
                   button(type="submit" :disabled="!passed").ui-button.ui-button--big.ui-button--full-green Continue to shipping
                 template(v-else)
@@ -284,7 +284,7 @@
                 .price(v-if="method.price !== 0") € {{ method.price }}.00 EUR
                 .price(v-else) FREE
             .controls
-              app-back
+              app-back(@back="goBack")
               button(@click="sendForm").ui-button.ui-button--big.ui-button--full-green Continue to shipping
         template(v-if="form.step === 3")
           .box.entered-info
@@ -333,7 +333,7 @@
                       | un 
                       a(href="#") privatuma politikai
             .controls
-              app-back
+              app-back(@back="goBack")
               button(type="submit").ui-button.ui-button--big.ui-button--full-green Continue to Payment
         template(v-if="form.step === 4")
           h2 Redirecting to payment
@@ -344,7 +344,7 @@ import appCheckoutHistory from "@/components/client/Checkout/History";
 import appOrderPreview from "@/components/client/Checkout/OrderPreview2";
 import appShippingAddress from "@/components/client/Checkout/ShippingAddress";
 import appCustomerInformation from "@/components/client/Checkout/CustomerInformation";
-import appBack from "@/components/client/Back";
+import appBack from "@/components/client/BackCheckout";
 
 export default {
   layout: "checkout",
@@ -422,6 +422,15 @@ export default {
       if (this.form.step === 4) {
         this.$router.push(this.localePath(`/checkout/success`));
       }
+    },
+    goBack() {
+      if (this.form.step === 1) {
+        return this.$router.go(-1);
+      }
+
+      this.$refs.cont.scrollIntoView();
+
+      return --this.form.step;
     }
   },
   components: {
@@ -471,6 +480,8 @@ export default {
   },
   mounted() {
     const that = this;
+
+    // if (this.$store.state)
 
     // setTimeout(function() {
     //   console.log("FIRE");
@@ -900,6 +911,28 @@ export default {
     display: flex;
     justify-content: space-around;
     padding-bottom: 10px;
+  }
+}
+
+.back {
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: #7e8f97;
+  font-family: "Lora", sans-serif;
+  display: flex;
+  padding-top: 5px;
+  padding-bottom: 20px;
+  transition: opacity 0.3s ease;
+  text-decoration: none;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  img {
+    margin-right: 17px;
   }
 }
 </style>

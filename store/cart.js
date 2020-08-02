@@ -8,7 +8,7 @@ export const getters = {
 
     state.items.forEach(x => {
       console.log(x);
-      total += x.product.price * x.quantity;
+      total += ((x.product.price * 100) * (x.quantity * 100)) / 100;
     });
 
     return total;

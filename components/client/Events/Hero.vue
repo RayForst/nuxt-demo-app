@@ -8,8 +8,9 @@ section.hero(
     :dots="false" 
     :nav="false"
     :autoplay="true"
+    :rewind="true"
     :autoplayTimeout="5300"
-    :autoplaySpeed="700"
+    :autoplaySpeed="1000"
   )
     div.container.bg-image.hero-main(
       v-for="event, i in events" 

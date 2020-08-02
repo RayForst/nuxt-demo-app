@@ -58,6 +58,6 @@ p {
 }
 
 .sub-container {
-  padding: 25px 0 50px 0;
+  padding: 25px 0 35px 0;
 }
 </style>

@@ -87,6 +87,8 @@ footer.main {
   background-color: var(--c_gray3);
   color: #fff;
   padding: 50px 0 30px;
+  min-width: 320px;
+  overflow: hidden;
 }
 
 .container {

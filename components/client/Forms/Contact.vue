@@ -27,7 +27,9 @@
       template(v-if="success")
         .success {{ $t('contacts.form.success') }}
       template(v-else)
-        button.ui-button.ui-button--big.ui-button--full-green {{ $t('contacts.form.button') }}
+        button.ui-button.ui-button--big.ui-button--full-green(
+          style="min-width:220px;"
+        ) {{ $t('contacts.form.button') }}
 </template>
 
 <script>
@@ -55,33 +57,15 @@ export default {
   },
   methods: {
     async save() {
-      const $this = this;
-      $this.clearErrors();
+      this.clearErrors();
 
-      try {
-        let data = {
-          fullname: this.form.fullname.value,
-          email: this.form.email.value,
-          text: this.form.text.value
-        };
+      let data = {
+        fullname: this.form.fullname.value,
+        email: this.form.email.value,
+        text: this.form.text.value
+      };
 
-        console.log(data);
-        // const response = await contentService.contactRequest.save(data);
-
-        // $this.success = true;
-        // $this.clearForm();
-      } catch (err) {
-        // if (err.response.status === 422) {
-        //   err.response.data.errors.forEach(function(element) {
-        //     $this.form[element.param].error = element.msg;
-        //   });
-        // } else {
-        //   console.log("ERRR :", err.response);
-        //   if (err.response.data.error === "unique violation") {
-        //     this.serverError = this.errors.already_subscribe;
-        //   }
-        // }
-      }
+      this.$emit("contact-form-submit", data);
     },
     clearErrors() {
       this.serverError = "";

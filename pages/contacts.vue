@@ -7,7 +7,9 @@ div.static
       .col-xs-12.col-lg-6
         .container
           h1 {{ $t('contacts.title') }}
-          app-contact-form
+          app-contact-form(
+            v-on:contact-form-submit="test"
+          )
       .col-xs-12.col-lg-6
         .row.container
           .col-xs-12
@@ -39,6 +41,33 @@ export default {
   },
   data() {
     return {};
+  },
+  methods: {
+    test(items) {
+      console.log("test function", items);
+      this.save(items);
+    },
+    async save(data) {
+      console.log("inside save");
+      try {
+        const response = await this.$api("post", "contacts/save", data);
+
+        console.log("Response", response);
+        // $this.success = true;
+        // $this.clearForm();
+      } catch (err) {
+        // if (err.response.status === 422) {
+        //   err.response.data.errors.forEach(function(element) {
+        //     $this.form[element.param].error = element.msg;
+        //   });
+        // } else {
+        //   console.log("ERRR :", err.response);
+        //   if (err.response.data.error === "unique violation") {
+        //     this.serverError = this.errors.already_subscribe;
+        //   }
+        // }
+      }
+    }
   },
   mounted() {}
 };

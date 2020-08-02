@@ -7,7 +7,7 @@
           h1(v-else) An error occurred
           .message(v-html='message')
           div.back
-            a.ui-btn.ui-secondary(
+            a.ui-btn.ui-secondary.ui-button.ui-button--full-green(
               @click="$router.go(-1)"
               v-if="canGoBack"
             ) Go back

@@ -15,6 +15,23 @@ async function index() {
   }
 }
 
+async function coupon() {
+  try {
+    if (req.query.category) {
+      const item = await Model.findOne({
+        raw: true,
+        order: [["createdAt", "DESC"]]
+      });
+
+      return item.couponCodes;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    return {};
+  }
+}
+
 async function priority() {
   try {
     return await Models.Priority.findAll({
@@ -26,4 +43,4 @@ async function priority() {
   }
 }
 
-export { index, priority };
+export { index, coupon, priority };

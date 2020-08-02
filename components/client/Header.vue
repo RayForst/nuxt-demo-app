@@ -21,7 +21,7 @@
               )
                 img(v-lazy-load data-src="/icons/cart.svg" alt="")
                 b {{ totalQuantity }}
-              .cart-popup
+              .cart-popup(v-if="$store.state.cart.items.length")
                 .cart-popup-inner
                   .cart-popup-items
                     .item(v-for="item, i in $store.state.cart.items.slice(0, 3)" :key="i")
@@ -225,7 +225,7 @@ header.main {
       .cart-popup {
         @media #{$media_lg} {
           position: absolute;
-          top: 50px;
+          top: 40px;
           right: 0;
           display: inline-flex;
           flex-direction: column;
@@ -234,16 +234,8 @@ header.main {
       }
     }
 
-    b {
-      display: none;
-    }
-
     @media only screen and (min-width: 400px) {
       padding: 0 10px;
-
-      b {
-        display: inline;
-      }
     }
 
     @media only screen and (min-width: 700px) {
@@ -310,11 +302,31 @@ header.main {
   color: #103324;
   text-decoration: none;
   display: inline-flex;
+  position: relative;
+  z-index: 3;
+  width: 16px;
+  height: 16px;
 
   b {
     line-height: 19px;
     display: inline-flex;
     margin-left: 9px;
+
+    width: 18px;
+    height: 18px;
+    display: inline-flex;
+    background: #db696a;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    position: absolute;
+    top: -10px;
+    right: -14px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 10px;
+    line-height: 18px;
   }
 }
 </style>

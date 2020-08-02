@@ -31,12 +31,16 @@
         template(v-if="$store.state.cart.items.length === 0")
           .no-items
             | No items in yout cart yet
-    .your-cart_total
-        .count
-            span.subtotal subtotal
-            span.value € {{ totalCount  }} EUR
-        .caption Shipping and taxes calculated at checkout
-        nuxt-link(:to="localePath(`/checkout`)").ui-button.ui-button--big.ui-button--full-green Buy Now
+    template(v-if="$store.state.cart.items.length !== 0")
+      .your-cart_total
+          .count
+              span.subtotal subtotal
+              span.value € {{ totalCount  }} EUR
+          .caption Shipping and taxes calculated at checkout
+          nuxt-link(:to="localePath(`/checkout`)").ui-button.ui-button--big.ui-button--full-green Buy Now
+    template(v-else)
+      div
+        nuxt-link(:to="localePath(`/`)").ui-button.ui-button--big.ui-button--full-green Go back
 </template>
 
 <script>
