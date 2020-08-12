@@ -1,13 +1,13 @@
 <template lang="pug">
 .checkout.container.content-container
-    h1 Your Cart
+    h1 {{ $t('cart.title')}}
     .your-cart_items
         .item
             span 
             span 
-            span Price
-            span(style="text-align:center;") quantity
-            span total
+            span {{ $t('cart.tableCellPrice') }}
+            span(style="text-align:center;") {{ $t('cart.tableCellQuantity') }}
+            span {{ $t('cart.tableCellTotal') }}
         .item(v-for="item, i in $store.state.cart.items" :key="i")
             span.image
                 img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
@@ -26,21 +26,21 @@
                 @click="deleteItem(item.product)"
               )
                 img(v-lazy-load data-src="/icons/delete.svg")
-                span Delete
+                span {{ $t('cart.deleteButton') }}
             span.total € {{ total(item.product.price, item.quantity ) }}
         template(v-if="$store.state.cart.items.length === 0")
           .no-items
-            | No items in yout cart yet
+            | {{ $t('cart.emptyCart')}}
     template(v-if="$store.state.cart.items.length !== 0")
       .your-cart_total
           .count
-              span.subtotal subtotal
-              span.value € {{ totalCount  }} EUR
-          .caption Shipping and taxes calculated at checkout
-          nuxt-link(:to="localePath(`/checkout`)").ui-button.ui-button--big.ui-button--full-green Buy Now
+              span.subtotal {{ $t('cart.subtotal') }}
+              span.value {{ totalCount }} EUR
+          .caption {{ $t('cart.shippingInfo')}}
+          nuxt-link(:to="localePath(`/checkout`)").ui-button.ui-button--big.ui-button--full-green {{ $t('cart.goToCheckoutButton')}}
     template(v-else)
       div
-        nuxt-link(:to="localePath(`/`)").ui-button.ui-button--big.ui-button--full-green Go back
+        nuxt-link(:to="localePath(`/`)").ui-button.ui-button--big.ui-button--full-green {{ $t('cart.goBackButton')}}
 </template>
 
 <script>
@@ -85,6 +85,9 @@ export default {
 .checkout {
   border-top: 1px solid #d6d9da;
   padding-bottom: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 
   h1 {
     font-family: Lora;
@@ -232,7 +235,7 @@ export default {
   &_total {
     text-align: right;
 
-    width: 290px;
+    min-width: 290px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -273,6 +276,7 @@ export default {
 
       opacity: 0.5;
       margin-right: auto;
+      padding-right: 20px;
     }
 
     .caption {

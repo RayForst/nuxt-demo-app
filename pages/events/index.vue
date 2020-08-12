@@ -1,15 +1,12 @@
 <template lang="pug">
   .events
     .content-container.content
-      //-app-event-calendar(:items="items" :date="date")
       app-list(:items="events")
     app-subscribe
 </template>
 
 <script>
 import moment from "moment";
-// import contentService from "@/services/ContentService";
-// import EventBus from "@/event-bus";
 import appSubscribe from "@/components/client/Subscribe";
 import appList from "@/components/client/Events/List";
 

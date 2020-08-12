@@ -1,6 +1,6 @@
 <template lang="pug">
 .checkout-cart-preview
-    h2 Your Order
+    h2 {{ $t('orderDetails.tiitle') }}
 
     .your-cart_items.your-cart_items-small
         .item(v-for="item, i in $store.state.cart.items" :key="i")
@@ -10,26 +10,26 @@
             span.total € {{ total(item.product.price, item.quantity) }} EUR
 
     form.coupon
-      input.ui-input(type="text" placeholder="Discount code")
-      button.ui-button Apply
-      p.coupon-desc Промокод спрашивайте у своего косметолога или следите за акциями на сайте.
+      input.ui-input(type="text" :placeholder="$t('orderDetails.promoCodeInputPlaceholder')")
+      button.ui-button {{ $t('orderDetails.promoCodeButton') }}
+      p.coupon-desc {{ $t('orderDetails.promoDescription') }}
     .checkout-math
         .line.split-2
-            span subtotal
-            span.total € {{ totalCount  }} EUR
+            span {{ $t('orderDetails.listSubtotal') }}
+            span.total {{ totalCount  }} EUR
         .line.split-2
-            span Shipping
+            span {{ $t('orderDetails.listShipping') }}
             template(v-if="step === 3")
               span(v-if="!shipping") Free
               span(v-else) € {{ shipping }} EUR
             template(v-else)
-              span Calculated at next step
+              span {{ $t('orderDetails.shippingStepDescription') }}
         .line.split-2.total
-            span total
+            span {{ $t('orderDetails.listTotal') }}
             template(v-if="step === 3")
-              span.total.big € {{ totalCount + shipping }} EUR
+              span.total.big {{ totalCount + shipping }} EUR
             template(v-else)
-              span.total.big € {{ totalCount  }} EUR
+              span.total.big {{ totalCount  }} EUR
 </template>
 
 <script>
@@ -87,7 +87,7 @@ form.coupon {
   }
 
   @media #{$media_md} {
-    grid-template-columns: 1fr 108px;
+    grid-template-columns: 1fr 130px;
   }
 }
 

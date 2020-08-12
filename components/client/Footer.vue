@@ -4,17 +4,24 @@
       .row.test.center-xs.middle-xs.start-md
         .col-xs-10.col-lg-12
           .row.menu
-            .col-xs-12.col-sm-6.col-lg-3(
-              v-for="i in 4"
-            )
-              template(v-for="column, index in menu")
-                nav(v-if="i == column.categoryIndex")
-                  h4 {{ categoryText(column) }}
-                  ul
-                    li(v-for="link in column.links ")
-                      nuxt-link(
-                        :to="url(link)"
-                      ).footer-link.ui-link {{ text(link) }}          
+            .col-xs-12
+              div.masonry-cont(
+                v-masonry
+                transition-duration="0.3s" 
+                item-selector=".item"
+              )
+                .item(
+                  v-masonry-tile 
+                  v-for="column, index in menu"
+                  :key="index"
+                )
+                  nav
+                    h4 {{ categoryText(column) }}
+                    ul
+                      li(v-for="link in column.links ")
+                        nuxt-link(
+                          :to="url(link)"
+                        ).footer-link.ui-link {{ text(link) }}     
           hr  
           .row.contacts
             .col-xs-12.col-md-12.col-lg-2.center-xs.start-lg.first-lg.middle-xs
@@ -83,6 +90,10 @@ export default {
   text-align: start;
 }
 
+.masonry-cont {
+  overflow: hidden;
+}
+
 footer.main {
   background-color: var(--c_gray3);
   color: #fff;
@@ -140,6 +151,15 @@ h4 {
   }
 }
 
+.item {
+  min-width: 100%;
+  @media #{$media_md} {
+    min-width: 50%;
+  }
+  @media #{$media_lg} {
+    min-width: 25%;
+  }
+}
 ul {
   list-style-type: none;
   padding: 0;

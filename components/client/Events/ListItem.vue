@@ -1,6 +1,7 @@
 <template lang="pug">
   .event-list-item(
     @click="$router.push(localePath(`/events/${content.slug}`))"
+    :class="{ past: isEventPast() }"
   )
     .image-wrap.bg-image(
       :lazy-background="`/uploads/${image}`"
@@ -34,6 +35,11 @@ export default {
         ? this.content.image
         : "default.png";
     }
+  },
+  methods: {
+    isEventPast() {
+      return DateService.isEventPast(this.content.dateEnd);
+    }
   }
 };
 </script>
@@ -45,6 +51,10 @@ export default {
   text-align: left;
   position: relative;
   margin-bottom: 40px;
+
+  &.past {
+    filter: grayscale(100%);
+  }
 
   &:hover {
     .slide-container {
@@ -116,7 +126,6 @@ export default {
 
 .image-wrap {
   box-shadow: -1px 13px 20px 0 rgba(197, 197, 197, 0.31);
-  background-image: url("https://upload.wikimedia.org/wikipedia/commons/a/ae/Castle_Neuschwanstein.jpg");
   display: flex;
 
   &:before {

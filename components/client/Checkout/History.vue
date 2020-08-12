@@ -5,7 +5,7 @@ nav
         v-for="item in path"
         :key="item.key"
         :class="{ active: item.key === active, blocked: item.key > active }"
-    ) {{ item.name }}
+    ) {{ $t(item.name) }}
 </template>
 
 <script>
@@ -18,22 +18,22 @@ export default {
         {
           link: "/cart",
           key: 1,
-          name: "Cart"
+          name: "checkout.history.cart"
         },
         {
           link: "/checkout/cart/information",
           key: 2,
-          name: "Information"
+          name: "checkout.history.information"
         },
         {
           link: "/checkout/cart/information/shipping",
           key: 3,
-          name: "Shipping"
+          name: "checkout.history.shipping"
         },
         {
           link: "/checkout/cart/information/shipping/payment",
           key: 4,
-          name: "Payment"
+          name: "checkout.history.payment"
         }
       ]
     };

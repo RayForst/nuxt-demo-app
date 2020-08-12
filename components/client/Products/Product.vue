@@ -12,10 +12,9 @@
       .desc {{ $toLocale(content, 'ProductSubcategory.name', $i18n.locale) }}
       .price {{ price }}
     template(v-if="!added")
-      //- a(@click.stop.prevent="addToCart").ui-button {{ $t('links.discover') }}
-      a(@click.stop.prevent="addToCart").ui-button Add to cart
+      a(@click.stop.prevent="addToCart").ui-button {{ $t('cart.addButton') }}
     template(v-else)
-      button.added.ui-button.ui-button--full-green(disabled="disabled") Added to cart
+      button.added.ui-button.ui-button--full-green(disabled="disabled") {{ $t('cart.addButtonDone') }}
 </template>
 
 <script>

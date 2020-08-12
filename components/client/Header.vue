@@ -18,13 +18,14 @@
             .horizontal-container.cart-container
               nuxt-link.cart(
                 :to="localePath(`/cart`)"
+                :title="$t('cart.title')"
               )
                 img(v-lazy-load data-src="/icons/cart.svg" alt="")
-                b {{ totalQuantity }}
+                b(v-if="$store.state.cart.items.length") {{ totalQuantity }}
               .cart-popup(v-if="$store.state.cart.items.length")
                 .cart-popup-inner
                   .cart-popup-items
-                    .item(v-for="item, i in $store.state.cart.items.slice(0, 3)" :key="i")
+                    .item(v-for="item, i in cartPopupItems" :key="i")
                       span.image
                         img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
                       span.details
@@ -33,13 +34,13 @@
                         ) {{ $toLocale(item.product, 'name', $i18n.locale) }} x {{ item.quantity }}
                         span.price  € {{  item.product.price}}
                   .view-all(v-if="$store.state.cart.items.length > 3")
-                    nuxt-link.cart(
+                    nuxt-link(
                       :to="localePath(`/cart`)"
-                    ) View all products in cart ({{ totalQuantity }})
+                    ) {{ $t('cartPopup.viewAll') }} ({{ totalQuantity }})
                   .subtotal
-                    span subtotal
-                    span € {{ totalCount }} EUR
-                  nuxt-link.ui-button.ui-button--full-green(:to="localePath(`/cart`)") CHECKOUT
+                    span {{ $t('cartPopup.subtotal') }}
+                    span {{ totalCount }} EUR
+                  nuxt-link.ui-button.ui-button--full-green(:to="localePath(`/cart`)") {{ $t('cartPopup.goToCheckoutButton') }}
             .menu-line
             .lang-container.dropdown-container
               app-language
@@ -58,7 +59,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("cart", ["totalQuantity", "totalCount"])
+    ...mapGetters("cart", ["totalQuantity", "totalCount"]),
+    cartPopupItems() {
+      return [...this.$store.state.cart.items].reverse().slice(0, 3);
+    }
   },
   components: {
     appLogo,
@@ -128,6 +132,12 @@ header.main {
           text-align: center;
           a {
             padding: 10px;
+            padding: 10px;
+            padding-top: 20px;
+            display: flex;
+            justify-content: center;
+            color: #0f3324;
+            font-size: 12px;
             padding-top: 20px;
           }
         }
@@ -223,6 +233,16 @@ header.main {
 
     &:hover {
       .cart-popup {
+        @keyframes popup {
+          0% {
+            opacity: 0;
+          }
+
+          100% {
+            opacity: 1;
+          }
+        }
+
         @media #{$media_lg} {
           position: absolute;
           top: 40px;
@@ -230,6 +250,8 @@ header.main {
           display: inline-flex;
           flex-direction: column;
           width: 300px;
+          animation: popup 0.3s linear normal;
+          animation-fill-mode: forwards;
         }
       }
     }

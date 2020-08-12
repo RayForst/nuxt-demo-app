@@ -16,7 +16,7 @@ export default {
   methods: {
     inc() {
       let qnt = this.quantity + 1;
-      this.qnt = `${qnt} gab.`;
+      this.qnt = `${qnt} ${this.prefix}`;
 
       this.$emit("quantityChange", qnt);
     },
@@ -24,7 +24,7 @@ export default {
       if (this.quantity > 1) {
         let qnt = this.quantity - 1;
 
-        this.qnt = `${qnt} gab.`;
+        this.qnt = `${qnt} ${this.prefix}`;
 
         this.$emit("quantityChange", qnt);
       }
@@ -37,10 +37,13 @@ export default {
       let quantity = Math.abs(matches.join(""));
 
       return quantity > 1 ? quantity : 1;
+    },
+    prefix() {
+      return this.$t("checkout.quantityPrefix");
     }
   },
   mounted() {
-    this.qnt = `${this.$props.defaultValue} gab.`;
+    this.qnt = `${this.$props.defaultValue} ${this.prefix}`;
   }
 };
 </script>

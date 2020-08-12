@@ -48,7 +48,6 @@ export default {
       this.save(items);
     },
     async save(data) {
-      console.log("inside save");
       try {
         const response = await this.$api("post", "contacts/save", data);
 

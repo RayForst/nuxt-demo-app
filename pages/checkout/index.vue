@@ -9,334 +9,332 @@
       app-order-preview(
         :shipping="shippingPrice"
         :step="form.step"
-      )
-        template(v-if="form.step === 1")
-          ValidationObserver(
-            v-slot="{ passed }"
-          )
-            form.i-form(
-              autocomplete="off"
-              v-on:submit.prevent="sendForm"
+      ) 
+        transition(name="fade-small" mode="out-in")
+          div(v-if="form.step === 1")
+            ValidationObserver(
+              v-slot="{ passed }"
             )
-              .shipping  
-                h2 Customer information
+              form.i-form(
+                autocomplete="off"
+                v-on:submit.prevent="sendForm"
+              )
+                .shipping  
+                  h2 {{ $t('checkout.customerInformation') }}
 
-                .ui-box-form.shipping-address_form.form-box
-                  ValidationProvider(
-                    rules="email"
-                    name="email"
-                    mode="lazy"
-                    v-slot="{ errors, passed, valid, invalid }"
-                  ) 
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
-                    )
-                      label Your Email
-                      .i-form-input(
+                  .ui-box-form.shipping-address_form.form-box
+                    ValidationProvider(
+                      rules="email"
+                      name="email"
+                      mode="lazy"
+                      v-slot="{ errors, passed, valid, invalid }"
+                    ) 
+                      .line(
                         :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                       )
-                        input(
-                          type="text" 
-                          name="test" 
-                          v-model="email" 
-                          required 
-                          placeholder="Your Email"
+                        label {{ $t('checkout.emailLabel') }}
+                        .i-form-input(
+                          :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                         )
-                        span.i-form-error-message {{ errors[0] }}
-                    .line.identity
-                      label Your identity
-                      div
-                        label.status-select
-                          .ui-checkbox
-                            input( type="radio" name="payment-type" value="phiz" v-model="form.status")
-                            .ui-checkbox-preview
-                          .label-text Physical person
-                        label.status-select
-                          .ui-checkbox
-                            input( type="radio" name="payment-type" value="jur" v-model="form.status")
-                            .ui-checkbox-preview
-                          .label-text Juridical person
-                label.rules
-                    .ui-checkbox
-                        input(type="checkbox" v-model="accept" required name="rules")
-                        .ui-checkbox-preview
-                    .text 
-                        | Iepazinos un piekritu 
-                        a(href="#") noteikumiem 
-                        | un 
-                        a(href="#") privatuma politikai
+                          input(
+                            type="text" 
+                            name="email" 
+                            v-model="email" 
+                            required 
+                            :placeholder="$t('checkout.emailPlaceholder')"
+                          )
+                          span.i-form-error-message {{ errors[0] }}
+                      .line.identity
+                        label {{ $t('checkout.identityLabel') }}
+                        div
+                          label.status-select
+                            .ui-checkbox
+                              input( type="radio" name="payment-type" value="phiz" v-model="form.status")
+                              .ui-checkbox-preview
+                            .label-text {{ $t('checkout.identityPhys') }}
+                          label.status-select
+                            .ui-checkbox
+                              input( type="radio" name="payment-type" value="jur" v-model="form.status")
+                              .ui-checkbox-preview
+                            .label-text {{ $t('checkout.identityJur') }}
 
-              .shipping-addr 
-                h2 Shipping Address
+                .shipping-addr 
+                  h2 {{ $t('checkout.shippingAddress') }}
 
-                .ui-box-form.shipping-address_form.form-box
-                  ValidationProvider(
-                    rules="alpha"
-                    name="First name"
-                    v-slot="{ errors, passed, invalid }"
-                  )
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                  .ui-box-form.shipping-address_form.form-box
+                    ValidationProvider(
+                      rules="alpha"
+                      name="First name"
+                      v-slot="{ errors, passed, invalid }"
                     )
-                      label First name
-                      .i-form-input(
+                      .line(
                         :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                       )
-                        input(
-                          type="text"
-                          v-model="first_name" 
-                          name="first_name" 
-                          required 
-                          placeholder="First name"
+                        label {{ $t('checkout.firstNameLabel') }}
+                        .i-form-input(
+                          :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                         )
-                        span.i-form-error-message {{ errors[0] }}
+                          input(
+                            type="text"
+                            v-model="first_name" 
+                            name="first_name" 
+                            required 
+                            :placeholder="$t('checkout.firstNamePlaceholder')"
+                          )
+                          span.i-form-error-message {{ errors[0] }}
 
-                  ValidationProvider(
-                    rules="alpha"
-                    name="Last name"
-                    v-slot="{ errors, passed, invalid }"
-                  )
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                    ValidationProvider(
+                      rules="alpha"
+                      name="Last name"
+                      v-slot="{ errors, passed, invalid }"
                     )
-                      label Last name
-                      .i-form-input(
+                      .line(
                         :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                       )
-                        input(
-                          type="text"
-                          v-model="last_name" 
-                          name="last_name"  
-                          required 
-                          placeholder="Last name"
+                        label {{ $t('checkout.lastNameLabel') }}
+                        .i-form-input(
+                          :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                         )
-                        span.i-form-error-message {{ errors[0] }}
-                  
-                  template(v-if="form.status == 'jur'")
+                          input(
+                            type="text"
+                            v-model="last_name" 
+                            name="last_name"  
+                            required 
+                            :placeholder="$t('checkout.lastNamePlaceholder')"
+                          )
+                          span.i-form-error-message {{ errors[0] }}
+                    
+                    template(v-if="form.status == 'jur'")
+                      .line
+                        label {{ $t('checkout.companyLabel') }}
+                        .i-form-input
+                          input(
+                            type="text"
+                            name="company" 
+                            v-model="company"
+                            :placeholder="$t('checkout.companyPlaceholder')"
+                          )
+                      .line
+                        label {{ $t('checkout.companyRegLabel') }}
+                        .i-form-input
+                          input(
+                            type="text"
+                            name="company_rn" 
+                            v-model="company_rn"
+                            :placeholder="$t('checkout.companyRegPlaceholder')"
+                          )
+                      .line
+                        label {{ $t('checkout.taxpayLabel') }}
+                        .i-form-input
+                          input(
+                            type="text"
+                            name="taxnum" 
+                            v-model="taxnum"
+                            :placeholder="$t('checkout.taxpayPlaceholder')"
+                          )
+                      .line
+                        label {{ $t('checkout.juridicalAddressLabel') }}
+                        .i-form-input
+                          input(
+                            type="text"
+                            name="jur_addr" 
+                            v-model="jur_addr"
+                            :placeholder="$t('checkout.juridicalAddressPlaceholder')"
+                          )
+                      .line
+                        label {{ $t('checkout.facticalAddressLabel') }}
+                        .i-form-input
+                          input(
+                            type="text"
+                            name="fac_addr" 
+                            v-model="fac_addr"
+                            :placeholder="$t('checkout.facticalAddressPlaceholder')"
+                          )
+                    ValidationProvider(
+                      rules="min:5"
+                      name="address line 1"
+                      v-slot="{ errors, passed, invalid }"
+                    )
+                      .line(
+                        :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                      )
+                        label {{ $t('checkout.addressLineOneLabel') }}
+                        .i-form-input(
+                          :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                        )
+                          input(
+                            type="text"
+                            name="address_line_1"
+                            v-model="address_line_1"
+                            :placeholder="$t('checkout.addressLineOnePlaceholder')"
+                          )
+                          span.i-form-error-message {{ errors[0] }}
                     .line
-                      label Company
+                      label {{ $t('checkout.addressLineTwoLabel') }}
                       .i-form-input
                         input(
                           type="text"
-                          name="company" 
-                          v-model="company"
-                          placeholder="Company (optional)"
+                          name="address_line_2"
+                          v-model="address_line_2" 
+                          :placeholder="$t('checkout.addressLineTwoPlaceholder')"
                         )
-                    .line
-                      label Company registration number
-                      .i-form-input
-                        input(
-                          type="text"
-                          name="company_rn" 
-                          v-model="company_rn"
-                          placeholder="Company registration numer (optional)"
-                        )
-                    .line
-                      label Taxpay number
-                      .i-form-input
-                        input(
-                          type="text"
-                          name="taxnum" 
-                          v-model="taxnum"
-                          placeholder="Taxpay number (optional)"
-                        )
-                    .line
-                      label Juridical address
-                      .i-form-input
-                        input(
-                          type="text"
-                          name="jur_addr" 
-                          v-model="jur_addr"
-                          placeholder="Juridical address (optional)"
-                        )
-                    .line
-                      label Factical address
-                      .i-form-input
-                        input(
-                          type="text"
-                          name="fac_addr" 
-                          v-model="fac_addr"
-                          placeholder="Factical address (optional)"
-                        )
-                  ValidationProvider(
-                    rules="min:5"
-                    name="address line 1"
-                    v-slot="{ errors, passed, invalid }"
-                  )
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                    ValidationProvider(
+                      rules="min:4"
+                      name="city"
+                      v-slot="{ errors, passed, invalid }"
                     )
-                      label Address line 1
-                      .i-form-input(
+                      .line(
                         :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                       )
-                        input(
-                          type="text"
-                          name="address_line_1"
-                          v-model="address_line_1"
-                          placeholder="Address line 1"
+                        label {{ $t('checkout.cityLabel') }}
+                        .i-form-input(
+                          :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                         )
-                        span.i-form-error-message {{ errors[0] }}
-                  .line
-                    label Address line 2
-                    .i-form-input
-                      input(
-                        type="text"
-                        name="address_line_2"
-                        v-model="address_line_2" 
-                        placeholder="Address line 2 (optional)"
-                      )
-                  ValidationProvider(
-                    rules="min:4"
-                    name="city"
-                    v-slot="{ errors, passed, invalid }"
-                  )
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
-                    )
-                      label City
-                      .i-form-input(
-                        :class="{ 'is-valid': passed, 'is-invalid': invalid }"
-                      )
-                        input(
-                          type="text" 
-                          placeholder="City"
-                          name="city"
-                          v-model="city"
-                        )
-                        span.i-form-error-message {{ errors[0] }}
-                  .line.is-valid
-                      label Country
+                          input(
+                            type="text" 
+                            :placeholder="$t('checkout.cityPlaceholder')"
+                            name="city"
+                            v-model="city"
+                          )
+                          span.i-form-error-message {{ errors[0] }}
+                    .line.is-valid
+                        label {{ $t('checkout.countryLabel') }}
 
-                      .i-form-input
-                        select(
-                          name="country"
-                          v-model="country"
-                        )
-                          option(value="Latvia") Latvia
-                  ValidationProvider(
-                    rules="min:5"
-                    name="Post code"
-                    v-slot="{ errors, passed, invalid }"
-                  )
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                        .i-form-input
+                          select(
+                            name="country"
+                            v-model="country"
+                          )
+                            option(value="lv") {{ $t('checkout.countryLabel_lv') }}
+                            option(value="lt") {{ $t('checkout.countryLabel_lt') }}
+                            option(value="ee") {{ $t('checkout.countryLabel_ee') }}
+                    ValidationProvider(
+                      rules="min:5"
+                      name="Post code"
+                      v-slot="{ errors, passed, invalid }"
                     )
-                      label Post code
-                      .i-form-input(
+                      .line(
                         :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                       )
-                        input(
-                          type="text" 
-                          placeholder="Post code * with spacing"
-                          name="postcode"
-                          v-model="postcode"
+                        label {{ $t('checkout.postCodeLabel') }}
+                        .i-form-input(
+                          :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                         )
-                        span.i-form-error-message {{ errors[0] }}
+                          input(
+                            type="text" 
+                            :placeholder="$t('checkout.postCodePlaceholder')"
+                            name="postcode"
+                            v-model="postcode"
+                          )
+                          span.i-form-error-message {{ errors[0] }}
 
-                  ValidationProvider(
-                    rules="min:5"
-                    name="phone"
-                    v-slot="{ errors, passed, invalid }"
-                  )
-                    .line(
-                      :class="{ 'is-valid': passed, 'is-invalid': invalid }"
+                    ValidationProvider(
+                      rules="min:5"
+                      name="phone"
+                      v-slot="{ errors, passed, invalid }"
                     )
-                      label Phone
-                      .i-form-input(
+                      .line(
                         :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                       )
-                        input(
-                          type="text" 
-                          placeholder="Phone"
-                          name="phone"
-                          v-model="phone"
+                        label {{ $t('checkout.phoneLabel') }}
+                        .i-form-input(
+                          :class="{ 'is-valid': passed, 'is-invalid': invalid }"
                         )
-                        span.i-form-error-message {{ errors[0] }}
+                          input(
+                            type="text" 
+                            :placeholder="$t('checkout.phonePlaceholder')"
+                            name="phone"
+                            v-model="phone"
+                          )
+                          span.i-form-error-message {{ errors[0] }}
+                .controls
+                  app-back(@back="goBack")
+                  template(v-if="!pass")
+                    button(type="submit" :disabled="!passed").ui-button.ui-button--big.ui-button--full-green {{ $t('checkout.continueToShipping') }}
+                  template(v-else)
+                    button(type="submit").ui-button.ui-button--big.ui-button--full-green {{ $t('checkout.continueToShipping') }}
+        transition(name="fade-small" mode="out-in")
+          div(v-if="form.step === 2")
+            .box.entered-info
+              .box-record(v-for="item, key in records")
+                  .title {{ item.title }}
+                  .value {{ item.value }}
+                  span.change(@click.prevent="form.step = item.step ") {{ $t('checkout.changeData') }}
+            .shipping-method  
+              h2 {{ $t('checkout.shippingMethod') }}
+              .box
+                label.box-record(
+                  v-for="method, key in form.methods" 
+                  :key="key" 
+                  :class="{ active: method.id === form.payment }"
+                )
+                  .ui-checkbox
+                    input( type="radio" name="payment-type" :value="method.id" v-model="form.payment")
+                    .ui-checkbox-preview
+                  .label-text
+                    .title {{ method.title }}
+                    .caption(
+                        v-if="method.caption"
+                        v-html="method.caption"
+                    )
+                  .price(v-if="method.price !== 0") € {{ method.price }}.00 EUR
+                  .price(v-else) {{ $t('checkout.free') }}
               .controls
                 app-back(@back="goBack")
-                template(v-if="!pass")
-                  button(type="submit" :disabled="!passed").ui-button.ui-button--big.ui-button--full-green Continue to shipping
-                template(v-else)
-                  button(type="submit").ui-button.ui-button--big.ui-button--full-green Continue to shipping
-        template(v-if="form.step === 2")
-          .box.entered-info
-            .box-record(v-for="item, key in records")
-                .title {{ item.title }}
-                .value {{ item.value }}
-                span.change(@click.prevent="form.step = item.step ") CHANGE
-          .shipping-method  
-            h2 Shipping Method
-            .box
-              label.box-record(
-                v-for="method, key in form.methods" 
-                :key="key" 
-                :class="{ active: method.id === form.payment }"
-              )
-                .ui-checkbox
-                  input( type="radio" name="payment-type" :value="method.id" v-model="form.payment")
-                  .ui-checkbox-preview
-                .label-text
-                  .title {{ method.title }}
-                  .caption(
-                      v-if="method.caption"
-                  ) {{ method.caption }}
-                .price(v-if="method.price !== 0") € {{ method.price }}.00 EUR
-                .price(v-else) FREE
-            .controls
-              app-back(@back="goBack")
-              button(@click="sendForm").ui-button.ui-button--big.ui-button--full-green Continue to shipping
-        template(v-if="form.step === 3")
-          .box.entered-info
-            .box-record(v-for="item, key in records")
-                .title {{ item.title }}
-                .value {{ item.value }}
-                span.change(@click.prevent="form.step = item.step ") CHANGE
-          form.i-form(
-            v-on:submit.prevent="sendForm"
-          )
-            .card
-              h2 Payment
-              h3 All transactions are secure and encrypted
-              .box
-                  label.box-record
-                      .ui-checkbox
-                          input( type="radio" name="payment-type" value="card" v-model="form.paymentType")
-                          .ui-checkbox-preview
-                      .label-text Credit Card
-                  slide-up-down(
-                      :active="form.paymentType === 'card'"
-                      :duration="200"
-                  )
-                      .slide-content
-                          p You will be redirected to bank page
+                button(@click="sendForm").ui-button.ui-button--big.ui-button--full-green {{ $t('checkout.continueToPayment') }}
+        transition(name="fade-small" mode="out-in")
+          div(v-if="form.step === 3")
+            .box.entered-info
+              .box-record(v-for="item, key in records")
+                  .title {{ item.title }}
+                  .value {{ item.value }}
+                  span.change(@click.prevent="form.step = item.step ") {{ $t('checkout.changeData') }}
+            form.i-form(
+              v-on:submit.prevent="sendForm"
+            )
+              .card
+                h2 {{ $t('checkout.paymentTitle') }}
+                h3 {{ $t('checkout.paymentCaption') }}
+                .box
+                    label.box-record
+                        .ui-checkbox
+                            input( type="radio" name="payment-type" value="card" v-model="form.paymentType")
+                            .ui-checkbox-preview
+                        .label-text Credit Card
+                    slide-up-down(
+                        :active="form.paymentType === 'card'"
+                        :duration="200"
+                    )
+                        .slide-content
+                            p You will be redirected to bank page
 
-                  label.box-record
-                      .ui-checkbox
-                          input(type="radio" name="payment-type" value="paypal" v-model="form.paymentType")
-                          .ui-checkbox-preview
-                      .label-text
-                          img(v-lazy-load data-src="/icons/paypal.svg")
-                  slide-up-down(
-                      :active="form.paymentType === 'paypal'"
-                      :duration="200"
-                  )   
-                      .slide-content.no-border
-                          p You will be redirected to paypal
-              label.rules
-                  .ui-checkbox
-                      input( type="checkbox" required name="rules")
-                      .ui-checkbox-preview
-                  .text 
-                      | Iepazinos un piekritu 
-                      a(href="#") noteikumiem 
-                      | un 
-                      a(href="#") privatuma politikai
-            .controls
-              app-back(@back="goBack")
-              button(type="submit").ui-button.ui-button--big.ui-button--full-green Continue to Payment
-        template(v-if="form.step === 4")
-          h2 Redirecting to payment
+                    label.box-record
+                        .ui-checkbox
+                            input(type="radio" name="payment-type" value="paypal" v-model="form.paymentType")
+                            .ui-checkbox-preview
+                        .label-text
+                            img(v-lazy-load data-src="/icons/paypal.svg")
+                    slide-up-down(
+                        :active="form.paymentType === 'paypal'"
+                        :duration="200"
+                    )   
+                        .slide-content.no-border
+                            p You will be redirected to paypal
+                label.rules
+                    .ui-checkbox
+                        input( type="checkbox" v-model="accept" required name="rules")
+                        .ui-checkbox-preview
+                    .text 
+                        | {{ $t('checkout.ruleLinkStart') }}
+                        a(href="#") {{ $t('checkout.ruleLinkLink1') }} 
+                        | {{ $t('checkout.ruleLinkDelimeter') }} 
+                        a(href="#") {{ $t('checkout.ruleLinkLink2') }}
+              .controls
+                app-back(@back="goBack")
+                button(type="submit").ui-button.ui-button--big.ui-button--full-green {{ $t('checkout.continueToPayment') }}
+        transition(name="fade-small" mode="out-in")        
+          div(v-if="form.step === 4")
+            h2 {{ $t('checkout.redirect') }}
 </template>
 
 <script>
@@ -351,61 +349,45 @@ export default {
   data() {
     return {
       shippingPrice: null,
-      first_name: "",
-      last_name: "",
+      first_name: "", // +
+      last_name: "", // +
       company: "",
       company_rn: "",
       taxnum: "",
       jur_addr: "",
       fac_addr: "",
-      email: "",
+      email: "", // +
       address_line_1: "",
       address_line_2: "",
       city: "",
-      country: "Latvia",
+      country: "lv",
       postcode: "",
       phone: "",
       accept: false,
       pass: false,
+      products: [],
       form: {
-        step: 1,
+        step: 0,
         payment: "free",
         paymentType: "card",
         status: "phiz",
         methods: [
           {
             id: "free",
-            title: "Free shipping",
+            title: "Free - Avotu iela 5, Rīga, LV-1011",
             caption: null,
             price: 0
           },
           {
-            id: "upsp",
-            title: "USPS Priority Mail",
-            caption: "3 business days",
-            price: 5
+            id: "omnivia",
+            title: "Omniva",
+            caption:
+              "до 49,99 евро – 3 евро,<br/> свыше 50,00 евро – бесплатно",
+            price: 3
           },
           {
-            id: "upsp2",
-            title: "USPS Priority Mail",
-            caption: "3 business days",
-            price: 5
-          },
-          {
-            id: "upsp3",
-            title: "USPS Priority Mail",
-            caption: "3 business days",
-            price: 5
-          },
-          {
-            id: "upsp4",
-            title: "USPS Priority Mail",
-            caption: "3 business days",
-            price: 5
-          },
-          {
-            id: "upsp5",
-            title: "USPS Priority Mail",
+            id: "omnivia_courier",
+            title: "Omniva courier",
             caption: "3 business days",
             price: 5
           }
@@ -420,8 +402,13 @@ export default {
       this.$refs.cont.scrollIntoView();
 
       if (this.form.step === 4) {
-        this.$router.push(this.localePath(`/checkout/success`));
+        this.save();
       }
+    },
+    async save() {
+      const response = await this.$api("post", "contacts/checkout", this.$data);
+      this.$store.commit("cart/clear");
+      this.$router.push(this.localePath(`/checkout/success`));
     },
     goBack() {
       if (this.form.step === 1) {
@@ -429,7 +416,6 @@ export default {
       }
 
       this.$refs.cont.scrollIntoView();
-
       return --this.form.step;
     }
   },
@@ -445,7 +431,11 @@ export default {
       const rec = [];
 
       if (this.email) {
-        rec.push({ title: "Contact", value: this.email, step: 1 });
+        rec.push({
+          title: this.$t("checkout.contact"),
+          value: this.email,
+          step: 1
+        });
       }
 
       if (this.address_line_1 && this.city && this.country) {
@@ -456,7 +446,11 @@ export default {
           this.country
         ].join(", ");
 
-        rec.push({ title: "Ship to", value: addrStr, step: 1 });
+        rec.push({
+          title: this.$t("checkout.shipTo"),
+          value: addrStr,
+          step: 1
+        });
       }
 
       if (this.form.step === 3) {
@@ -466,7 +460,7 @@ export default {
 
         this.shippingPrice = shipMet.price;
         rec.push({
-          title: "method",
+          title: this.$t("checkout.method"),
           value: shipMet.title,
           step: 2
         });
@@ -480,13 +474,7 @@ export default {
   },
   mounted() {
     const that = this;
-
-    // if (this.$store.state)
-
-    // setTimeout(function() {
-    //   console.log("FIRE");
-    //   that.sendForm();
-    // }, 2000);
+    this.form.step = 1; // just for transition
   }
 };
 </script>
@@ -582,7 +570,6 @@ export default {
       font-weight: normal;
       font-size: 12px;
       line-height: 14px;
-      /* identical to box height, or 117% */
 
       color: #000000;
       margin-left: 8px;
@@ -610,7 +597,6 @@ export default {
     margin: 0;
     margin-bottom: 8px;
     margin-bottom: 30px;
-    /* identical to box height */
 
     color: #000000;
   }

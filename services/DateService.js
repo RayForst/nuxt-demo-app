@@ -64,5 +64,9 @@ export default {
 
     // day month
     return dateFormat(dateStart);
+  },
+
+  isEventPast(date) {
+    return moment(new Date()) > moment(date);
   }
 };

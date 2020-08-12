@@ -5,7 +5,7 @@
         .col-xs-10.col-sm-10.col-lg-12
           .spacer
           .row.middle-md.sub-container
-            .col-xs-12.col-md-8.col-md-offset-2
+            .col-xs-12.col-md-8
               h2 {{ $t('partnership.title') }}
               p.caption {{ $t('partnership.description') }}
             .col-xs-12.col-md-12

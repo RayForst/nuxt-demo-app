@@ -107,13 +107,13 @@
             
             transition(name="fade" mode="out-in")
               .ui-add-product-message(v-show="added")
-                | Продукт успешно добавлен в 
-                nuxt-link(:to="localePath('/cart')") корзину
+                | {{ $t('cart.addButtonSuccess') }} 
+                nuxt-link(:to="localePath('/cart')") {{ $t('cart.addButtonSuccessLink') }}
                 | !
 
           a(class="ui-button ui-button--cart" @click="addToCart") 
-              span.add-title Add to cart
-              span.add-price € 10.00 EUR
+              span.add-title {{ $t('cart.addButton') }}
+              span.add-price € {{ product.price }} EUR
 </template>
 
 <script>

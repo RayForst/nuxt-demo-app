@@ -74,8 +74,8 @@ module.exports = (sequelize, DataTypes) =>
       price: {
         type: DataTypes.DECIMAL
       },
-      inAvailable: {
-        type: DataTypes.BOOLEAN
+      totalCount: {
+        type: DataTypes.INTEGER
       },
       isNew: {
         type: DataTypes.BOOLEAN

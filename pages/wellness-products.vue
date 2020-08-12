@@ -22,7 +22,7 @@ export default {
       const menu = await app.$api("get", "static/menu", {});
 
       items = menu.filter(item => {
-        return item.menupos === 2;
+        return item.menupos === 3;
       });
 
       return { items };

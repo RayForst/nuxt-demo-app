@@ -1,6 +1,6 @@
 <template lang="pug">
     .shipping-method  
-        h2 Shipping Method
+        h2 Shipping MethodDD
         .box
             label.box-record(
                 v-for="method, key in methods" 

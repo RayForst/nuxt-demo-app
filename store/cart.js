@@ -1,17 +1,20 @@
+import currency from "currency.js";
+
 export const state = () => ({
   items: []
 });
 
 export const getters = {
   totalCount: state => {
-    let total = 0;
+    let euro = value =>
+      currency(value, { symbol: "€ ", separator: " ", decimal: "." });
+    let total = euro(0);
 
     state.items.forEach(x => {
-      console.log(x);
-      total += ((x.product.price * 100) * (x.quantity * 100)) / 100;
+      total = total.add(euro(x.product.price).multiply(x.quantity));
     });
 
-    return total;
+    return total.format();
   },
   totalQuantity: state => {
     let total = 0;
@@ -59,5 +62,10 @@ export const mutations = {
     if (!itemsInLocalStorage) return;
 
     state.items = itemsInLocalStorage;
+  },
+  clear(state) {
+    console.log("CLEARING");
+    state.items = [];
+    localStorage.setItem("cart", JSON.stringify(state.items));
   }
 };
