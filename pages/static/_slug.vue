@@ -62,6 +62,11 @@ export default {
       console.log(err.path, err.statusMessage);
     }
   },
+  head() {
+    return {
+      title: this.item.name
+    };
+  },
   computed: {
     image() {
       return `/uploads/${this.item.image}`;

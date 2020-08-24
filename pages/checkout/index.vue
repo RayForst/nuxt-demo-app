@@ -343,9 +343,11 @@ import appOrderPreview from "@/components/client/Checkout/OrderPreview2";
 import appShippingAddress from "@/components/client/Checkout/ShippingAddress";
 import appCustomerInformation from "@/components/client/Checkout/CustomerInformation";
 import appBack from "@/components/client/BackCheckout";
+import { mapMutations, mapGetters } from "vuex";
 
 export default {
   layout: "checkout",
+  name: "checkout",
   data() {
     return {
       shippingPrice: null,
@@ -366,6 +368,7 @@ export default {
       accept: false,
       pass: false,
       products: [],
+      code: "",
       form: {
         step: 0,
         payment: "free",
@@ -406,7 +409,16 @@ export default {
       }
     },
     async save() {
-      const response = await this.$api("post", "contacts/checkout", this.$data);
+      const response = await this.$api(
+        "post",
+        "contacts/checkout",
+        Object.assign(
+          this.$data,
+          { products: this.getProductsIds },
+          { coupon: this.coupon }
+        )
+      );
+      this.clear();
       this.$store.commit("cart/clear");
       this.$router.push(this.localePath(`/checkout/success`));
     },
@@ -417,7 +429,10 @@ export default {
 
       this.$refs.cont.scrollIntoView();
       return --this.form.step;
-    }
+    },
+    ...mapMutations({
+      clear: "checkout/clear"
+    })
   },
   components: {
     appCheckoutHistory,
@@ -470,7 +485,9 @@ export default {
     },
     steps() {
       return this.form.step + 1;
-    }
+    },
+    ...mapGetters("checkout", ["coupon"]),
+    ...mapGetters("cart", ["getProductsIds"])
   },
   mounted() {
     const that = this;

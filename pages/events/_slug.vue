@@ -89,6 +89,11 @@ export default {
       });
     }
   },
+  head() {
+    return {
+      title: this.event.name
+    };
+  },
   methods: {
     dateFormat(date) {
       return `${date.date()} ${date.format("MMMM")}`;

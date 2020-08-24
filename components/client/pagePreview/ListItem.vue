@@ -33,12 +33,9 @@ export default {
       return this.$toLocale(item, field, this.$i18n.locale);
     },
     goEvent(result) {
-      this.$router.push({
-        name: "static",
-        params: {
-          slug: this.content.slug
-        }
-      });
+      console.log(this.content.slug);
+
+      this.$router.push(this.localePath(`/static/${this.content.slug}`));
     }
   }
 };

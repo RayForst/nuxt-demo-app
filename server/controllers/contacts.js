@@ -15,8 +15,11 @@ async function checkout(req) {
   try {
     const details = JSON.stringify(req.body);
 
-    return await Models.Checkouts.create({ details });
+    console.log(details);
+
+    return await Models.Checkouts.create({ details, proceed: false });
   } catch (err) {
+    console.log(err);
     return {};
   }
 }

@@ -9,10 +9,7 @@
             span.title {{ $toLocale(item.product, 'name', $i18n.locale) }} x {{ item.quantity }}
             span.total € {{ total(item.product.price, item.quantity) }} EUR
 
-    form.coupon
-      input.ui-input(type="text" :placeholder="$t('orderDetails.promoCodeInputPlaceholder')")
-      button.ui-button {{ $t('orderDetails.promoCodeButton') }}
-      p.coupon-desc {{ $t('orderDetails.promoDescription') }}
+    apply-code
     .checkout-math
         .line.split-2
             span {{ $t('orderDetails.listSubtotal') }}
@@ -21,19 +18,20 @@
             span {{ $t('orderDetails.listShipping') }}
             template(v-if="step === 3")
               span(v-if="!shipping") Free
-              span(v-else) € {{ shipping }} EUR
+              span(v-else) € {{ shipping }}.00 EUR
             template(v-else)
               span {{ $t('orderDetails.shippingStepDescription') }}
         .line.split-2.total
             span {{ $t('orderDetails.listTotal') }}
             template(v-if="step === 3")
-              span.total.big {{ totalCount + shipping }} EUR
+              span.total.big {{  totalWithShipping }} EUR
             template(v-else)
               span.total.big {{ totalCount  }} EUR
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import applyCode from "./ApplyCode";
 
 export default {
   props: ["shipping", "step"],
@@ -48,48 +46,22 @@ export default {
     }
   },
   computed: {
+    totalWithShipping() {
+      const sub = "€ ";
+      const clearTotalCount = this.totalCount.replace(sub, "");
+
+      return sub + (parseFloat(clearTotalCount) + parseFloat(this.shipping));
+    },
     ...mapGetters("cart", ["totalCount"])
+  },
+  components: {
+    applyCode
   }
 };
 </script>
 
 <style lang="scss" scoped>
 @import "~@/assets/scss/base/_variables";
-
-form.coupon {
-  margin-top: 30px;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 11px;
-  margin-bottom: 104px;
-
-  input {
-    background: #ffffff;
-    border: 1px solid #e5e5e5;
-    box-sizing: border-box;
-    font-family: Montserrat;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 12px;
-    color: #000000;
-    padding: 0 20px;
-    height: 41px;
-  }
-  p {
-    font-family: Lora;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 10px;
-    line-height: 15px;
-
-    color: #969696;
-  }
-
-  @media #{$media_md} {
-    grid-template-columns: 1fr 130px;
-  }
-}
 
 .checkout-math {
   .line {

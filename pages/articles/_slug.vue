@@ -41,6 +41,11 @@ export default {
       console.log(err.path, err.statusMessage);
     }
   },
+  head() {
+    return {
+      title: this.article.name
+    };
+  },
   components: {
     appBack,
     appRecentPosts

@@ -46,6 +46,11 @@ export default {
       heroTitleTag: "h1"
     };
   },
+  head() {
+    return {
+      title: "Home"
+    };
+  },
   computed: {
     productsHeading() {
       return (

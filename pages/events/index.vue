@@ -12,9 +12,6 @@ import appList from "@/components/client/Events/List";
 
 export default {
   name: "product",
-  metaInfo: {
-    title: "Events"
-  },
   async asyncData({ app }) {
     try {
       const events = await app.$api("get", "events");
@@ -28,6 +25,11 @@ export default {
     return {
       items: [],
       date: moment()
+    };
+  },
+  head() {
+    return {
+      title: "Events"
     };
   },
   components: {

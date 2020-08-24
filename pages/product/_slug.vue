@@ -42,6 +42,11 @@ export default {
       products: []
     };
   },
+  head() {
+    return {
+      title: this.product.name
+    };
+  },
   components: {
     appBack,
     appProducts,

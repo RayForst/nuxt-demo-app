@@ -30,8 +30,10 @@ import appShortContacts from "@/components/client/ShortContacts";
 
 export default {
   name: "contacts",
-  metaInfo: {
-    title: "Contacts"
+  head() {
+    return {
+      title: "Contacts"
+    };
   },
   components: {
     appContactForm,

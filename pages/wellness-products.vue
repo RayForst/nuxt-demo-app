@@ -30,6 +30,11 @@ export default {
       console.log(err.path, err.statusMessage);
     }
   },
+  head() {
+    return {
+      title: "Wellness Products"
+    };
+  },
   components: {
     appSubscribe,
     appList

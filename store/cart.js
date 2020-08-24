@@ -24,6 +24,24 @@ export const getters = {
     });
 
     return total;
+  },
+  getProductsIds: state => {
+    let result = [];
+
+    state.items.forEach(x => {
+      result.push({
+        id: x.product.id,
+        quantity: x.quantity
+      });
+    });
+
+    // let total = 0;
+
+    // state.items.forEach(x => {
+    //   total += 1 * x.quantity;
+    // });
+
+    return result;
   }
 };
 
@@ -38,7 +56,7 @@ export const mutations = {
     } else {
       state.items.push({
         product: data.product,
-        quantity: 1
+        quantity: data.qnt
       });
     }
 

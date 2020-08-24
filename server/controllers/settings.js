@@ -15,15 +15,16 @@ async function index() {
   }
 }
 
-async function coupon() {
+async function coupon(req) {
   try {
-    if (req.query.category) {
+    console.log(req.query);
+    if (req.query.code) {
       const item = await Model.findOne({
         raw: true,
         order: [["createdAt", "DESC"]]
       });
 
-      return item.couponCodes;
+      return item.couponCodes.includes(req.query.code);
     } else {
       return false;
     }

@@ -52,6 +52,11 @@ export default {
       description: null
     };
   },
+  head() {
+    return {
+      title: "Products"
+    };
+  },
   components: {
     appCallback,
     appProductsMenu,

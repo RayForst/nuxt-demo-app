@@ -26,7 +26,7 @@
                 .cart-popup-inner
                   .cart-popup-items
                     .item(v-for="item, i in cartPopupItems" :key="i")
-                      span.image
+                      span.image()
                         img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
                       span.details
                         nuxt-link.title(
