@@ -35,6 +35,7 @@ import applyCode from "./ApplyCode";
 
 export default {
   props: ["shipping", "step"],
+  name: "checkout-cart-preview",
   methods: {
     image(item) {
       return item.hasOwnProperty("images")

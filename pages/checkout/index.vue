@@ -339,7 +339,7 @@
 
 <script>
 import appCheckoutHistory from "@/components/client/Checkout/History";
-import appOrderPreview from "@/components/client/Checkout/OrderPreview2";
+import appOrderPreview from "@/components/client/Checkout/OrderPreview";
 import appShippingAddress from "@/components/client/Checkout/ShippingAddress";
 import appCustomerInformation from "@/components/client/Checkout/CustomerInformation";
 import appBack from "@/components/client/BackCheckout";
@@ -490,7 +490,6 @@ export default {
     ...mapGetters("cart", ["getProductsIds"])
   },
   mounted() {
-    const that = this;
     this.form.step = 1; // just for transition
   }
 };

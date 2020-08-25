@@ -1,11 +1,12 @@
 <template lang="pug">
 .grid-container
   .checkout-details
-    app-checkout-cart-preview
-  .checkout-request
-    slot(name="details")
+    app-checkout-cart-preview(
+      :shipping="shipping"
+      :step="step"
+    )
   .checkout-info
-    slot(name="info")
+    slot
 </template>
 
 <script>
@@ -13,6 +14,7 @@ import appCheckoutCartPreview from "./CartPreview";
 
 export default {
   name: "checkout-order-preview",
+  props: ["shipping", "step"],
   components: {
     appCheckoutCartPreview
   }
