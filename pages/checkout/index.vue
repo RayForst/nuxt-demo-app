@@ -44,19 +44,19 @@
                             :placeholder="$t('checkout.emailPlaceholder')"
                           )
                           span.i-form-error-message {{ errors[0] }}
-                      .line.identity
-                        label {{ $t('checkout.identityLabel') }}
-                        div
-                          label.status-select
-                            .ui-checkbox
-                              input( type="radio" name="payment-type" value="phiz" v-model="form.status")
-                              .ui-checkbox-preview
-                            .label-text {{ $t('checkout.identityPhys') }}
-                          label.status-select
-                            .ui-checkbox
-                              input( type="radio" name="payment-type" value="jur" v-model="form.status")
-                              .ui-checkbox-preview
-                            .label-text {{ $t('checkout.identityJur') }}
+                    .line.identity
+                      label {{ $t('checkout.identityLabel') }}
+                      div
+                        label.status-select
+                          .ui-checkbox
+                            input( type="radio" name="payment-type" value="phiz" v-model="form.status")
+                            .ui-checkbox-preview
+                          .label-text {{ $t('checkout.identityPhys') }}
+                        label.status-select
+                          .ui-checkbox
+                            input( type="radio" name="payment-type" value="jur" v-model="form.status")
+                            .ui-checkbox-preview
+                          .label-text {{ $t('checkout.identityJur') }}
 
                 .shipping-addr 
                   h2 {{ $t('checkout.shippingAddress') }}
