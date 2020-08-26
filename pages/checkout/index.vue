@@ -325,10 +325,8 @@
                         input( type="checkbox" v-model="accept" required name="rules")
                         .ui-checkbox-preview
                     .text 
-                        | {{ $t('checkout.ruleLinkStart') }}
-                        a(href="#") {{ $t('checkout.ruleLinkLink1') }} 
-                        | {{ $t('checkout.ruleLinkDelimeter') }} 
-                        a(href="#") {{ $t('checkout.ruleLinkLink2') }}
+                        | {{ $t('checkout.ruleLinkStart') }} 
+                        a(href="http://www.inbalans.lv/static/Distances-ligums" target="_blank") {{ $t('checkout.ruleLinkLink1') }} {{ $t('checkout.ruleLinkDelimeter') }} {{ $t('checkout.ruleLinkLink2') }}
               .controls
                 app-back(@back="goBack")
                 button(type="submit").ui-button.ui-button--big.ui-button--full-green {{ $t('checkout.continueToPayment') }}
