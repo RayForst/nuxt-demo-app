@@ -1,5 +1,6 @@
 module.exports = {
   mode: "universal",
+  telemetry: false,
   head: {
     titleTemplate: "%s | Inbalans",
     meta: [
@@ -146,5 +147,9 @@ module.exports = {
   },
   build: {
     extend(config, ctx) {}
+  },
+  payment: {
+    brandId: "",
+    secretKey: ""
   }
 };

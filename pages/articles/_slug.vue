@@ -58,8 +58,6 @@ export default {
     }
   },
   beforeRouteUpdate(to, from, next) {
-    console.log("WATCH");
-
     // created by lazy load issue fix
     document
       .querySelectorAll(".article-conntainer img.width-100")

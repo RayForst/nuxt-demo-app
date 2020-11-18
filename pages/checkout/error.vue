@@ -5,10 +5,10 @@
     )
     .checkout
         .successful
-            img(v-lazy-load data-src="/icons/cart-success.svg" width="71" height="78")
-            h1 {{ $t('checkout.paymentSuccessTitle') }}
-            h2(v-html="$t('checkout.paymentSuccessText')")
-            nuxt-link(:to="localePath('/')").ui-button.ui-button--big.ui-button--full-green {{ $t('checkout.paymentSuccessButton') }}
+            img(v-lazy-load data-src="/icons/cart-success.svg" style="visibility:hidden;" width="71" height="78")
+            h1 {{ $t('checkout.paymentFailTitle') }}
+            h2(v-html="$t('checkout.paymentFailText')")
+            nuxt-link(:to="localePath('/')").ui-button.ui-button--big.ui-button--full-green {{ $t('checkout.paymentFailButton') }}
 </template>
 
 <script>
@@ -17,7 +17,6 @@ import appOrderPreview from "@/components/client/Checkout/OrderPreview";
 import appEnteredInfo from "@/components/client/Checkout/EnteredInfo";
 import appShipping from "@/components/client/Checkout/Shipping";
 import appBack from "@/components/client/Back";
-import { mapMutations, mapGetters } from "vuex";
 
 export default {
   layout: "checkout",
@@ -25,9 +24,11 @@ export default {
     return {};
   },
   methods: {
-    ...mapMutations({
-      clear: "checkout/clear"
-    })
+    async save(id) {
+      const response = await this.$api("post", "contacts/checkoutfail", {
+        id
+      });
+    }
   },
   components: {
     appShipping,
@@ -37,8 +38,7 @@ export default {
     appBack
   },
   mounted() {
-    this.clear();
-    this.$store.commit("cart/clear");
+    this.save(this.$route.query.orderId);
   }
 };
 </script>

@@ -1,7 +1,7 @@
 {
   "name": "nuxt-express-boilerplate",
   "version": "1.0.0",
-  "description": "My grand Nuxt.js project",
+  "description": "",
   "author": "Sergej Kolpakov",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.11.0",
+    "axios": "^0.21.0",
     "bcrypt-nodejs": "^0.0.3",
     "chalk": "^4.1.0",
     "cross-env": "^5.2.0",

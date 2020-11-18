@@ -1,6 +1,9 @@
 const Models = require("../models");
 const Model = Models.Article;
 const Sequelize = require("sequelize");
+const axios = require("axios");
+const config = require("../../nuxt.config.js");
+const Model2 = Models.Product;
 
 const Op = Sequelize.Op;
 

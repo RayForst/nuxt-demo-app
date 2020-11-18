@@ -46,14 +46,12 @@ export default {
   },
   methods: {
     test(items) {
-      console.log("test function", items);
       this.save(items);
     },
     async save(data) {
       try {
         const response = await this.$api("post", "contacts/save", data);
 
-        console.log("Response", response);
         // $this.success = true;
         // $this.clearForm();
       } catch (err) {

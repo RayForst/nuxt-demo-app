@@ -16,6 +16,20 @@ export const getters = {
 
     return total.format();
   },
+  totalCountRaw: state => {
+    let euro = value =>
+      currency(value, { symbol: " ", separator: " ", decimal: " " });
+    let total = euro(0);
+
+    state.items.forEach(x => {
+      total = total.add(euro(x.product.price).multiply(x.quantity));
+    });
+
+    return total
+      .format()
+      .replace(/ /g, "")
+      .slice(0, -2);
+  },
   totalQuantity: state => {
     let total = 0;
 
@@ -82,7 +96,6 @@ export const mutations = {
     state.items = itemsInLocalStorage;
   },
   clear(state) {
-    console.log("CLEARING");
     state.items = [];
     localStorage.setItem("cart", JSON.stringify(state.items));
   }

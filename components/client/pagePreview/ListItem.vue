@@ -33,8 +33,6 @@ export default {
       return this.$toLocale(item, field, this.$i18n.locale);
     },
     goEvent(result) {
-      console.log(this.content.slug);
-
       this.$router.push(this.localePath(`/static/${this.content.slug}`));
     }
   }

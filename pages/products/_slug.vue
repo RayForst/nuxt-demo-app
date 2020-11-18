@@ -29,7 +29,6 @@ export default {
       });
 
       const locale = app.i18n.locale;
-      console.log(locale);
       let field = "name";
       if (locale !== "en") field += `_${locale}`;
 
@@ -64,8 +63,6 @@ export default {
     appSubscribe
   },
   beforeRouteUpdate(to, from, next) {
-    console.log("WATCH");
-
     // created by lazy load issue fix
     document
       .querySelectorAll(".products .bg-image")

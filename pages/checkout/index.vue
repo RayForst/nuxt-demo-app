@@ -300,26 +300,7 @@
                         .ui-checkbox
                             input( type="radio" name="payment-type" value="card" v-model="form.paymentType")
                             .ui-checkbox-preview
-                        .label-text Credit Card
-                    slide-up-down(
-                        :active="form.paymentType === 'card'"
-                        :duration="200"
-                    )
-                        .slide-content
-                            p You will be redirected to bank page
-
-                    label.box-record
-                        .ui-checkbox
-                            input(type="radio" name="payment-type" value="paypal" v-model="form.paymentType")
-                            .ui-checkbox-preview
-                        .label-text
-                            img(v-lazy-load data-src="/icons/paypal.svg")
-                    slide-up-down(
-                        :active="form.paymentType === 'paypal'"
-                        :duration="200"
-                    )   
-                        .slide-content.no-border
-                            p You will be redirected to paypal
+                        .label-text {{ $t('checkout.paymentTypeCard') }}
                 label.rules
                     .ui-checkbox
                         input( type="checkbox" v-model="accept" required name="rules")
@@ -416,9 +397,8 @@ export default {
           { coupon: this.coupon }
         )
       );
-      this.clear();
-      this.$store.commit("cart/clear");
-      this.$router.push(this.localePath(`/checkout/success`));
+
+      window.location.href = response;
     },
     goBack() {
       if (this.form.step === 1) {
@@ -471,7 +451,12 @@ export default {
           return obj.id === this.form.payment;
         });
 
-        this.shippingPrice = shipMet.price;
+        if (shipMet.price === 3 && +this.totalCountRaw >= 5000) {
+          this.shippingPrice = 0;
+        } else {
+          this.shippingPrice = shipMet.price;
+        }
+
         rec.push({
           title: this.$t("checkout.method"),
           value: shipMet.title,
@@ -485,7 +470,7 @@ export default {
       return this.form.step + 1;
     },
     ...mapGetters("checkout", ["coupon"]),
-    ...mapGetters("cart", ["getProductsIds"])
+    ...mapGetters("cart", ["getProductsIds", "totalCountRaw"])
   },
   mounted() {
     this.form.step = 1; // just for transition
@@ -749,7 +734,7 @@ export default {
       }
 
       @media #{$media_md} {
-        grid-template-columns: 1fr 4fr 1fr;
+        grid-template-columns: 110px 4fr 1fr;
         gap: 0;
       }
 
