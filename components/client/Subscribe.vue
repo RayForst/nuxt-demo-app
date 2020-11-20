@@ -54,7 +54,10 @@ p {
   line-height: 1.56;
   letter-spacing: normal;
   color: #7e8f97;
-  padding-right: 30px;
+
+  @media #{$media_md} {
+    padding-right: 30px;
+  }
 }
 
 .sub-container {

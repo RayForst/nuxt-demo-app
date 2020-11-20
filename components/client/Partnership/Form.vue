@@ -81,7 +81,10 @@ export default {
           email: this.form.email.value
         };
 
+        console.log("PARTNERSHIP TRY");
         // const response = await contentService.partnership.save(data);
+
+        await this.$api("post", "contacts/partnership", data);
 
         $this.success = true;
         $this.clearForm();
@@ -112,6 +115,9 @@ export default {
     resetForm() {
       this.success = false;
     }
+  },
+  mounted() {
+    console.log("partnership try");
   }
 };
 </script>

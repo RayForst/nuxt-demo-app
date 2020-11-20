@@ -15,7 +15,7 @@
                 :page="page"
             )
         template(v-else)
-            h2 No products in this category
+            h2 {{ $t('other.emptyProductList') }}
         .container.px-0-lg
             .row
               .col-xs-12

@@ -1,9 +1,7 @@
 const Models = require("../models");
 const Model = Models.Article;
 const Sequelize = require("sequelize");
-const axios = require("axios");
-const config = require("../../nuxt.config.js");
-const Model2 = Models.Product;
+const axios = require("pdfkit");
 
 const Op = Sequelize.Op;
 
@@ -20,4 +18,8 @@ async function index(req) {
   }
 }
 
-export { index };
+function test(req) {
+  return "hello";
+}
+
+export { index, test };

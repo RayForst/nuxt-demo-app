@@ -15,10 +15,10 @@
                 :page="page"
             )
         template(v-else)
-            h2 No products in this category
+            h2  {{ $t('other.emptyProductList') }}
         .container.px-0-lg
             .row
-              .col-xs-12
+              .col-xs-12.pag-wrap
                 app-pagination(
                   :total="products.length" 
                   :perPage="onPage" 
@@ -74,3 +74,15 @@ export default {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+@import "~@/assets/scss/base/_variables";
+
+.pag-wrap .pagination {
+  padding-top: 0;
+
+  @media #{$media_md} {
+    padding-top: 50px;
+  }
+}
+</style>

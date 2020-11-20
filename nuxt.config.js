@@ -12,7 +12,11 @@ module.exports = {
         content: process.env.npm_package_description || ""
       },
       { name: "msapplication-TileColor", content: "#ffffff" },
-      { name: "theme-color", content: "#ffffff" }
+      { name: "theme-color", content: "#ffffff" },
+      {
+        name: "facebook-domain-verification",
+        content: "6ze7qbua9ws4gl0ix6mhxq4bq3b3jq"
+      }
     ],
     link: [
       { rel: "icon", href: "/favicon.ico" },
@@ -70,7 +74,12 @@ module.exports = {
     { src: "~plugins/toLocale" }
   ],
   buildModules: [],
-  modules: ["@nuxtjs/axios", "nuxt-lazy-load", ["nuxt-i18n", {}]],
+  modules: [
+    "@nuxtjs/axios",
+    "nuxt-lazy-load",
+    "@nuxtjs/gtm",
+    ["nuxt-i18n", {}]
+  ],
   axios: {
     prefix: "/apii/",
     browserBaseUrl: "http://127.0.0.1:280/apii/",
@@ -131,25 +140,17 @@ module.exports = {
     },
     { path: "/apii", handler: "~/server/api-server.js" }
   ],
-  router: {
-    extendRoutes(routes, resolve) {
-      // routes.push({
-      //   name: "custom",
-      //   path: "/products/:slug/:subcategory",
-      //   component: resolve(__dirname, "pages/products/_slug/index.vue")
-      // });
-      // routes.push({
-      //   name: "custom2",
-      //   path: "/products/:slug/lines/:line",
-      //   component: resolve(__dirname, "pages/products/_slug/index.vue")
-      // });
-    }
-  },
   build: {
     extend(config, ctx) {}
   },
   payment: {
     brandId: "",
     secretKey: ""
+  },
+  gtm: {
+    id: ""
+  },
+  smtp: {
+    token: ""
   }
 };

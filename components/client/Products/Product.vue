@@ -106,21 +106,41 @@ export default {
 
   .ui-button {
     margin-top: auto;
+
+    font-size: 9px;
+
+    @media #{$media_sm} {
+      font-size: 12px;
+    }
+  }
+
+  .vertical-container {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 }
 
 .name {
   font-family: "Lora", sans-serif;
-  font-size: 20px;
+  font-size: 15px;
   line-height: 1.33em;
   margin-bottom: 10px;
+
+  @media #{$media_sm} {
+    font-size: 20px;
+  }
 }
 
 .desc {
   line-height: 1.63;
   font-weight: 300;
-  font-size: 16px;
+  font-size: 14px;
   color: var(--c_gray);
+
+  @media #{$media_sm} {
+    font-size: 16px;
+  }
 }
 
 .price {
@@ -128,6 +148,7 @@ export default {
   line-height: 1.63em;
   margin-top: 10px;
   color: #103324;
+  margin-top: auto;
 }
 
 .image-wrap {

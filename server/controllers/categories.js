@@ -6,7 +6,7 @@ async function index() {
   try {
     return await Model.findAll({
       raw: true,
-      order: [["createdAt", "DESC"]]
+      order: [["createdAt", "ASC"]]
     });
   } catch (err) {
     return {};

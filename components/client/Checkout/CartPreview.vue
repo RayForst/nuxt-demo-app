@@ -18,6 +18,7 @@
             span {{ $t('orderDetails.listShipping') }}
             template(v-if="step === 3")
               span(v-if="!shipping") Free
+              span(v-else-if="isOmniviaFree") Omnivia Free
               span(v-else) € {{ shipping }}.00 EUR
             template(v-else)
               span {{ $t('orderDetails.shippingStepDescription') }}
@@ -47,13 +48,20 @@ export default {
     }
   },
   computed: {
+    isOmniviaFree() {
+      return +this.totalCountRaw >= 5000;
+    },
     totalWithShipping() {
       const sub = "€ ";
       const clearTotalCount = this.totalCount.replace(sub, "");
 
+      if (this.isOmniviaFree) {
+        return sub + parseFloat(clearTotalCount);
+      }
+
       return sub + (parseFloat(clearTotalCount) + parseFloat(this.shipping));
     },
-    ...mapGetters("cart", ["totalCount"])
+    ...mapGetters("cart", ["totalCount", "totalCountRaw"])
   },
   components: {
     applyCode

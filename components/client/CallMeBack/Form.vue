@@ -16,8 +16,6 @@
 </template>
 
 <script>
-// import contentService from "@/services/ContentService";
-
 export default {
   name: "contact-request",
   data() {
@@ -43,7 +41,7 @@ export default {
           userLang: this.$i18n.locale
         };
 
-        // const response = await contentService.callMeBack.save(data);
+        await this.$api("post", "contacts/callmeback", data);
 
         $this.success = true;
         $this.clearForm();

@@ -451,11 +451,12 @@ export default {
           return obj.id === this.form.payment;
         });
 
-        if (shipMet.price === 3 && +this.totalCountRaw >= 5000) {
-          this.shippingPrice = 0;
-        } else {
-          this.shippingPrice = shipMet.price;
-        }
+        // if (shipMet.price === 3 && +this.totalCountRaw >= 5000) {
+        //   this.shippingPrice = 0;
+        // } else {
+        //   this.shippingPrice = shipMet.price;
+        // }
+        this.shippingPrice = shipMet.price;
 
         rec.push({
           title: this.$t("checkout.method"),

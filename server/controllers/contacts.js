@@ -5,6 +5,9 @@ const config = require("../../nuxt.config.js");
 const Op = Sequelize.Op;
 import currency from "currency.js";
 const ProductModel = Models.Product;
+const CallMeBack = Models.CallMeBack;
+const PartnershipRequest = Models.PartnershipRequest;
+const Email = require("../services/sendEmail");
 
 async function save(req) {
   try {
@@ -158,4 +161,44 @@ async function checkout(req) {
   }
 }
 
-export { save, checkout, checkoutfail, checkoutsuccess };
+async function callmeback(req) {
+  try {
+    await Models.CallMeBack.create(req.body);
+
+    Email.send(
+      "Call me back request!",
+      `<div>Client Fullname: ${req.body.phone}</div>
+      <div>Client Lang: ${req.body.userLang}</div>`
+    );
+
+    return true;
+  } catch (err) {
+    return {};
+  }
+}
+
+async function partnership(req) {
+  try {
+    const event = await PartnershipRequest.create(req.body);
+
+    Email.send(
+      "Partnership request!",
+      `<div>Client Fullname: ${req.body.firstname} ${req.body.lastname}</div>
+                <div>Client Email: ${req.body.email}</div>
+                <div>Client Phone: ${req.body.phone}</div>`
+    );
+
+    return true;
+  } catch (err) {
+    return {};
+  }
+}
+
+export {
+  save,
+  checkout,
+  checkoutfail,
+  checkoutsuccess,
+  callmeback,
+  partnership
+};
