@@ -11,11 +11,11 @@ div.coupon
       type="button"
       @click.prevent="save"
     ).ui-button {{ $t('orderDetails.promoCodeButton') }}
-    p.coupon-desc.error(v-if="error") Wrong coupon code
+    p.coupon-desc.error(v-if="error") {{ $t('checkout.couponError') }}
     p.coupon-desc(v-else) {{ $t('orderDetails.promoDescription') }}
   template(v-else)
     h3.success 
-      | YOUR coupon: 
+      | {{ $t('checkout.couponSuccess') }} 
       b {{ couponCode }}
 </template>
 
@@ -31,7 +31,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters("checkout", ["coupon"])
+    ...mapGetters("cart", ["coupon"])
   },
   methods: {
     async save() {
@@ -53,7 +53,7 @@ export default {
       return true;
     },
     ...mapMutations({
-      saveCoupon: "checkout/addCoupon"
+      saveCoupon: "cart/addCoupon"
     })
   }
 };

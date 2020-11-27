@@ -81,7 +81,6 @@ export default {
           email: this.form.email.value
         };
 
-        console.log("PARTNERSHIP TRY");
         // const response = await contentService.partnership.save(data);
 
         await this.$api("post", "contacts/partnership", data);

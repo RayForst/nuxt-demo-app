@@ -1,11 +1,13 @@
 import currency from "currency.js";
 
 export const state = () => ({
-  items: []
+  items: [],
+  coupon: "",
+  couponDiscount: 20
 });
 
 export const getters = {
-  totalCount: state => {
+  totalCount: (state, getters) => {
     let euro = value =>
       currency(value, { symbol: "€ ", separator: " ", decimal: "." });
     let total = euro(0);
@@ -16,6 +18,23 @@ export const getters = {
 
     return total.format();
   },
+  totalCountDiscount: (state, getters) => {
+    let euro = value =>
+      currency(value, { symbol: "€ ", separator: " ", decimal: "." });
+    let total = euro(0);
+
+    state.items.forEach(x => {
+      total = total.add(euro(x.product.price).multiply(x.quantity));
+    });
+
+    if (state.coupon) {
+      var num = +total.format().replace(/€ /g, "");
+      var totalValue = num - num * (state.couponDiscount / 100);
+      totalValue = totalValue.toFixed(2);
+      return "€ " + totalValue;
+    }
+    return total.format();
+  },
   totalCountRaw: state => {
     let euro = value =>
       currency(value, { symbol: " ", separator: " ", decimal: " " });
@@ -24,6 +43,18 @@ export const getters = {
     state.items.forEach(x => {
       total = total.add(euro(x.product.price).multiply(x.quantity));
     });
+
+    if (state.coupon) {
+      var num = +total
+        .format()
+        .replace(/ /g, "")
+        .slice(0, -2);
+
+      var totalValue = num - num * (state.couponDiscount / 100);
+      totalValue = totalValue.toFixed(0);
+
+      return +totalValue;
+    }
 
     return total
       .format()
@@ -56,6 +87,12 @@ export const getters = {
     // });
 
     return result;
+  },
+  coupon(state) {
+    return state.coupon;
+  },
+  couponDiscount(state) {
+    return state.couponDiscount;
   }
 };
 
@@ -98,5 +135,11 @@ export const mutations = {
   clear(state) {
     state.items = [];
     localStorage.setItem("cart", JSON.stringify(state.items));
+  },
+  addCoupon(state, payload) {
+    state.coupon = payload;
+  },
+  clearCoupon(state, payload) {
+    state.coupon = "";
   }
 };

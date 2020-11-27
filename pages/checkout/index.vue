@@ -409,7 +409,7 @@ export default {
       return --this.form.step;
     },
     ...mapMutations({
-      clear: "checkout/clear"
+      clear: "cart/clearCoupon"
     })
   },
   components: {
@@ -451,11 +451,6 @@ export default {
           return obj.id === this.form.payment;
         });
 
-        // if (shipMet.price === 3 && +this.totalCountRaw >= 5000) {
-        //   this.shippingPrice = 0;
-        // } else {
-        //   this.shippingPrice = shipMet.price;
-        // }
         this.shippingPrice = shipMet.price;
 
         rec.push({
@@ -470,8 +465,7 @@ export default {
     steps() {
       return this.form.step + 1;
     },
-    ...mapGetters("checkout", ["coupon"]),
-    ...mapGetters("cart", ["getProductsIds", "totalCountRaw"])
+    ...mapGetters("cart", ["coupon", "getProductsIds", "totalCountRaw"])
   },
   mounted() {
     this.form.step = 1; // just for transition

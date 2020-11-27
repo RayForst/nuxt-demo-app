@@ -89,6 +89,19 @@ async function checkout(req) {
 
         total = total.add(euro(item.dataValues.price).multiply(quantity));
       });
+      // DISCOUNT
+      if (req.body.coupon != "") {
+        let pretotalDis = total
+          .format()
+          .replace(/ /g, "")
+          .slice(0, -2);
+
+        var numVal2 = 20 / 100;
+        var totalValue = pretotalDis - pretotalDis * numVal2;
+        totalValue = totalValue.toFixed(0);
+
+        total = euro(totalValue);
+      }
 
       // SHIPPING
 

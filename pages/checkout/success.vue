@@ -26,7 +26,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      clear: "checkout/clear"
+      clear: "cart/clearCoupon"
     })
   },
   components: {

@@ -14,6 +14,9 @@
         .line.split-2
             span {{ $t('orderDetails.listSubtotal') }}
             span.total {{ totalCount  }} EUR
+        .line.split-2(v-if="coupon")
+            span {{ $t('checkout.couponListTitle') }}
+            span.total -{{ couponDiscount }}%
         .line.split-2
             span {{ $t('orderDetails.listShipping') }}
             template(v-if="step === 3")
@@ -27,7 +30,7 @@
             template(v-if="step === 3")
               span.total.big {{  totalWithShipping }} EUR
             template(v-else)
-              span.total.big {{ totalCount  }} EUR
+              span.total.big {{ totalCountDiscount  }} EUR
 </template>
 
 <script>
@@ -49,11 +52,11 @@ export default {
   },
   computed: {
     isOmniviaFree() {
-      return +this.totalCountRaw >= 5000;
+      return this.shipping === 3 ? +this.totalCountRaw >= 5000 : false;
     },
     totalWithShipping() {
       const sub = "€ ";
-      const clearTotalCount = this.totalCount.replace(sub, "");
+      const clearTotalCount = this.totalCountDiscount.replace(sub, "");
 
       if (this.isOmniviaFree) {
         return sub + parseFloat(clearTotalCount);
@@ -61,7 +64,13 @@ export default {
 
       return sub + (parseFloat(clearTotalCount) + parseFloat(this.shipping));
     },
-    ...mapGetters("cart", ["totalCount", "totalCountRaw"])
+    ...mapGetters("cart", [
+      "totalCount",
+      "totalCountDiscount",
+      "totalCountRaw",
+      "coupon",
+      "couponDiscount"
+    ])
   },
   components: {
     applyCode
