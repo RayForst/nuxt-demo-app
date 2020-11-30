@@ -70,6 +70,7 @@ module.exports = {
     { src: "~/plugins/api-context.server.js", mode: "server" },
     { src: "~/plugins/readmore.js", mode: "client" },
     { src: "~/plugins/masonry.js", mode: "client" },
+    { src: "~/plugins/gtm.js" },
     { src: "~plugins/i18n.js" },
     { src: "~plugins/toLocale" }
   ],
@@ -146,9 +147,6 @@ module.exports = {
   payment: {
     brandId: "",
     secretKey: ""
-  },
-  gtm: {
-    id: ""
   },
   smtp: {
     token: ""
