@@ -307,7 +307,7 @@
                         .ui-checkbox-preview
                     .text 
                         | {{ $t('checkout.ruleLinkStart') }} 
-                        a(href="http://www.inbalans.lv/static/Distances-ligums" target="_blank") {{ $t('checkout.ruleLinkLink1') }} {{ $t('checkout.ruleLinkDelimeter') }} {{ $t('checkout.ruleLinkLink2') }}
+                        a(href="https://www.inbalans.lv/static/Distances-ligums" target="_blank") {{ $t('checkout.ruleLinkLink1') }} {{ $t('checkout.ruleLinkDelimeter') }} {{ $t('checkout.ruleLinkLink2') }}
               .controls
                 app-back(@back="goBack")
                 button(type="submit").ui-button.ui-button--big.ui-button--full-green {{ $t('checkout.continueToPayment') }}

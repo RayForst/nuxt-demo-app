@@ -63,7 +63,7 @@ async function checkout(req) {
     const recordId = record.dataValues.id;
     const clientEmail = req.body.email;
     const failureLink =
-      "http://www.inbalans.lv/checkout/error?orderId=" + recordId;
+      "https://www.inbalans.lv/checkout/error?orderId=" + recordId;
     let totalPrice = 0;
 
     try {
@@ -140,11 +140,11 @@ async function checkout(req) {
         },
         data: {
           success_callback:
-            "http://www.inbalans.lv/apii/contacts/checkoutsuccess?id=" +
+            "https://www.inbalans.lv/apii/contacts/checkoutsuccess?id=" +
             recordId,
-          success_redirect: "http://www.inbalans.lv/checkout/success",
+          success_redirect: "https://www.inbalans.lv/checkout/success",
           failure_redirect: failureLink,
-          cancel_redirect: "http://www.inbalans.lv/",
+          cancel_redirect: "https://www.inbalans.lv/",
           purchase: {
             language: "lv",
             products: [
