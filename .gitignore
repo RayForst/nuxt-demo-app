@@ -95,3 +95,4 @@ nuxt.config.js
 
 static/uploads/*
 !static/uploads/default.png
+server/pdf/*

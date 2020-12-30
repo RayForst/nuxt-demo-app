@@ -1,4 +1,4 @@
-import currency from "currency.js";
+import { calculate } from "@/services/Prices";
 
 export const state = () => ({
   items: [],
@@ -6,87 +6,37 @@ export const state = () => ({
   couponDiscount: 20
 });
 
+function prepareItems(items) {
+  return items.map(product => {
+    return {
+      price: product.product.price,
+      quantity: product.quantity
+    };
+  });
+}
+
 export const getters = {
-  totalCount: (state, getters) => {
-    let euro = value =>
-      currency(value, { symbol: "€ ", separator: " ", decimal: "." });
-    let total = euro(0);
-
-    state.items.forEach(x => {
-      total = total.add(euro(x.product.price).multiply(x.quantity));
-    });
-
-    return total.format();
+  totalCount: state => {
+    return calculate(prepareItems(state.items));
   },
-  totalCountDiscount: (state, getters) => {
-    let euro = value =>
-      currency(value, { symbol: "€ ", separator: " ", decimal: "." });
-    let total = euro(0);
-
-    state.items.forEach(x => {
-      total = total.add(euro(x.product.price).multiply(x.quantity));
-    });
-
-    if (state.coupon) {
-      var num = +total.format().replace(/€ /g, "");
-      var totalValue = num - num * (state.couponDiscount / 100);
-      totalValue = totalValue.toFixed(2);
-      return "€ " + totalValue;
-    }
-    return total.format();
+  totalCountDiscount: state => {
+    return calculate(prepareItems(state.items), state.coupon != "");
   },
   totalCountRaw: state => {
-    let euro = value =>
-      currency(value, { symbol: " ", separator: " ", decimal: " " });
-    let total = euro(0);
-
-    state.items.forEach(x => {
-      total = total.add(euro(x.product.price).multiply(x.quantity));
-    });
-
-    if (state.coupon) {
-      var num = +total
-        .format()
-        .replace(/ /g, "")
-        .slice(0, -2);
-
-      var totalValue = num - num * (state.couponDiscount / 100);
-      totalValue = totalValue.toFixed(0);
-
-      return +totalValue;
-    }
-
-    return total
-      .format()
-      .replace(/ /g, "")
-      .slice(0, -2);
+    return calculate(prepareItems(state.items), state.coupon != "", true);
   },
   totalQuantity: state => {
-    let total = 0;
-
-    state.items.forEach(x => {
-      total += 1 * x.quantity;
-    });
-
-    return total;
+    return state.items.reduce((acc, x) => {
+      return acc + 1 * x.quantity;
+    }, 0);
   },
   getProductsIds: state => {
-    let result = [];
-
-    state.items.forEach(x => {
-      result.push({
+    return state.items.map(x => {
+      return {
         id: x.product.id,
         quantity: x.quantity
-      });
+      };
     });
-
-    // let total = 0;
-
-    // state.items.forEach(x => {
-    //   total += 1 * x.quantity;
-    // });
-
-    return result;
   },
   coupon(state) {
     return state.coupon;

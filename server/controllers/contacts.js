@@ -3,15 +3,42 @@ const Sequelize = require("sequelize");
 const axios = require("axios");
 const config = require("../../nuxt.config.js");
 const Op = Sequelize.Op;
-import currency from "currency.js";
 const ProductModel = Models.Product;
 const CallMeBack = Models.CallMeBack;
 const PartnershipRequest = Models.PartnershipRequest;
 const Email = require("../services/sendEmail");
+const fs = require("fs");
+const path = require("path");
+const crypto = require("crypto");
+const html_to_pdf = require("html-pdf-node");
+const options = {};
+const Prices = require("../../services/Prices");
+const PDF = require("../services/checkoutPDF");
 
 async function save(req) {
   try {
+    Email.send(
+      "Call me back request!",
+      `<div>Client Fullname: ${req.body.phone}</div>
+      <div>Client Lang: ${req.body.userLang}</div>`
+    );
+
     return await Models.ContactRequest.create(req.body);
+  } catch (err) {
+    return {};
+  }
+}
+
+async function event(req) {
+  try {
+    Email.send(
+      "Event subscription!",
+      `<div>Client Fullname: ${req.body.firstname} ${req.body.lastname}</div>
+        <div>Client Phone: ${req.body.phone}</div>
+        <div>Client Email: ${req.body.email}</div>`
+    );
+
+    return await Models.EventSubscribtion.create(req.body);
   } catch (err) {
     return {};
   }
@@ -19,16 +46,72 @@ async function save(req) {
 
 async function checkoutsuccess(req) {
   try {
-    let alreadyExists = await Models.Checkouts.findOne({
+    const checkoutRecord = await Models.Checkouts.findOne({
       where: { id: req.query.id, status: 0 }
     });
 
-    alreadyExists.update({
+    if (!checkoutRecord) return;
+
+    const checkoutDetails = JSON.parse(checkoutRecord.details);
+
+    const productsFromDB = await ProductModel.findAll({
+      where: {
+        id: checkoutDetails.products.map(function(item) {
+          return item.id;
+        })
+      }
+    });
+
+    // address
+    let packageAddress = "";
+
+    if (checkoutDetails.form.status !== "phiz") {
+      packageAddress = checkoutDetails.jur_addr;
+    } else {
+      packageAddress = `${checkoutDetails.address_line_1} ${checkoutDetails.address_line_2}`;
+    }
+
+    const pdfPath = await createDocument(
+      {
+        customer: {
+          first_name: checkoutDetails.first_name,
+          last_name: checkoutDetails.last_name,
+          addr: packageAddress
+        },
+        company: {
+          name: checkoutDetails.company,
+          registrationNumber: checkoutDetails.company_rn,
+          taxNum: checkoutDetails.taxnum
+        },
+        products: checkoutDetails.products,
+        coupon: checkoutDetails.coupon,
+        shipping: checkoutDetails.shippingPrice
+      },
+      productsFromDB
+    );
+
+    Email.paymentEmail(pdfPath, checkoutDetails.email);
+
+    productsFromDB.forEach(function(item, index) {
+      let quantityItem = checkoutDetails.products.filter(obj => {
+        return obj.id === item.id;
+      });
+
+      item.update({
+        totalCount:
+          item.totalCount - quantityItem[0].quantity < 0
+            ? 0
+            : item.totalCount - quantityItem[0].quantity
+      });
+    });
+
+    checkoutRecord.update({
       status: 1
     });
 
     return true;
   } catch (err) {
+    console.log(err);
     return false;
   }
 }
@@ -52,76 +135,41 @@ async function checkoutfail(req) {
 async function checkout(req) {
   try {
     const details = JSON.stringify(req.body);
-
-    var productIds = [];
-
-    req.body.products.forEach(function(item) {
-      productIds.push(item.id);
-    });
-
     const record = await Models.Checkouts.create({ details, proceed: false });
     const recordId = record.dataValues.id;
     const clientEmail = req.body.email;
     const failureLink =
       "https://www.inbalans.lv/checkout/error?orderId=" + recordId;
-    let totalPrice = 0;
 
     try {
       // GET TOTAL PRICE FROM DB
       const products = await ProductModel.findAll({
         where: {
-          id: productIds
+          id: req.body.products.map(function(item) {
+            return item.id;
+          })
         }
       });
 
-      let euro = function(value) {
-        return currency(value, { symbol: " ", separator: " ", decimal: " " });
-      };
-      let total = euro(0);
-
-      products.forEach(function(item) {
-        productIds.push(item.id);
+      let preparedProducts = products.map(function(item) {
         let quantityItem = req.body.products.filter(obj => {
           return obj.id === item.id;
         });
 
-        let quantity = quantityItem[0].quantity;
-
-        total = total.add(euro(item.dataValues.price).multiply(quantity));
+        return {
+          quantity: quantityItem[0].quantity,
+          price: item.price
+        };
       });
-      // DISCOUNT
-      if (req.body.coupon != "") {
-        let pretotalDis = total
-          .format()
-          .replace(/ /g, "")
-          .slice(0, -2);
 
-        var numVal2 = 20 / 100;
-        var totalValue = pretotalDis - pretotalDis * numVal2;
-        totalValue = totalValue.toFixed(0);
-
-        total = euro(totalValue);
-      }
-
-      // SHIPPING
-
-      let pretotal = total
-        .format()
-        .replace(/ /g, "")
-        .slice(0, -2);
-
-      if (req.body.shippingPrice === 5) {
-        total = total.add(euro("500"));
-      }
-
-      if (req.body.shippingPrice === 3 && +pretotal < 5000) {
-        total = total.add(euro("300"));
-      }
-
-      total = total
-        .format()
-        .replace(/ /g, "")
-        .slice(0, -2);
+      let total = Prices.calculate(
+        preparedProducts,
+        req.body.coupon,
+        true,
+        false,
+        false,
+        req.body.shippingPrice
+      );
 
       // SEND REQUEST TO BANK
       const resp = await axios({
@@ -207,8 +255,22 @@ async function partnership(req) {
   }
 }
 
+async function createDocument(userData, products) {
+  let fileContent = { content: PDF.generate(userData, products) };
+
+  const dirname = path.join(__dirname, "../pdf/");
+  const randomFilename = crypto.randomBytes(20).toString("hex");
+
+  const buffer = await html_to_pdf.generatePdf(fileContent, options);
+
+  fs.writeFileSync(dirname + randomFilename + ".pdf", buffer);
+
+  return dirname + randomFilename + ".pdf";
+}
+
 export {
   save,
+  event,
   checkout,
   checkoutfail,
   checkoutsuccess,

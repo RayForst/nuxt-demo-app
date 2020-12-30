@@ -35,9 +35,9 @@
 <script>
 export default {
   name: "contact-request",
+  props: ["success"],
   data() {
     return {
-      success: false,
       serverError: null,
       form: {
         fullname: {

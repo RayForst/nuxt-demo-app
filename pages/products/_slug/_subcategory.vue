@@ -47,7 +47,7 @@ export default {
           subcategory: params.subcategory
         }
       });
-      description = app.$toLocale(desc[0], "description");
+      description = app.$toLocale(desc[0], "description", app.i18n.locale);
       //   const desc = await app.$api("get", "products/description", {
       //     params: request
       //   });

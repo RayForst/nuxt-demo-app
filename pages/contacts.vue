@@ -8,7 +8,8 @@ div.static
         .container
           h1 {{ $t('contacts.title') }}
           app-contact-form(
-            v-on:contact-form-submit="test"
+            v-on:contact-form-submit="save"
+            :success="success"
           )
       .col-xs-12.col-lg-6
         .row.container
@@ -42,18 +43,16 @@ export default {
     appShortContacts
   },
   data() {
-    return {};
+    return {
+      success: false
+    };
   },
   methods: {
-    test(items) {
-      this.save(items);
-    },
     async save(data) {
       try {
         const response = await this.$api("post", "contacts/save", data);
 
-        // $this.success = true;
-        // $this.clearForm();
+        this.success = true;
       } catch (err) {
         // if (err.response.status === 422) {
         //   err.response.data.errors.forEach(function(element) {

@@ -465,10 +465,11 @@ export default {
     steps() {
       return this.form.step + 1;
     },
-    ...mapGetters("cart", ["coupon", "getProductsIds", "totalCountRaw"])
+    ...mapGetters("cart", ["coupon", "getProductsIds"])
   },
   mounted() {
     this.form.step = 1; // just for transition
+    console.log(this.getProductsIds);
   }
 };
 </script>

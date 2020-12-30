@@ -8,7 +8,7 @@
             span {{ $t('cart.tableCellPrice') }}
             span(style="text-align:center;") {{ $t('cart.tableCellQuantity') }}
             span {{ $t('cart.tableCellTotal') }}
-        .item(v-for="item, i in $store.state.cart.items" :key="i")
+        .item(v-for="item, i in $store.state.cart.items" :key="`${i}_${item.product.name}`")
             span.image
                 img(v-lazy-load :data-src="`/uploads/${image(item.product)}`")
             span.details 
@@ -21,6 +21,7 @@
               app-product-quantity(
                 @quantityChange="changeQuantity(...arguments, item)"
                 :defaultValue="item.quantity"
+                :key="`${i}_${item.product.name}`"
               )
               .cart-item-delete(
                 @click="deleteItem(item.product)"

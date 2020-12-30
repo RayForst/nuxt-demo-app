@@ -62,7 +62,9 @@ export default {
         return sub + parseFloat(clearTotalCount);
       }
 
-      return sub + (parseFloat(clearTotalCount) + parseFloat(this.shipping));
+      let result = parseFloat(clearTotalCount) + parseFloat(this.shipping);
+
+      return sub + result.toFixed(2);
     },
     ...mapGetters("cart", [
       "totalCount",

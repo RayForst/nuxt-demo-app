@@ -48,7 +48,7 @@ export default {
           category: params.slug
         }
       });
-      description = app.$toLocale(desc[0], "description");
+      description = app.$toLocale(desc[0], "description", app.i18n.locale);
 
       return { products, description };
     } catch (err) {

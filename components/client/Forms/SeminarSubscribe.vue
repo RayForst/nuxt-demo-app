@@ -42,8 +42,6 @@ form.ui-form.row(
 </template>
 
 <script>
-// import contentService from "@/services/ContentService";
-
 export default {
   name: "seminar-subscribe",
   data() {
@@ -76,29 +74,19 @@ export default {
       $this.clearErrors();
 
       try {
-        // let data = {
-        //   firstname: this.form.firstname.value,
-        //   lastname: this.form.lastname.value,
-        //   phone: this.form.phone.value,
-        //   email: this.form.email.value,
-        //   SubId: document.querySelector("#hidden").value
-        // };
-        // const response = await contentService.subscription.eventSave(data);
+        let data = {
+          firstname: this.form.firstname.value,
+          lastname: this.form.lastname.value,
+          phone: this.form.phone.value,
+          email: this.form.email.value,
+          SubId: document.querySelector("#hidden").value
+        };
+
+        const response = await this.$api("post", "contacts/event", data);
 
         $this.success = true;
         $this.clearForm();
-      } catch (err) {
-        // if (err.response.status === 422) {
-        //   err.response.data.errors.forEach(function(element) {
-        //     $this.form[element.param].error = element.msg;
-        //   });
-        // } else {
-        //   console.log("ERRR :", err.response);
-        //   if (err.response.data.error === "unique violation") {
-        //     this.serverError = this.errors.already_subscribe;
-        //   }
-        // }
-      }
+      } catch (err) {}
     },
     clearErrors() {
       this.serverError = "";

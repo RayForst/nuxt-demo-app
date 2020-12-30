@@ -14,6 +14,7 @@ export default {
   methods: {
     goBack() {
       this.$emit("back", true);
+      window.scrollTo(0, 0);
     }
   }
 };
