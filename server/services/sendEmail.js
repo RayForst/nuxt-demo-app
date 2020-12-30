@@ -36,7 +36,7 @@ module.exports = {
     });
   },
 
-  async paymentEmail(filepath, email) {
+  async paymentEmail(filepath, clientEmail) {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: CONFIG.smtp.auth
@@ -86,7 +86,7 @@ module.exports = {
 
     const email = {
       from: "Inbalans",
-      to: email,
+      to: clientEmail,
       cc: "inbalans.riga@gmail.com",
       subject: "Paldies par pasūtījumu!",
       text: emailContent,
