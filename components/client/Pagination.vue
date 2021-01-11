@@ -4,7 +4,7 @@
   )
     li(
       v-for="page, index in items" 
-      :class="{ active: index === active }"
+      :class="{ active: index === current }"
       @click.prevent="change(index)"
     )
       | {{ page }}
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  props: ["total", "perPage"],
+  props: ["total", "perPage", "current"],
   data() {
     return {
       active: 0
@@ -27,6 +27,7 @@ export default {
     change(index) {
       this.active = index;
       this.$emit("newpage", index);
+      this.$router.push({ path: this.$route.path, query: { page: index + 1 } });
 
       // created by lazy load issue fix
       document

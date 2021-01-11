@@ -71,6 +71,13 @@ export default {
     changePage(event) {
       this.page = event;
     }
+  },
+  mounted() {
+    const page = this.$route.query.page;
+
+    if (page) {
+      this.page = page - 1;
+    }
   }
 };
 </script>

@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      perPage: 9,
+      perPage: 2,
       page: 0
     };
   },
@@ -44,6 +44,13 @@ export default {
   methods: {
     changePage(event) {
       this.page = event;
+    }
+  },
+  mounted() {
+    const page = this.$route.query.page;
+
+    if (page) {
+      this.page = page - 1;
     }
   }
 };

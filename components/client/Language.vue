@@ -34,10 +34,6 @@ export default {
           {
             value: "ПО-РУССКИ",
             locale: "ru"
-          },
-          {
-            value: "ENGLISH",
-            locale: "en"
           }
         ],
         prefix: "",
@@ -58,10 +54,6 @@ export default {
           {
             value: "РУ",
             locale: "ru"
-          },
-          {
-            value: "EN",
-            locale: "en"
           }
         ],
         prefix: "",
