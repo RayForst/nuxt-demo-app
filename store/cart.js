@@ -3,7 +3,7 @@ import { calculate } from "@/services/Prices";
 export const state = () => ({
   items: [],
   coupon: "",
-  couponDiscount: 20
+  couponDiscount: 10
 });
 
 function prepareItems(items) {
