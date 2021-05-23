@@ -51,16 +51,15 @@ module.exports = {
     const emailContent = `
       Sveicināti!
     \n
-      Esam saņēmuši Jūsu pasūtījumu! Drīzumā sazināsimies ar Jums pēc norādītā tālruņa numura, lai apstiprinātu pasūtījumu un vienotos par produktu saņemšanu. 
-      Parasti sazināmies 12 stundu laikā, bet līdz ar to, ka janvārī mums ir saīsināts darba laiks, atzvanīsim divu dienu laikā.
+      Pateicamies par Jūsu pasūtījumu. Drīzumā piezavnīsim, lai to apstiprinātu. Esam darba režīmā no pirmdienas līdz ceturtdienai no 10.00 līdz 17.00. Droši rakstiet, ja ir jautājumi 🌷
     \n
-      Ar vislabākiem novēlējumiem,
+      Lai skaista diena,
     \n
       inbalans
     \n
       Tālr. +371 22 182 188\n
+      Instagram: @inbalans.riga / @comfortzoneskin_latvia\n
       Facebook: @inbalans.riga\n
-      Instagram: @inbalans.riga / @comfort_zone_latvija / @skin_regimen_latvija\n
       www.inbalans.lv
     `;
 
@@ -68,19 +67,18 @@ module.exports = {
     Sveicināti!
     <br/>
     <br/>
-    Esam saņēmuši Jūsu pasūtījumu! Drīzumā sazināsimies ar Jums pēc norādītā tālruņa numura, lai apstiprinātu pasūtījumu un vienotos par produktu saņemšanu. 
-    Parasti sazināmies 12 stundu laikā, bet līdz ar to, ka janvārī mums ir saīsināts darba laiks, atzvanīsim divu dienu laikā.
+    Pateicamies par Jūsu pasūtījumu. Drīzumā piezavnīsim, lai to apstiprinātu. Esam darba režīmā no pirmdienas līdz ceturtdienai no 10.00 līdz 17.00. Droši rakstiet, ja ir jautājumi 🌷
     <br/>
     <br/>
-    Ar vislabākiem novēlējumiem,
+    Lai skaista diena,
     <br/>
     <br/>
-    inbalans
+    Jūsu inbalans
     <br/>
     <br/>
     Tālr. +371 22 182 188<br/>
+    Instagram: @inbalans.riga / @comfortzoneskin_latvia<br/>
     Facebook: @inbalans.riga<br/>
-    Instagram: @inbalans.riga / @comfort_zone_latvija / @skin_regimen_latvija<br/>
     www.inbalans.lv
   `;
 
