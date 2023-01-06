@@ -28,7 +28,7 @@
     "mysql2": "^2.1.0",
     "nodemailer": "^6.4.16",
     "nodemailer-sendgrid-transport": "^0.2.0",
-    "nuxt": "^2.0.0",
+    "nuxt": "^2.15.8",
     "nuxt-i18n": "^6.12.2",
     "nuxt-lazy-load": "^1.2.4",
     "objection": "^2.2.0",
