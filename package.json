@@ -22,7 +22,7 @@
     "express": "^4.16.4",
     "express-validator": "^6.5.0",
     "html-pdf-node": "^1.0.7",
-    "knex": "^0.21.1",
+    "knex": "^2.4.0",
     "moment": "^2.27.0",
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
